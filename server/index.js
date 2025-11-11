@@ -26,6 +26,14 @@ const authLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+const staticLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 500, // Higher limit for static files
+  message: 'Too many requests for static files, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -44,6 +52,7 @@ app.use('/api/purchase-orders', require('./routes/purchaseOrders'));
 
 // Serve static files from React app in production
 if (process.env.NODE_ENV === 'production') {
+  app.use(staticLimiter);
   app.use(express.static(path.join(__dirname, '../client/dist')));
   
   app.get('*', (req, res) => {
