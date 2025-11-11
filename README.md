@@ -1,6 +1,38 @@
-# Rrootshell Staff Augmentation Tracking System
+# Rrootshell Staff Augmentation System
 
-A comprehensive web application designed to help Rrootshell and its employees track staff augmentation contracts, their expiration dates, and manage purchase orders for deployed resources.
+> A comprehensive unified platform for timesheet management and contract tracking
+
+A full-stack web application designed to streamline Rrootshell's staff augmentation operations, including contract management, resource tracking, purchase order monitoring, and automated renewal notifications.
+
+---
+
+## 📚 Documentation
+
+**New to the project?** Start here:
+
+- 📖 **[DEVELOPER_ONBOARDING.md](./DEVELOPER_ONBOARDING.md)** - Complete setup guide for new developers
+- 🏗️ **[PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md)** - Detailed repository structure and architecture
+- 📋 **[REQUIREMENTS.md](./REQUIREMENTS.md)** - Feature requirements and specifications for the entire team
+- ⚡ **[QUICKSTART.md](./QUICKSTART.md)** - Quick start guide (5-minute setup)
+- 🚀 **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Production deployment instructions
+- 🔒 **[SECURITY.md](./SECURITY.md)** - Security guidelines and best practices
+
+**Developer Portal:** Open `docs/developer-portal/index.html` for UI mockups, requirements viewer, and task management.
+
+**Technical Specification:** See the included PDF for complete system requirements.
+
+---
+
+## 🎯 Project Vision
+
+Building a **Unified Timesheet & Contract Management System** that integrates:
+1. **Timesheet Management** - Employee time tracking and approval workflows (Future Phase)
+2. **Contract Management** - Client contract and resource tracking (Current Phase ✅)
+3. **Document Management** - Contract document uploads and renewal tracking (Future Enhancement)
+
+**Current Status:** Phase 1 Complete - Contract Tracking Foundation
+
+---
 
 ## Features
 
