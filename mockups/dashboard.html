@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Mockup - Rrootshell</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .dashboard-mockup {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .stat-card h4 {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .mockup-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        .mockup-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .mockup-table th {
+            background: var(--dark-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        .mockup-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .badge.active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .badge.expiring {
+            background: #fef3c7;
+            color: #92400e;
+        }
+    </style>
+</head>
+<body>
+    <header class="mockup-header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎨 Dashboard Mockup</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html" class="nav-link">← All Mockups</a></li>
+                    <li><a href="contracts.html" class="nav-link">Next: Contracts →</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="mockup-container">
+        <h1>Dashboard - Main View</h1>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+            Primary dashboard showing key metrics, expiring contracts, and recent activity
+        </p>
+
+        <!-- Dashboard Mockup -->
+        <div class="dashboard-mockup">
+            <h2 style="margin-bottom: 1.5rem;">Welcome back, Admin!</h2>
+            
+            <!-- Stats Cards -->
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <h4>Active Contracts</h4>
+                    <div class="number">24</div>
+                    <p style="font-size: 0.85rem; color: var(--success-color); margin-top: 0.5rem;">↑ 3 this month</p>
+                </div>
+                <div class="stat-card" style="border-left-color: var(--success-color);">
+                    <h4>Active Resources</h4>
+                    <div class="number" style="color: var(--success-color);">156</div>
+                    <p style="font-size: 0.85rem; color: var(--success-color); margin-top: 0.5rem;">↑ 12 this month</p>
+                </div>
+                <div class="stat-card" style="border-left-color: var(--warning-color);">
+                    <h4>Expiring Soon</h4>
+                    <div class="number" style="color: var(--warning-color);">8</div>
+                    <p style="font-size: 0.85rem; color: var(--warning-color); margin-top: 0.5rem;">Next 30 days</p>
+                </div>
+                <div class="stat-card" style="border-left-color: var(--secondary-color);">
+                    <h4>Total POs</h4>
+                    <div class="number" style="color: var(--secondary-color);">89</div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">Active tracking</p>
+                </div>
+            </div>
+
+            <!-- Expiring Contracts Table -->
+            <div class="mockup-table">
+                <h3 style="padding: 1rem; background: white;">⚠️ Contracts Expiring Soon</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Contract Name</th>
+                            <th>Client</th>
+                            <th>End Date</th>
+                            <th>Days Remaining</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Contract-2024-001</td>
+                            <td>Acme Corp</td>
+                            <td>Dec 15, 2025</td>
+                            <td style="color: var(--danger-color); font-weight: 600;">34 days</td>
+                            <td><span class="badge expiring">Expiring</span></td>
+                        </tr>
+                        <tr>
+                            <td>Contract-2024-005</td>
+                            <td>TechStart Inc</td>
+                            <td>Dec 20, 2025</td>
+                            <td style="color: var(--warning-color); font-weight: 600;">39 days</td>
+                            <td><span class="badge expiring">Expiring</span></td>
+                        </tr>
+                        <tr>
+                            <td>Contract-2024-012</td>
+                            <td>Global Solutions</td>
+                            <td>Jan 5, 2026</td>
+                            <td style="color: var(--warning-color); font-weight: 600;">55 days</td>
+                            <td><span class="badge active">Active</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Quick Actions -->
+            <div style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1rem;">Quick Actions</h3>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href="contracts.html" class="btn-primary">+ Add New Contract</a>
+                    <a href="resources.html" class="btn-secondary">+ Add Resource</a>
+                    <a href="purchase-orders.html" class="btn-secondary">+ Add Purchase Order</a>
+                    <a href="reports.html" class="btn-secondary">📊 View Reports</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design Specifications -->
+        <h2>Design Specifications</h2>
+        <div class="overview-content">
+            <div class="overview-card">
+                <h3>Layout</h3>
+                <ul>
+                    <li>4-column stat cards at top</li>
+                    <li>Expiring contracts table below</li>
+                    <li>Quick action buttons at bottom</li>
+                    <li>Responsive grid for mobile</li>
+                </ul>
+            </div>
+            <div class="overview-card">
+                <h3>Components</h3>
+                <ul>
+                    <li>Stat cards with icons</li>
+                    <li>Data table with sorting</li>
+                    <li>Status badges (color-coded)</li>
+                    <li>Action buttons</li>
+                </ul>
+            </div>
+            <div class="overview-card">
+                <h3>Interactions</h3>
+                <ul>
+                    <li>Click stat cards to filter</li>
+                    <li>Hover effects on table rows</li>
+                    <li>Sort table columns</li>
+                    <li>Quick action modals</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div style="margin-top: 3rem; display: flex; justify-content: space-between;">
+            <a href="login.html" class="btn-secondary">← Previous: Login</a>
+            <a href="index.html" class="back-to-home">All Mockups</a>
+            <a href="contracts.html" class="btn-primary">Next: Contracts →</a>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
