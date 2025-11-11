@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rrootshell Staff Augmentation - Developer Portal</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- Header with Navigation and Mockup Access -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Rrootshell Staff Augmentation</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#mockups" class="nav-link">UI Mockups</a></li>
+                    <li><a href="#requirements" class="nav-link">Requirements</a></li>
+                    <li><a href="#onboarding" class="nav-link">Onboarding</a></li>
+                </ul>
+            </nav>
+            <button class="mockup-quick-access" id="quickMockupBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="9" y1="3" x2="9" y2="21"></line>
+                </svg>
+                Quick Mockups
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="content-section active">
+            <div class="container">
+                <div class="hero">
+                    <h2>Welcome to the Developer Portal</h2>
+                    <p>Access UI mockups, requirements documentation, and onboarding tasks all in one place.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>UI Mockups</h3>
+                        <p>Reference approved mockups during development. Always accessible from the header.</p>
+                        <a href="#mockups" class="btn-link">View Mockups →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📋</div>
+                        <h3>Requirements</h3>
+                        <p>Comprehensive documentation of app requirements and task breakdowns.</p>
+                        <a href="#requirements" class="btn-link">View Requirements →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Onboarding</h3>
+                        <p>Track daily and weekly tasks assigned to you and your team.</p>
+                        <a href="#onboarding" class="btn-link">View Tasks →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- UI Mockups Section -->
+        <section id="mockups" class="content-section">
+            <div class="container">
+                <h2>UI Mockups</h2>
+                <p class="section-intro">These approved mockups serve as the design reference for the entire application. Developers can refer to these at any time during development.</p>
+                
+                <div class="mockup-categories">
+                    <button class="category-btn active" data-category="all">All</button>
+                    <button class="category-btn" data-category="dashboard">Dashboard</button>
+                    <button class="category-btn" data-category="forms">Forms</button>
+                    <button class="category-btn" data-category="reports">Reports</button>
+                    <button class="category-btn" data-category="settings">Settings</button>
+                </div>
+
+                <div class="mockup-gallery" id="mockupGallery">
+                    <!-- Mockups will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Requirements Section -->
+        <section id="requirements" class="content-section">
+            <div class="container">
+                <h2>Requirements Documentation</h2>
+                <p class="section-intro">Detailed requirements and specifications for each feature of the application.</p>
+                
+                <div class="requirements-sidebar">
+                    <div class="sidebar-nav">
+                        <h3>Modules</h3>
+                        <ul id="requirementsNav">
+                            <!-- Will be populated dynamically -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="requirements-content" id="requirementsContent">
+                    <!-- Requirements content will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Onboarding Section -->
+        <section id="onboarding" class="content-section">
+            <div class="container">
+                <h2>Onboarding & Task Management</h2>
+                <p class="section-intro">Track your assigned tasks and stay updated with daily and weekly goals.</p>
+                
+                <div class="task-filters">
+                    <button class="filter-btn active" data-filter="all">All Tasks</button>
+                    <button class="filter-btn" data-filter="daily">Daily</button>
+                    <button class="filter-btn" data-filter="weekly">Weekly</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                </div>
+
+                <div class="tasks-container">
+                    <div class="task-column">
+                        <h3>Pending</h3>
+                        <div class="task-list" id="pendingTasks">
+                            <!-- Pending tasks will be loaded here -->
+                        </div>
+                    </div>
+                    <div class="task-column">
+                        <h3>In Progress</h3>
+                        <div class="task-list" id="inProgressTasks">
+                            <!-- In progress tasks will be loaded here -->
+                        </div>
+                    </div>
+                    <div class="task-column">
+                        <h3>Completed</h3>
+                        <div class="task-list" id="completedTasks">
+                            <!-- Completed tasks will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-primary" id="addTaskBtn">+ Add New Task</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Mockup Modal -->
+    <div class="modal" id="mockupModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img id="modalMockupImage" src="" alt="Mockup Preview">
+            <div class="modal-info">
+                <h3 id="modalMockupTitle"></h3>
+                <p id="modalMockupDesc"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Modal -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content task-modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Add New Task</h3>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="taskTitle">Task Title</label>
+                    <input type="text" id="taskTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="taskDescription">Description</label>
+                    <textarea id="taskDescription" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="taskAssignee">Assignee</label>
+                    <input type="text" id="taskAssignee" required>
+                </div>
+                <div class="form-group">
+                    <label for="taskType">Task Type</label>
+                    <select id="taskType" required>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taskDueDate">Due Date</label>
+                    <input type="date" id="taskDueDate" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Add Task</button>
+                    <button type="button" class="btn-secondary" id="cancelTaskBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
