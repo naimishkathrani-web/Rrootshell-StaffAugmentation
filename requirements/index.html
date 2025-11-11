@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requirements - Rrootshell Staff Augmentation</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>🚀 Rrootshell Staff Augmentation</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../onboarding/index.html" class="nav-link">Onboarding</a></li>
+                    <li><a href="index.html" class="nav-link active">Requirements</a></li>
+                    <li><a href="../mockups/index.html" class="nav-link">Mockups</a></li>
+                    <li><a href="../client/index.html" class="nav-link" target="_blank">Real App</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content with Sidebar -->
+    <main class="main-content">
+        <div class="container">
+            <div class="sidebar-layout">
+                <!-- Sidebar Navigation -->
+                <aside class="sidebar">
+                    <h3>📋 Documentation</h3>
+                    <ul class="sidebar-nav">
+                        <li><a href="index.html" class="active">🏠 Project Vision & Strategy</a></li>
+                        <li><a href="business-requirements.html">📊 High-Level Business Requirements</a></li>
+                        <li>
+                            <a href="functional-design-high.html">📐 High-Level Functional Design</a>
+                            <ul class="sub-menu">
+                                <li><a href="functional-design-high.html#overview">System Overview</a></li>
+                                <li><a href="functional-design-high.html#modules">Module Architecture</a></li>
+                                <li><a href="functional-design-high.html#workflows">User Workflows</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="functional-design-low.html">📋 Low-Level Functional Design</a>
+                            <ul class="sub-menu">
+                                <li><a href="functional-design-low.html#authentication">Authentication Module</a></li>
+                                <li><a href="functional-design-low.html#contracts">Contract Management</a></li>
+                                <li><a href="functional-design-low.html#resources">Resource Management</a></li>
+                                <li><a href="functional-design-low.html#pos">Purchase Orders</a></li>
+                                <li><a href="functional-design-low.html#timesheets">Timesheet Module</a></li>
+                                <li><a href="functional-design-low.html#documents">Document Management</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="technical-design-low.html">⚙️ Low-Level Technical Design</a>
+                            <ul class="sub-menu">
+                                <li><a href="technical-design-low.html#architecture">System Architecture</a></li>
+                                <li><a href="technical-design-low.html#database">Database Schema</a></li>
+                                <li><a href="technical-design-low.html#api">API Specifications</a></li>
+                                <li><a href="technical-design-low.html#security">Security Implementation</a></li>
+                                <li><a href="technical-design-low.html#deployment">Deployment Strategy</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </aside>
+
+                <!-- Content Area -->
+                <div class="content-area">
+                    <h1>Project Vision & Strategy</h1>
+                    <p class="subtitle" style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem;">
+                        Building a unified platform to transform how Rrootshell manages staff augmentation operations
+                    </p>
+
+                    <h2>🎯 Vision Statement</h2>
+                    <div class="overview-card" style="margin-bottom: 2rem;">
+                        <p style="font-size: 1.1rem; line-height: 1.8;">
+                            To create a comprehensive, enterprise-grade platform that seamlessly integrates timesheet management, 
+                            contract tracking, and document management into one unified system—empowering employees, administrators, 
+                            and contract managers to work more efficiently while ensuring compliance, accuracy, and transparency 
+                            across all staff augmentation operations.
+                        </p>
+                    </div>
+
+                    <h2>💡 Strategic Objectives</h2>
+                    <div class="features-grid" style="margin-top: 1.5rem;">
+                        <div class="feature-item">
+                            <span class="feature-number">01</span>
+                            <h4>Operational Excellence</h4>
+                            <p>Streamline timesheet submission, approval workflows, and contract renewals to reduce manual overhead by 70%</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-number">02</span>
+                            <h4>Data Integrity</h4>
+                            <p>Maintain a single source of truth for all contract, resource, and timesheet data with 100% accuracy</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-number">03</span>
+                            <h4>Compliance & Audit</h4>
+                            <p>Ensure regulatory compliance with comprehensive audit trails and automated renewal notifications</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-number">04</span>
+                            <h4>User Experience</h4>
+                            <p>Provide an intuitive, role-based interface that requires minimal training and maximizes productivity</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-number">05</span>
+                            <h4>Scalability</h4>
+                            <p>Build a platform that can grow from 100 to 10,000+ users without performance degradation</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-number">06</span>
+                            <h4>Security First</h4>
+                            <p>Implement enterprise-grade security with role-based access control and data segregation</p>
+                        </div>
+                    </div>
+
+                    <h2>📊 Project Overview</h2>
+                    
+                    <h3>Problem Statement</h3>
+                    <p>
+                        Currently, Rrootshell's staff augmentation operations are fragmented across multiple systems and manual processes:
+                    </p>
+                    <ul>
+                        <li>Timesheets are submitted via email and tracked in spreadsheets</li>
+                        <li>Contract renewals are managed manually with frequent missed deadlines</li>
+                        <li>No centralized view of resource allocation across contracts</li>
+                        <li>Purchase order tracking is done in separate systems</li>
+                        <li>Reporting requires manual data consolidation from multiple sources</li>
+                        <li>No automated notifications for critical expiration dates</li>
+                    </ul>
+
+                    <p style="margin-top: 1rem;">
+                        This fragmentation leads to inefficiencies, errors, compliance risks, and significant administrative overhead.
+                    </p>
+
+                    <h3>Solution Approach</h3>
+                    <p>
+                        The Unified Timesheet & Contract Management System consolidates all operations into a single, 
+                        integrated platform with three distinct user roles:
+                    </p>
+
+                    <div class="overview-content" style="margin-top: 1.5rem;">
+                        <div class="overview-card">
+                            <h3>👤 Employee Role</h3>
+                            <ul>
+                                <li>Submit timesheets (weekly/monthly)</li>
+                                <li>Track approval status</li>
+                                <li>View assigned projects</li>
+                                <li>Receive notifications</li>
+                            </ul>
+                        </div>
+                        <div class="overview-card">
+                            <h3>👔 Admin Role</h3>
+                            <ul>
+                                <li>Manage employees & contracts</li>
+                                <li>Configure pay/bill rates</li>
+                                <li>Set up approval workflows</li>
+                                <li>Generate reports</li>
+                            </ul>
+                        </div>
+                        <div class="overview-card">
+                            <h3>📁 CMG Role</h3>
+                            <ul>
+                                <li>Upload contract documents</li>
+                                <li>Track expiration dates</li>
+                                <li>Manage renewals</li>
+                                <li>Version control</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2>🎨 Key Features</h2>
+                    
+                    <h3>Phase 1: Contract Tracking Foundation (✅ Completed)</h3>
+                    <ul>
+                        <li>✅ User authentication with JWT</li>
+                        <li>✅ Contract CRUD operations</li>
+                        <li>✅ Resource management</li>
+                        <li>✅ Purchase order tracking</li>
+                        <li>✅ Automated email notifications</li>
+                        <li>✅ Dashboard with key metrics</li>
+                    </ul>
+
+                    <h3>Phase 2: Timesheet Management (⏳ Next)</h3>
+                    <ul>
+                        <li>Employee timesheet submission</li>
+                        <li>Manager approval workflows</li>
+                        <li>Configurable recipient distribution</li>
+                        <li>PDF generation and email delivery</li>
+                        <li>Historical timesheet tracking</li>
+                    </ul>
+
+                    <h3>Phase 3: Document Management (⏳ Future)</h3>
+                    <ul>
+                        <li>Document upload (MSA, PO, SOW, NDA)</li>
+                        <li>Multi-tier renewal notifications</li>
+                        <li>Version control system</li>
+                        <li>Document search and filtering</li>
+                        <li>Compliance reporting</li>
+                    </ul>
+
+                    <h3>Phase 4: Advanced Features (⏳ Future)</h3>
+                    <ul>
+                        <li>SSO integration (Azure AD/Okta)</li>
+                        <li>Advanced analytics and reporting</li>
+                        <li>Mobile applications (iOS/Android)</li>
+                        <li>Integration with payroll systems</li>
+                        <li>Predictive analytics</li>
+                    </ul>
+
+                    <h2>📈 Success Metrics</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                        <thead>
+                            <tr style="background: var(--light-color);">
+                                <th style="padding: 1rem; text-align: left; border: 1px solid var(--border-color);">Metric</th>
+                                <th style="padding: 1rem; text-align: left; border: 1px solid var(--border-color);">Target</th>
+                                <th style="padding: 1rem; text-align: left; border: 1px solid var(--border-color);">Timeline</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">Timesheet submission rate</td>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">95% on-time</td>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">Phase 2</td>
+                            </tr>
+                            <tr style="background: var(--light-color);">
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">Contract renewal compliance</td>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">100% before expiry</td>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">Phase 1 (✅)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">User adoption rate</td>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">90% within 30 days</td>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">All phases</td>
+                            </tr>
+                            <tr style="background: var(--light-color);">
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">System uptime</td>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">99.9%</td>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">Production</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">Approval turnaround time</td>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">&lt; 48 hours</td>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">Phase 2</td>
+                            </tr>
+                            <tr style="background: var(--light-color);">
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">Manual processing reduction</td>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">70% decrease</td>
+                                <td style="padding: 1rem; border: 1px solid var(--border-color);">Phase 3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2>⚙️ Technology Stack</h2>
+                    <p>
+                        Built with modern, proven technologies for scalability, maintainability, and performance:
+                    </p>
+                    
+                    <div class="tech-grid" style="margin-top: 1.5rem;">
+                        <div class="tech-category">
+                            <h4>Frontend</h4>
+                            <ul>
+                                <li>React 18</li>
+                                <li>Vite</li>
+                                <li>React Router v6</li>
+                                <li>Axios</li>
+                                <li>Context API</li>
+                            </ul>
+                        </div>
+                        <div class="tech-category">
+                            <h4>Backend</h4>
+                            <ul>
+                                <li>Node.js 14+</li>
+                                <li>Express.js</li>
+                                <li>Sequelize ORM</li>
+                                <li>SQLite (Dev)</li>
+                                <li>PostgreSQL (Prod)</li>
+                            </ul>
+                        </div>
+                        <div class="tech-category">
+                            <h4>Security</h4>
+                            <ul>
+                                <li>JWT Authentication</li>
+                                <li>Bcrypt Hashing</li>
+                                <li>RBAC</li>
+                                <li>HTTPS/SSL</li>
+                                <li>Rate Limiting</li>
+                            </ul>
+                        </div>
+                        <div class="tech-category">
+                            <h4>DevOps</h4>
+                            <ul>
+                                <li>Docker</li>
+                                <li>GitHub Actions</li>
+                                <li>AWS/Azure</li>
+                                <li>Nginx</li>
+                                <li>PM2</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2>🗓️ Project Timeline</h2>
+                    <div class="features-grid" style="margin-top: 1.5rem;">
+                        <div class="feature-item">
+                            <h4>Phase 1: Foundation</h4>
+                            <p><strong>Duration:</strong> 8 weeks</p>
+                            <p><strong>Status:</strong> <span class="status-badge completed">✓ Completed</span></p>
+                            <p>Contract tracking, authentication, basic notifications</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>Phase 2: Timesheets</h4>
+                            <p><strong>Duration:</strong> 8 weeks</p>
+                            <p><strong>Status:</strong> <span class="status-badge pending">⏳ Next</span></p>
+                            <p>Employee time entry, approval workflows, distribution</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>Phase 3: Documents</h4>
+                            <p><strong>Duration:</strong> 6 weeks</p>
+                            <p><strong>Status:</strong> <span class="status-badge pending">⏳ Planned</span></p>
+                            <p>Document management, version control, renewals</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>Phase 4: Advanced</h4>
+                            <p><strong>Duration:</strong> 8 weeks</p>
+                            <p><strong>Status:</strong> <span class="status-badge pending">⏳ Future</span></p>
+                            <p>SSO, mobile apps, advanced analytics</p>
+                        </div>
+                    </div>
+
+                    <h2>📚 Next Steps</h2>
+                    <p>Explore detailed requirements and design documents:</p>
+                    
+                    <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                        <a href="business-requirements.html" class="btn-primary">View Business Requirements →</a>
+                        <a href="functional-design-high.html" class="btn-secondary">Explore Functional Design →</a>
+                        <a href="technical-design-low.html" class="btn-secondary">Technical Specifications →</a>
+                        <a href="../index.html" class="btn-secondary">← Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Requirements</h4>
+                    <ul>
+                        <li><a href="business-requirements.html">Business Requirements</a></li>
+                        <li><a href="functional-design-high.html">Functional Design</a></li>
+                        <li><a href="technical-design-low.html">Technical Design</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Portal</h4>
+                    <ul>
+                        <li><a href="../onboarding/index.html">Onboarding</a></li>
+                        <li><a href="../mockups/index.html">Mockups</a></li>
+                        <li><a href="../client/index.html">Real App</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../README.md">Documentation</a></li>
+                        <li><a href="https://github.com/naimishkathrani-web/Rrootshell-StaffAugmentation" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>About</h4>
+                    <p>Rrootshell Staff Augmentation</p>
+                    <p>Version 1.0 | November 2025</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
