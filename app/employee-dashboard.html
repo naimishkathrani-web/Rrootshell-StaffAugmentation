@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - Rrootshell Staff Augmentation</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f9fafb;
+        }
+        .app-header {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        .app-logo h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        .app-nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .nav-item {
+            padding: 0.75rem 1.25rem;
+            color: #64748b;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        .nav-item:hover {
+            background: #f1f5f9;
+            color: #334155;
+        }
+        .nav-item.active {
+            background: #eef2ff;
+            color: #667eea;
+        }
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        .logout-btn {
+            padding: 0.5rem 1rem;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+        .main-content {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        .page-header h2 {
+            font-size: 2rem;
+            margin: 0 0 0.5rem 0;
+            color: #1e293b;
+        }
+        .page-header p {
+            margin: 0;
+            color: #64748b;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .stat-card h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #10b981;
+            margin: 0;
+        }
+        .current-assignment {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .current-assignment h3 {
+            margin: 0 0 1.5rem 0;
+            color: #1e293b;
+        }
+        .assignment-card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+        }
+        .assignment-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1e293b;
+        }
+        .assignment-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .meta-item {
+            color: #64748b;
+        }
+        .meta-item strong {
+            color: #334155;
+        }
+        .quick-actions {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .quick-actions h3 {
+            margin: 0 0 1.5rem 0;
+            color: #1e293b;
+        }
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .action-btn {
+            padding: 1rem;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #334155;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s;
+            display: block;
+        }
+        .action-btn:hover {
+            border-color: #10b981;
+            background: #ecfdf5;
+            transform: translateY(-2px);
+        }
+        .recent-activity {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .recent-activity h3 {
+            margin: 0 0 1.5rem 0;
+            color: #1e293b;
+        }
+        .activity-item {
+            padding: 1rem;
+            border-left: 3px solid #10b981;
+            background: #f8fafc;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+        .activity-time {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        .activity-desc {
+            margin-top: 0.25rem;
+            color: #334155;
+        }
+        .app-footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            color: #64748b;
+        }
+        .info-banner {
+            background: #eff6ff;
+            border: 1px solid #93c5fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            color: #1e40af;
+        }
+    </style>
+</head>
+<body>
+    <!-- Application Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="app-logo">
+                <h1>🚀 Rrootshell</h1>
+            </div>
+            <nav class="app-nav">
+                <a href="employee-dashboard.html" class="nav-item active">Dashboard</a>
+                <a href="my-timesheets.html" class="nav-item">My Timesheets</a>
+                <a href="my-profile.html" class="nav-item">My Profile</a>
+                <a href="my-notifications.html" class="nav-item">Notifications</a>
+            </nav>
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-avatar">E</div>
+                    <div>
+                        <div style="font-weight: 600; color: #334155;">John Smith</div>
+                        <div style="font-size: 0.85rem; color: #64748b;">Senior React Developer</div>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h2>👨‍💼 My Dashboard</h2>
+            <p>Welcome back, John! Here's your personal overview.</p>
+        </div>
+
+        <div class="info-banner">
+            <strong>💡 Employee Access:</strong> You have access to your timesheets, profile, and notifications. For contract or resource management, please contact your administrator.
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Hours This Week</h3>
+                <p class="stat-value">40</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #10b981;">✓ Timesheet submitted</p>
+            </div>
+            <div class="stat-card">
+                <h3>Hours This Month</h3>
+                <p class="stat-value">152</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">3 weeks completed</p>
+            </div>
+            <div class="stat-card">
+                <h3>Pending Approvals</h3>
+                <p class="stat-value">1</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #f59e0b;">⏳ Awaiting review</p>
+            </div>
+            <div class="stat-card">
+                <h3>Notifications</h3>
+                <p class="stat-value">5</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">2 unread</p>
+            </div>
+        </div>
+
+        <!-- Current Assignment -->
+        <div class="current-assignment">
+            <h3>📋 Current Assignment</h3>
+            <div class="assignment-card">
+                <h4>Acme Corporation - Web Application Development</h4>
+                <p style="color: #64748b; margin: 0.5rem 0 0 0;">Contract: CON-2024-001</p>
+                <div class="assignment-meta">
+                    <div class="meta-item">
+                        <strong>Start Date:</strong> January 15, 2024
+                    </div>
+                    <div class="meta-item">
+                        <strong>Role:</strong> Senior React Developer
+                    </div>
+                    <div class="meta-item">
+                        <strong>Status:</strong> <span style="color: #10b981;">● Active</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Project Duration:</strong> 24 months
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h3>⚡ Quick Actions</h3>
+            <div class="actions-grid">
+                <a href="my-timesheets.html" class="action-btn">⏰ Submit Timesheet</a>
+                <a href="my-profile.html" class="action-btn">👤 Update Profile</a>
+                <a href="my-notifications.html" class="action-btn">🔔 View Notifications</a>
+                <a href="my-documents.html" class="action-btn">📁 My Documents</a>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="recent-activity">
+            <h3>📋 My Recent Activity</h3>
+            <div class="activity-item">
+                <div class="activity-time">2 hours ago</div>
+                <div class="activity-desc">Submitted timesheet for week Nov 5-11, 2025 - 40 hours logged</div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-time">1 day ago</div>
+                <div class="activity-desc">Timesheet approved for week Oct 29 - Nov 4, 2025</div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-time">2 days ago</div>
+                <div class="activity-desc">Updated profile skills - Added Next.js certification</div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-time">3 days ago</div>
+                <div class="activity-desc">Completed training: Advanced React Patterns</div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-time">1 week ago</div>
+                <div class="activity-desc">Reviewed and signed contract amendment CON-2024-001-AMD-01</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Rrootshell Staff Augmentation System. All rights reserved.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Deployed on subdomain of www.rrootshell.com</p>
+        </div>
+    </footer>
+
+    <script>
+        // Check if user is logged in
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = '../app-login.html';
+        }
+
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = '../app-login.html';
+        }
+    </script>
+</body>
+</html>

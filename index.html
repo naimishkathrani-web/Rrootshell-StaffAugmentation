@@ -18,8 +18,8 @@
                     <li><a href="index.html" class="nav-link active">Home</a></li>
                     <li><a href="onboarding/index.html" class="nav-link">Onboarding</a></li>
                     <li><a href="requirements/index.html" class="nav-link">Requirements</a></li>
-                    <li><a href="mockups/index.html" class="nav-link">Mockups</a></li>
-                    <li><a href="client/index.html" class="nav-link" target="_blank">Real App</a></li>
+                    <li><a href="mockups/login.html" class="nav-link">Mockups</a></li>
+                    <li><a href="app-login.html" class="nav-link" style="background: #10b981; padding: 0.5rem 1rem; border-radius: 4px; color: white;">Real App</a></li>
                 </ul>
             </nav>
         </div>
@@ -47,6 +47,47 @@
         </div>
     </section>
 
+    <!-- Portal vs Application Section -->
+    <section class="portal-info" style="background: #f0f9ff; padding: 2rem 0; margin-bottom: 2rem;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1200px; margin: 0 auto;">
+                <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <h3 style="color: #0284c7; margin-bottom: 1rem;">👨‍💻 Developer Portal (This Site)</h3>
+                    <p style="color: #64748b; line-height: 1.6; margin-bottom: 1rem;">
+                        This portal is for <strong>developers building the application</strong>. It contains:
+                    </p>
+                    <ul style="color: #64748b; line-height: 1.8;">
+                        <li>📚 <strong>Onboarding</strong> - 4-week training program</li>
+                        <li>📋 <strong>Requirements</strong> - Business & technical specs</li>
+                        <li>🎨 <strong>Mockups</strong> - UI design previews</li>
+                    </ul>
+                    <p style="color: #64748b; margin-top: 1rem; font-size: 0.9rem;">
+                        Use this to learn, plan, and build the application before deployment.
+                    </p>
+                </div>
+                <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #10b981;">
+                    <h3 style="color: #059669; margin-bottom: 1rem;">⚡ Real Application</h3>
+                    <p style="color: #64748b; line-height: 1.6; margin-bottom: 1rem;">
+                        The actual <strong>Staff Augmentation System</strong> used by Rrootshell employees and admins:
+                    </p>
+                    <ul style="color: #64748b; line-height: 1.8;">
+                        <li>🔐 <strong>Secure Login</strong> - Authentication required</li>
+                        <li>👥 <strong>Role-Based Access</strong> - Admin vs Employee views</li>
+                        <li>📊 <strong>Live Data</strong> - Real contracts, timesheets, POs</li>
+                    </ul>
+                    <p style="margin-top: 1.5rem;">
+                        <a href="app-login.html" class="btn-primary" style="display: inline-block; padding: 0.75rem 1.5rem; background: #059669; color: white; text-decoration: none; border-radius: 6px; font-weight: 600;">
+                            🚀 Launch Application →
+                        </a>
+                    </p>
+                    <p style="color: #64748b; margin-top: 0.75rem; font-size: 0.85rem;">
+                        <em>Will be deployed to subdomain of www.rrootshell.com on GoDaddy</em>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Main Content -->
     <main class="main-content">
         <div class="container">
@@ -67,18 +108,18 @@
                         <span class="card-link">View Requirements →</span>
                     </a>
 
-                    <a href="mockups/index.html" class="feature-card">
+                    <a href="mockups/login.html" class="feature-card">
                         <div class="card-icon">🎨</div>
                         <h3>UI Mockups</h3>
                         <p>Interactive mockups for all pages with navigation and design guidelines</p>
                         <span class="card-link">Browse Mockups →</span>
                     </a>
 
-                    <a href="client/index.html" class="feature-card" target="_blank">
+                    <a href="app-login.html" class="feature-card" style="border: 2px solid #10b981;">
                         <div class="card-icon">⚡</div>
                         <h3>Real Application</h3>
-                        <p>Access the live development application with full functionality</p>
-                        <span class="card-link">Open App →</span>
+                        <p>Access the live application - Login required for employees and admins</p>
+                        <span class="card-link">Launch App →</span>
                     </a>
                 </div>
             </section>
@@ -235,7 +276,7 @@
                         <div class="step-content">
                             <h4>Build & Test</h4>
                             <p>Start developing features in the real application</p>
-                            <a href="client/index.html" class="btn-primary" target="_blank">Open Application</a>
+                            <a href="app-login.html" class="btn-primary">Launch Application</a>
                         </div>
                     </div>
                 </div>
