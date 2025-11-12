@@ -435,9 +435,28 @@ section h2 {
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 1.5rem;
-    height: fit-content;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
     position: sticky;
     top: 80px;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 .sidebar h3 {

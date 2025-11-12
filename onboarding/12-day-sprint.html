@@ -189,6 +189,21 @@
 
     <main class="main-content">
         <div class="container">
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+                <h3 style="margin: 0 0 0.5rem 0; color: #78350f;">📁 Where to Build the Real Application</h3>
+                <p style="margin: 0; color: #78350f;">
+                    <strong>All real application code goes in the repository root:</strong>
+                </p>
+                <ul style="margin: 0.5rem 0 0 1.5rem; color: #78350f;">
+                    <li><strong>/app</strong> - React frontend (create using: <code>npm create vite@latest app -- --template react-ts</code>)</li>
+                    <li><strong>/server</strong> - Node.js/Express backend (create folder and initialize with <code>npm init</code>)</li>
+                    <li><strong>/database</strong> - MongoDB schemas, seeds, and migrations</li>
+                </ul>
+                <p style="margin: 0.5rem 0 0 0; color: #78350f;">
+                    <strong>Note:</strong> Do NOT build inside /mockups or /onboarding folders - those are for design review only!
+                </p>
+            </div>
+
             <div style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
                 <h3 style="margin: 0 0 0.5rem 0; color: #1e40af;">📋 Important Context for All Developers</h3>
                 <p style="margin: 0; color: #1e40af;">
@@ -196,6 +211,20 @@
                 </p>
                 <p style="margin: 0.5rem 0 0 0; color: #1e40af;">
                     <strong>Key Requirements:</strong> Role-based access (Admin: full access, Employee: limited to timesheets/profile/notifications), modern React UI, Node.js/Express backend, MongoDB database, deployed to GoDaddy subdomain of www.rrootshell.com
+                </p>
+            </div>
+
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                <h3 style="margin: 0 0 0.5rem 0; color: #065f46;">🤖 How to Use GitHub Copilot Prompts</h3>
+                <ol style="margin: 0.5rem 0 0 1.5rem; color: #065f46; line-height: 1.8;">
+                    <li><strong>Open GitHub Copilot Chat</strong> in VS Code (Ctrl+Shift+I or Cmd+Shift+I)</li>
+                    <li><strong>Copy the entire prompt</strong> from the dark box labeled "🤖 GitHub Copilot Prompt"</li>
+                    <li><strong>Paste into Copilot Chat</strong> and press Enter</li>
+                    <li><strong>Review the generated code</strong> - Copilot will create components, functions, and complete files</li>
+                    <li><strong>Test and iterate</strong> - Ask follow-up questions like "add error handling" or "make this responsive"</li>
+                </ol>
+                <p style="margin: 0.5rem 0 0 0; color: #065f46;">
+                    <strong>Pro Tip:</strong> Each prompt includes full project context, requirements, and references to mockup files. This helps Copilot generate code that matches the project vision exactly.
                 </p>
             </div>
 
@@ -223,16 +252,60 @@
                         <li class="task-item">Implement session storage for user role and authentication state</li>
                     </ul>
                     <div class="copilot-prompt">
-                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
-                        <div>Create a React + Vite + TypeScript project for Rrootshell Staff Augmentation Platform. The project needs:
-- Login page with role selector (Admin/Employee buttons) matching the design in mockups/login.html
-- Session storage to save userRole, userEmail, isLoggedIn
-- React Router setup with protected routes
-- TailwindCSS for styling matching the purple/blue gradient theme (#667eea to #764ba2)
-- Login form should redirect to /admin-dashboard for admin role or /employee-dashboard for employee role
-- Include TypeScript interfaces for User (email, role: 'admin' | 'employee')
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt - Copy & Paste This Entire Block</div>
+                        <div>I'm building the Rrootshell Staff Augmentation Platform. This is a web application for managing contracts, resources, purchase orders, timesheets, and reports with role-based access control (Admin: full access, Employee: limited access to own data only).
 
-Context: This is a staff augmentation platform for managing contracts, resources, POs, and timesheets with role-based access control.</div>
+PROJECT SETUP:
+Create a React + Vite + TypeScript frontend in the /app folder of the repository:
+1. Run: npm create vite@latest app -- --template react-ts
+2. Install dependencies: react-router-dom, axios, tailwindcss
+3. Configure TailwindCSS with purple/blue gradient theme (#667eea to #764ba2)
+
+AUTHENTICATION PAGE (src/pages/Login.tsx):
+Reference design: mockups/login.html
+- Role selector buttons: Admin and Employee (user clicks to select role before login)
+- Email and password input fields
+- "Sign In" button that validates and redirects based on role
+- Demo credentials display: admin@rrootshell.com / admin123, employee@rrootshell.com / emp123
+- Session storage: Save userRole, userEmail, isLoggedIn on successful login
+- Redirect: admin → /admin-dashboard, employee → /employee-dashboard
+
+ROUTING SETUP (src/App.tsx):
+- Protected routes that check sessionStorage.isLoggedIn
+- Redirect to /login if not authenticated
+- Route guards for role-based access (admin vs employee routes)
+
+TYPESCRIPT INTERFACES (src/types/index.ts):
+```typescript
+interface User {
+  email: string;
+  role: 'admin' | 'employee';
+  name?: string;
+}
+
+interface AuthState {
+  isLoggedIn: boolean;
+  user: User | null;
+}
+```
+
+PROJECT STRUCTURE:
+/app
+  /src
+    /components (reusable UI components)
+    /pages (Login, AdminDashboard, EmployeeDashboard, etc.)
+    /hooks (custom React hooks)
+    /utils (helper functions)
+    /types (TypeScript interfaces)
+    /styles (global CSS, Tailwind config)
+
+REQUIREMENTS REFERENCE:
+- Review requirements/index.html for full business requirements
+- Review mockups/login.html for exact UI design
+- Admin users can manage contracts, resources, POs, timesheets, reports, users
+- Employee users can only submit timesheets, view profile, and see notifications
+
+Generate the complete project setup with all files needed for Day 1.</div>
                     </div>
                 </div>
 
