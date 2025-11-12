@@ -165,6 +165,86 @@
             color: white;
             border-color: var(--primary-color);
         }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .modal-header h2 {
+            margin: 0;
+            color: var(--dark-color);
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .currency-input-group {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 0.5rem;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
     </style>
 </head>
 <body>
@@ -190,7 +270,7 @@
                     <h1>📄 Contracts</h1>
                     <p>Manage and track all client contracts</p>
                 </div>
-                <button class="btn-primary">+ Add New Contract</button>
+                <button class="btn-primary" onclick="openContractModal()">+ Add New Contract</button>
             </div>
 
             <div class="toolbar">
@@ -223,129 +303,138 @@
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Contract Value</th>
+                            <th>Currency</th>
                             <th>Resources</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="contractsTableBody">
                         <tr>
-                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2024-001</span></td>
+                            <td><span class="contract-name" onclick="viewContract('CON-2024-001')">CON-2024-001</span></td>
                             <td>Acme Corporation</td>
                             <td>Jan 15, 2024</td>
                             <td>Dec 15, 2025</td>
                             <td>$2,400,000</td>
+                            <td>USD</td>
                             <td>12 Resources</td>
                             <td><span class="badge expiring">Expiring Soon</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
-                                    <button class="action-btn edit">Edit</button>
+                                    <button class="action-btn view" onclick="viewContract('CON-2024-001')">View</button>
+                                    <button class="action-btn edit" onclick="editContract('CON-2024-001')">Edit</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2024-005</span></td>
+                            <td><span class="contract-name" onclick="viewContract('CON-2024-005')">CON-2024-005</span></td>
                             <td>TechStart Inc</td>
                             <td>Mar 1, 2024</td>
                             <td>Mar 1, 2026</td>
-                            <td>$1,800,000</td>
+                            <td>₹1,50,00,000</td>
+                            <td>INR</td>
                             <td>8 Resources</td>
                             <td><span class="badge active">Active</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
-                                    <button class="action-btn edit">Edit</button>
+                                    <button class="action-btn view" onclick="viewContract('CON-2024-005')">View</button>
+                                    <button class="action-btn edit" onclick="editContract('CON-2024-005')">Edit</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2024-012</span></td>
+                            <td><span class="contract-name" onclick="viewContract('CON-2024-012')">CON-2024-012</span></td>
                             <td>Global Solutions Ltd</td>
                             <td>Jun 10, 2024</td>
                             <td>Jun 10, 2026</td>
-                            <td>$3,200,000</td>
+                            <td>€2,900,000</td>
+                            <td>EUR</td>
                             <td>18 Resources</td>
                             <td><span class="badge active">Active</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
-                                    <button class="action-btn edit">Edit</button>
+                                    <button class="action-btn view" onclick="viewContract('CON-2024-012')">View</button>
+                                    <button class="action-btn edit" onclick="editContract('CON-2024-012')">Edit</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2023-045</span></td>
+                            <td><span class="contract-name" onclick="viewContract('CON-2023-045')">CON-2023-045</span></td>
                             <td>Innovate Systems</td>
                             <td>Sep 5, 2023</td>
                             <td>Sep 5, 2025</td>
-                            <td>$950,000</td>
+                            <td>£750,000</td>
+                            <td>GBP</td>
                             <td>5 Resources</td>
                             <td><span class="badge active">Active</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
-                                    <button class="action-btn edit">Edit</button>
+                                    <button class="action-btn view" onclick="viewContract('CON-2023-045')">View</button>
+                                    <button class="action-btn edit" onclick="editContract('CON-2023-045')">Edit</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2024-018</span></td>
+                            <td><span class="contract-name" onclick="viewContract('CON-2024-018')">CON-2024-018</span></td>
                             <td>DataFlow Inc</td>
                             <td>Apr 20, 2024</td>
                             <td>Apr 20, 2026</td>
                             <td>$1,500,000</td>
+                            <td>USD</td>
                             <td>10 Resources</td>
                             <td><span class="badge active">Active</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
-                                    <button class="action-btn edit">Edit</button>
+                                    <button class="action-btn view" onclick="viewContract('CON-2024-018')">View</button>
+                                    <button class="action-btn edit" onclick="editContract('CON-2024-018')">Edit</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2023-028</span></td>
+                            <td><span class="contract-name" onclick="viewContract('CON-2023-028')">CON-2023-028</span></td>
                             <td>CloudNine Technologies</td>
                             <td>Jul 1, 2023</td>
                             <td>Oct 15, 2025</td>
                             <td>$2,100,000</td>
+                            <td>USD</td>
                             <td>15 Resources</td>
                             <td><span class="badge expiring">Expiring Soon</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
-                                    <button class="action-btn edit">Edit</button>
+                                    <button class="action-btn view" onclick="viewContract('CON-2023-028')">View</button>
+                                    <button class="action-btn edit" onclick="editContract('CON-2023-028')">Edit</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2022-056</span></td>
+                            <td><span class="contract-name" onclick="viewContract('CON-2022-056')">CON-2022-056</span></td>
                             <td>Enterprise Solutions</td>
                             <td>Nov 10, 2022</td>
                             <td>Nov 10, 2024</td>
-                            <td>$1,200,000</td>
+                            <td>₹1,00,00,000</td>
+                            <td>INR</td>
                             <td>6 Resources</td>
                             <td><span class="badge expired">Expired</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
-                                    <button class="action-btn edit">Edit</button>
+                                    <button class="action-btn view" onclick="viewContract('CON-2022-056')">View</button>
+                                    <button class="action-btn edit" onclick="editContract('CON-2022-056')">Edit</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2024-022</span></td>
+                            <td><span class="contract-name" onclick="viewContract('CON-2024-022')">CON-2024-022</span></td>
                             <td>NextGen Software</td>
                             <td>May 12, 2024</td>
                             <td>May 12, 2027</td>
                             <td>$4,500,000</td>
+                            <td>USD</td>
                             <td>25 Resources</td>
                             <td><span class="badge active">Active</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
-                                    <button class="action-btn edit">Edit</button>
+                                    <button class="action-btn view" onclick="viewContract('CON-2024-022')">View</button>
+                                    <button class="action-btn edit" onclick="editContract('CON-2024-022')">Edit</button>
                                 </div>
                             </td>
                         </tr>
@@ -366,6 +455,236 @@
             </div>
         </div>
     </main>
+
+    <!-- Contract Form Modal -->
+    <div id="contractModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Contract</h2>
+                <button class="close-btn" onclick="closeContractModal()">&times;</button>
+            </div>
+            <form id="contractForm" onsubmit="saveContract(event)">
+                <div class="form-group">
+                    <label>Contract Number</label>
+                    <input type="text" id="contractNumber" placeholder="Auto-generated" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>Client Name *</label>
+                    <input type="text" id="clientName" required placeholder="Enter client name">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Start Date *</label>
+                        <input type="date" id="startDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>End Date *</label>
+                        <input type="date" id="endDate" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Contract Value *</label>
+                    <div class="currency-input-group">
+                        <select id="currency" onchange="updateCurrencySymbol()" required>
+                            <option value="USD">USD ($)</option>
+                            <option value="INR">INR (₹)</option>
+                            <option value="EUR">EUR (€)</option>
+                            <option value="GBP">GBP (£)</option>
+                            <option value="JPY">JPY (¥)</option>
+                            <option value="AUD">AUD (A$)</option>
+                            <option value="CAD">CAD (C$)</option>
+                            <option value="SGD">SGD (S$)</option>
+                        </select>
+                        <input type="number" id="contractValue" required placeholder="Enter amount" min="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Status *</label>
+                    <select id="status" required>
+                        <option value="Active">Active</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Expiring Soon">Expiring Soon</option>
+                        <option value="Expired">Expired</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Number of Resources</label>
+                    <input type="number" id="resources" placeholder="0" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="description" placeholder="Enter contract description or notes"></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeContractModal()">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Contract</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const currencySymbols = {
+            'USD': '$',
+            'INR': '₹',
+            'EUR': '€',
+            'GBP': '£',
+            'JPY': '¥',
+            'AUD': 'A$',
+            'CAD': 'C$',
+            'SGD': 'S$'
+        };
+
+        let editingContractId = null;
+
+        function openContractModal() {
+            document.getElementById('contractModal').classList.add('active');
+            document.getElementById('modalTitle').textContent = 'Add New Contract';
+            document.getElementById('contractForm').reset();
+            document.getElementById('contractNumber').value = generateContractNumber();
+            editingContractId = null;
+        }
+
+        function closeContractModal() {
+            document.getElementById('contractModal').classList.remove('active');
+            document.getElementById('contractForm').reset();
+            editingContractId = null;
+        }
+
+        function generateContractNumber() {
+            const year = new Date().getFullYear();
+            const random = Math.floor(Math.random() * 900) + 100;
+            return `CON-${year}-${random}`;
+        }
+
+        function updateCurrencySymbol() {
+            const currency = document.getElementById('currency').value;
+            const symbol = currencySymbols[currency];
+            console.log(`Currency changed to: ${currency} (${symbol})`);
+        }
+
+        function formatCurrency(amount, currency) {
+            const symbol = currencySymbols[currency] || currency;
+            const num = parseFloat(amount);
+            
+            if (currency === 'INR') {
+                // Indian numbering system
+                return symbol + num.toLocaleString('en-IN');
+            } else {
+                return symbol + num.toLocaleString('en-US');
+            }
+        }
+
+        function saveContract(event) {
+            event.preventDefault();
+            
+            const contractNumber = document.getElementById('contractNumber').value;
+            const clientName = document.getElementById('clientName').value;
+            const startDate = new Date(document.getElementById('startDate').value).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            const endDate = new Date(document.getElementById('endDate').value).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            const contractValue = document.getElementById('contractValue').value;
+            const currency = document.getElementById('currency').value;
+            const status = document.getElementById('status').value;
+            const resources = document.getElementById('resources').value || '0';
+
+            const formattedValue = formatCurrency(contractValue, currency);
+
+            let badgeClass = 'active';
+            if (status === 'Expiring Soon') badgeClass = 'expiring';
+            else if (status === 'Expired') badgeClass = 'expired';
+
+            const tbody = document.getElementById('contractsTableBody');
+            
+            if (editingContractId) {
+                // Update existing row
+                const rows = tbody.getElementsByTagName('tr');
+                for (let row of rows) {
+                    const contractNameSpan = row.querySelector('.contract-name');
+                    if (contractNameSpan && contractNameSpan.textContent === editingContractId) {
+                        row.innerHTML = `
+                            <td><span class="contract-name" onclick="viewContract('${contractNumber}')">${contractNumber}</span></td>
+                            <td>${clientName}</td>
+                            <td>${startDate}</td>
+                            <td>${endDate}</td>
+                            <td>${formattedValue}</td>
+                            <td>${currency}</td>
+                            <td>${resources} Resources</td>
+                            <td><span class="badge ${badgeClass}">${status}</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view" onclick="viewContract('${contractNumber}')">View</button>
+                                    <button class="action-btn edit" onclick="editContract('${contractNumber}')">Edit</button>
+                                </div>
+                            </td>
+                        `;
+                        break;
+                    }
+                }
+            } else {
+                // Add new row at the top
+                const newRow = tbody.insertRow(0);
+                newRow.innerHTML = `
+                    <td><span class="contract-name" onclick="viewContract('${contractNumber}')">${contractNumber}</span></td>
+                    <td>${clientName}</td>
+                    <td>${startDate}</td>
+                    <td>${endDate}</td>
+                    <td>${formattedValue}</td>
+                    <td>${currency}</td>
+                    <td>${resources} Resources</td>
+                    <td><span class="badge ${badgeClass}">${status}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn view" onclick="viewContract('${contractNumber}')">View</button>
+                            <button class="action-btn edit" onclick="editContract('${contractNumber}')">Edit</button>
+                        </div>
+                    </td>
+                `;
+            }
+
+            closeContractModal();
+            
+            // Show success message
+            alert(editingContractId ? 'Contract updated successfully!' : 'Contract added successfully!');
+        }
+
+        function viewContract(contractNumber) {
+            window.location.href = 'contract-detail.html';
+        }
+
+        function editContract(contractNumber) {
+            // In a real app, fetch contract data from backend
+            // For mockup, we'll populate with sample data
+            editingContractId = contractNumber;
+            document.getElementById('modalTitle').textContent = 'Edit Contract';
+            document.getElementById('contractModal').classList.add('active');
+            
+            // Sample data population
+            document.getElementById('contractNumber').value = contractNumber;
+            document.getElementById('clientName').value = 'Sample Client';
+            document.getElementById('startDate').value = '2024-01-15';
+            document.getElementById('endDate').value = '2025-12-15';
+            document.getElementById('contractValue').value = '2400000';
+            document.getElementById('currency').value = 'USD';
+            document.getElementById('status').value = 'Active';
+            document.getElementById('resources').value = '12';
+            document.getElementById('description').value = 'Sample contract description';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('contractModal');
+            if (event.target === modal) {
+                closeContractModal();
+            }
+        }
+    </script>
 
     <footer class="main-footer">
         <div class="container">

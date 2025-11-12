@@ -60,17 +60,20 @@
                     <h2 id="contracts">📄 Contract Management</h2>
                     <h3>Contract Creation Form</h3>
                     <ul>
-                        <li><strong>Fields:</strong> Contract Number (auto-generated), Client Name, Start Date, End Date, Hourly/Monthly Rate, Status, Description</li>
-                        <li><strong>Validation:</strong> End date > Start date, Rate > 0, Client name required</li>
+                        <li><strong>Fields:</strong> Contract Number (auto-generated), Client Name, Start Date, End Date, Contract Value, Currency (USD/INR/EUR/GBP/JPY/AUD/CAD/SGD), Status, Description</li>
+                        <li><strong>Validation:</strong> End date > Start date, Contract Value > 0, Client name required, Currency required</li>
                         <li><strong>Auto-generation:</strong> Contract number format: CON-YYYY-XXX</li>
+                        <li><strong>Currency Support:</strong> Multi-currency support with proper symbol display ($ for USD, ₹ for INR, € for EUR, £ for GBP, etc.)</li>
+                        <li><strong>Currency Formatting:</strong> Values formatted according to currency locale (e.g., INR uses Indian numbering system with lakhs/crores)</li>
                     </ul>
 
                     <h3>Contract List View</h3>
                     <ul>
-                        <li><strong>Display:</strong> Table with Contract#, Client, Dates, Status, Actions</li>
-                        <li><strong>Filters:</strong> Status (Active/Pending/Expired), Client name, Date range</li>
-                        <li><strong>Sort:</strong> By start date, client name, status</li>
+                        <li><strong>Display:</strong> Table with Contract#, Client, Dates, Contract Value (with currency symbol), Currency, Status, Actions</li>
+                        <li><strong>Filters:</strong> Status (Active/Pending/Expired), Client name, Date range, Currency</li>
+                        <li><strong>Sort:</strong> By start date, client name, status, contract value</li>
                         <li><strong>Pagination:</strong> 20 contracts per page</li>
+                        <li><strong>Currency Display:</strong> Contract values shown with appropriate currency symbol and formatting</li>
                     </ul>
 
                     <h2 id="resources">👥 Resource Management</h2>
@@ -95,9 +98,18 @@
                     <h2 id="pos">💰 Purchase Orders</h2>
                     <h3>PO Creation</h3>
                     <ul>
-                        <li><strong>Fields:</strong> PO Number, Contract (dropdown), Amount, Start Date, End Date</li>
+                        <li><strong>Fields:</strong> PO Number, Contract (dropdown), Amount, Currency (USD/INR/EUR/GBP/JPY/AUD/CAD/SGD), Start Date, End Date</li>
                         <li><strong>Calculation:</strong> Monthly burn rate = Amount / Months</li>
                         <li><strong>Utilization:</strong> Current spent / Total amount * 100</li>
+                        <li><strong>Currency Display:</strong> Show currency symbol and code with amounts (e.g., "$240,000 USD", "₹5,00,00,000 INR")</li>
+                        <li><strong>Currency Validation:</strong> Must match associated contract currency</li>
+                    </ul>
+
+                    <h3>PO List View</h3>
+                    <ul>
+                        <li><strong>Columns:</strong> PO Number, Contract, Client, Start Date, Expiration Date, PO Value, Currency, Utilization, Status, Actions</li>
+                        <li><strong>Currency Filter:</strong> Filter POs by currency type</li>
+                        <li><strong>Sorting:</strong> Allow sorting by any column including currency</li>
                     </ul>
 
                     <h3>Expiration Alerts</h3>
@@ -105,7 +117,7 @@
                         <li><strong>Trigger:</strong> PO end date within 30 days</li>
                         <li><strong>Recipients:</strong> Admin, Contract manager</li>
                         <li><strong>Frequency:</strong> Weekly email until renewed</li>
-                        <li><strong>Content:</strong> PO#, Client, Amount, Days remaining</li>
+                        <li><strong>Content:</strong> PO#, Client, Amount with Currency, Days remaining</li>
                     </ul>
 
                     <h2 id="timesheets">⏱️ Timesheet Module</h2>

@@ -91,11 +91,13 @@
   clientName: String (required),
   startDate: Date (required),
   endDate: Date (required),
-  rate: Number (required),
-  rateType: Enum['hourly', 'monthly'],
-  status: Enum['Active', 'Pending', 'Expired'],
+  contractValue: Number (required),
+  currency: String (required, default: 'USD'),
+  // Supported currencies: USD, INR, EUR, GBP, JPY, AUD, CAD, SGD
+  status: Enum['Active', 'Pending', 'Expired', 'Expiring Soon'],
   assignedResources: [ObjectId] (ref: Resources),
   description: String,
+  numberOfResources: Number (default: 0),
   createdAt: Date,
   updatedAt: Date
 }</code></pre>
@@ -124,6 +126,8 @@
   poNumber: String (unique),
   contractId: ObjectId (ref: Contracts),
   amount: Number (required),
+  currency: String (required, default: 'USD'),
+  // Supported: USD, INR, EUR, GBP, JPY, AUD, CAD, SGD
   startDate: Date (required),
   endDate: Date (required),
   status: Enum['Active', 'Expiring', 'Expired'],
@@ -172,12 +176,21 @@ Response: { message: "Logged out" }</code></pre>
                     <h3>Contract Endpoints</h3>
                     <pre><code>GET /api/contracts
 Headers: Authorization: Bearer &lt;token&gt;
-Query: ?status=Active&page=1&limit=20
+Query: ?status=Active&currency=USD&page=1&limit=20
 Response: { contracts: [], total, page }
 
 POST /api/contracts
 Headers: Authorization: Bearer &lt;token&gt;
-Body: { clientName, startDate, endDate, rate, ... }
+Body: { 
+  clientName, 
+  startDate, 
+  endDate, 
+  contractValue,
+  currency (USD/INR/EUR/GBP/JPY/AUD/CAD/SGD),
+  status,
+  numberOfResources,
+  description
+}
 Response: { contract: {...} }
 
 GET /api/contracts/:id
@@ -194,6 +207,33 @@ DELETE /api/resources/:id
 POST /api/resources/:id/assign
 Body: { contractId }
 Response: { resource: {...} }</code></pre>
+
+                    <h3>Purchase Order Endpoints</h3>
+                    <pre><code>GET /api/purchase-orders
+Headers: Authorization: Bearer &lt;token&gt;
+Query: page, limit, status, currency
+Response: { purchaseOrders: [], total, page }
+
+POST /api/purchase-orders
+Headers: Authorization: Bearer &lt;token&gt;
+Body: { 
+  poNumber, 
+  contractId, 
+  amount,
+  currency (USD/INR/EUR/GBP/JPY/AUD/CAD/SGD),
+  startDate, 
+  endDate,
+  status
+}
+Response: { purchaseOrder: {...} }
+
+GET /api/purchase-orders/:id
+PUT /api/purchase-orders/:id
+DELETE /api/purchase-orders/:id
+
+GET /api/purchase-orders/expiring
+Query: days (default: 30)
+Response: { purchaseOrders: [] }</code></pre>
 
                     <h3>Timesheet Endpoints</h3>
                     <pre><code>GET /api/timesheets
