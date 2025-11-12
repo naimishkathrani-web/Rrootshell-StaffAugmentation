@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Orders - Rrootshell Staff Augmentation</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .page-title h1 {
+            font-size: 2rem;
+            color: var(--dark-color);
+            margin-bottom: 0.25rem;
+        }
+        .page-title p {
+            color: var(--text-secondary);
+        }
+        .alert-banner {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .alert-banner strong {
+            color: #92400e;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .stat-card h3 {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .stat-card.warning .stat-value {
+            color: #f59e0b;
+        }
+        .toolbar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .toolbar-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+        .po-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .po-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .po-table th {
+            background: var(--dark-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        .po-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .po-table tr:hover {
+            background: var(--light-color);
+        }
+        .po-table tr.expiring {
+            background: #fef3c7;
+        }
+        .po-number {
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+        .po-number:hover {
+            text-decoration: underline;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .badge.active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .badge.expiring {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .badge.expired {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .action-btn.view {
+            background: var(--primary-color);
+            color: white;
+        }
+        .action-btn.edit {
+            background: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        .action-btn.renew {
+            background: #10b981;
+            color: white;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+        .progress-fill.warning {
+            background: #f59e0b;
+        }
+        .progress-fill.danger {
+            background: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <header class="mockup-header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎨 Purchase Orders Mockup</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="resources.html" class="nav-link">← Resources</a></li>
+                    <li><a href="timesheets.html" class="nav-link">Next: Timesheets →</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="mockup-container" style="background: #f9fafb; min-height: calc(100vh - 300px); padding: 2rem;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>📑 Purchase Orders</h1>
+                    <p>Track POs, expiration dates, and utilization</p>
+                </div>
+                <button class="btn-primary">+ Create New PO</button>
+            </div>
+
+            <div class="alert-banner">
+                <span style="font-size: 1.5rem;">⚠️</span>
+                <div>
+                    <strong>5 Purchase Orders Expiring Soon!</strong> - Review and renew POs expiring within the next 60 days.
+                </div>
+                <button class="btn-primary" style="margin-left: auto;">View Expiring</button>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-card">
+                    <h3>Total Active POs</h3>
+                    <div class="stat-value">18</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total PO Value</h3>
+                    <div class="stat-value">$12.5M</div>
+                </div>
+                <div class="stat-card warning">
+                    <h3>Expiring in 60 Days</h3>
+                    <div class="stat-value">5</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Avg Utilization</h3>
+                    <div class="stat-value">78%</div>
+                </div>
+            </div>
+
+            <div class="toolbar">
+                <div class="toolbar-row">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search by PO number, client, or contract...">
+                    </div>
+                    <select class="filter-select">
+                        <option>All Status</option>
+                        <option>Active</option>
+                        <option>Expiring Soon</option>
+                        <option>Expired</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>All Contracts</option>
+                        <option>CON-2024-001</option>
+                        <option>CON-2024-005</option>
+                        <option>CON-2024-012</option>
+                    </select>
+                    <button class="btn-secondary">Export Report</button>
+                </div>
+            </div>
+
+            <div class="po-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>PO Number</th>
+                            <th>Contract</th>
+                            <th>Client</th>
+                            <th>Start Date</th>
+                            <th>Expiration Date</th>
+                            <th>PO Value</th>
+                            <th>Utilization</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="expiring">
+                            <td><span class="po-number">PO-2024-A-003</span></td>
+                            <td>CON-2024-001</td>
+                            <td>Acme Corporation</td>
+                            <td>Mar 1, 2024</td>
+                            <td>Dec 15, 2025</td>
+                            <td>$240,000</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill danger" style="width: 92%;"></div>
+                                </div>
+                                <small>92% Used</small>
+                            </td>
+                            <td><span class="badge expiring">Expiring Soon</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn renew">Renew</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="po-number">PO-2024-A-001</span></td>
+                            <td>CON-2024-001</td>
+                            <td>Acme Corporation</td>
+                            <td>Jan 15, 2024</td>
+                            <td>Jun 30, 2025</td>
+                            <td>$720,000</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%;"></div>
+                                </div>
+                                <small>65% Used</small>
+                            </td>
+                            <td><span class="badge active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="po-number">PO-2024-A-002</span></td>
+                            <td>CON-2024-001</td>
+                            <td>Acme Corporation</td>
+                            <td>Feb 1, 2024</td>
+                            <td>Jul 31, 2025</td>
+                            <td>$480,000</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 58%;"></div>
+                                </div>
+                                <small>58% Used</small>
+                            </td>
+                            <td><span class="badge active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="expiring">
+                            <td><span class="po-number">PO-2024-T-001</span></td>
+                            <td>CON-2024-005</td>
+                            <td>TechStart Inc</td>
+                            <td>Mar 1, 2024</td>
+                            <td>Jan 15, 2026</td>
+                            <td>$600,000</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill warning" style="width: 82%;"></div>
+                                </div>
+                                <small>82% Used</small>
+                            </td>
+                            <td><span class="badge expiring">Expiring Soon</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn renew">Renew</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="po-number">PO-2024-G-001</span></td>
+                            <td>CON-2024-012</td>
+                            <td>Global Solutions Ltd</td>
+                            <td>Jun 10, 2024</td>
+                            <td>Jun 10, 2026</td>
+                            <td>$1,600,000</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 45%;"></div>
+                                </div>
+                                <small>45% Used</small>
+                            </td>
+                            <td><span class="badge active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="po-number">PO-2024-G-002</span></td>
+                            <td>CON-2024-012</td>
+                            <td>Global Solutions Ltd</td>
+                            <td>Jun 10, 2024</td>
+                            <td>Jun 10, 2026</td>
+                            <td>$1,600,000</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 38%;"></div>
+                                </div>
+                                <small>38% Used</small>
+                            </td>
+                            <td><span class="badge active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="po-number">PO-2023-I-001</span></td>
+                            <td>CON-2023-045</td>
+                            <td>Innovate Systems</td>
+                            <td>Sep 5, 2023</td>
+                            <td>Sep 5, 2025</td>
+                            <td>$475,000</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 71%;"></div>
+                                </div>
+                                <small>71% Used</small>
+                            </td>
+                            <td><span class="badge active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="po-number">PO-2024-D-001</span></td>
+                            <td>CON-2024-018</td>
+                            <td>DataFlow Inc</td>
+                            <td>Apr 20, 2024</td>
+                            <td>Apr 20, 2026</td>
+                            <td>$750,000</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 52%;"></div>
+                                </div>
+                                <small>52% Used</small>
+                            </td>
+                            <td><span class="badge active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="expiring">
+                            <td><span class="po-number">PO-2023-C-002</span></td>
+                            <td>CON-2023-028</td>
+                            <td>CloudNine Technologies</td>
+                            <td>Jul 1, 2023</td>
+                            <td>Jan 31, 2026</td>
+                            <td>$1,050,000</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill warning" style="width: 88%;"></div>
+                                </div>
+                                <small>88% Used</small>
+                            </td>
+                            <td><span class="badge expiring">Expiring Soon</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn renew">Renew</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="po-number">PO-2024-N-001</span></td>
+                            <td>CON-2024-022</td>
+                            <td>NextGen Software</td>
+                            <td>May 12, 2024</td>
+                            <td>May 12, 2027</td>
+                            <td>$2,250,000</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 28%;"></div>
+                                </div>
+                                <small>28% Used</small>
+                            </td>
+                            <td><span class="badge active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center;">
+                <p style="color: var(--text-secondary);">Showing 10 of 18 purchase orders</p>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn-secondary">← Previous</button>
+                    <button class="btn-secondary" style="background: var(--primary-color); color: white;">1</button>
+                    <button class="btn-secondary">2</button>
+                    <button class="btn-secondary">Next →</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Mockup Navigation</h4>
+                    <ul>
+                        <li><a href="contracts.html">Contracts</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="timesheets.html">Timesheets</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Portal</h4>
+                    <ul>
+                        <li><a href="index.html">All Mockups</a></li>
+                        <li><a href="../index.html">Project Home</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

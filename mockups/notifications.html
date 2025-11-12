@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - Rrootshell Staff Augmentation</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .notifications-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .notification-sidebar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+        .notification-sidebar h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        .filter-menu {
+            list-style: none;
+            padding: 0;
+        }
+        .filter-menu li {
+            margin-bottom: 0.5rem;
+        }
+        .filter-menu button {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            background: none;
+            border: none;
+            text-decoration: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+        .filter-menu button:hover, .filter-menu button.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        .badge-count {
+            background: #ef4444;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .page-header h1 {
+            font-size: 2rem;
+            color: var(--dark-color);
+        }
+        .notification-list {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .notification-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 1rem;
+            transition: all 0.3s;
+        }
+        .notification-item:hover {
+            background: var(--light-color);
+        }
+        .notification-item.unread {
+            background: #eff6ff;
+            border-left: 3px solid var(--primary-color);
+        }
+        .notification-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        .notification-content {
+            flex: 1;
+        }
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.5rem;
+        }
+        .notification-title {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        .notification-time {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        .notification-body {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        .notification-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+        .notification-actions button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .btn-action-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        .btn-action-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        .mark-read-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 0.85rem;
+            padding: 0.25rem;
+        }
+        .empty-state {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="mockup-header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎨 Notifications Mockup</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="profile.html" class="nav-link">← Profile</a></li>
+                    <li><a href="documents.html" class="nav-link">Next: Documents →</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="mockup-container" style="background: #f9fafb; min-height: calc(100vh - 300px); padding: 2rem;">
+        <div class="notifications-layout">
+            <aside class="notification-sidebar">
+                <h3>🔔 Filters</h3>
+                <ul class="filter-menu">
+                    <li>
+                        <button class="active">
+                            <span>All Notifications</span>
+                            <span class="badge-count">12</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button>
+                            <span>Unread</span>
+                            <span class="badge-count">5</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button>
+                            <span>Contracts</span>
+                            <span class="badge-count">3</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button>
+                            <span>Timesheets</span>
+                            <span class="badge-count">2</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button>
+                            <span>Purchase Orders</span>
+                            <span class="badge-count">2</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button>
+                            <span>System</span>
+                            <span class="badge-count">1</span>
+                        </button>
+                    </li>
+                </ul>
+                <div style="margin-top: 2rem; padding-top: 1rem; border-top: 2px solid var(--border-color);">
+                    <button class="btn-secondary" style="width: 100%;">Mark All as Read</button>
+                </div>
+            </aside>
+
+            <div>
+                <div class="page-header">
+                    <h1>🔔 Notifications</h1>
+                    <button class="btn-secondary">⚙️ Settings</button>
+                </div>
+
+                <div class="notification-list">
+                    <!-- Unread Notification 1 -->
+                    <div class="notification-item unread">
+                        <div class="notification-icon">⚠️</div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <div class="notification-title">Contract Expiring Soon</div>
+                                <div class="notification-time">2 hours ago</div>
+                            </div>
+                            <div class="notification-body">
+                                Contract CON-2024-001 with Acme Corporation will expire in 45 days. Please initiate renewal process.
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn-action-primary" onclick="window.location.href='contract-detail.html'">View Contract</button>
+                                <button class="btn-action-secondary">Dismiss</button>
+                                <button class="mark-read-btn">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Unread Notification 2 -->
+                    <div class="notification-item unread">
+                        <div class="notification-icon">✅</div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <div class="notification-title">Timesheet Approved</div>
+                                <div class="notification-time">5 hours ago</div>
+                            </div>
+                            <div class="notification-body">
+                                Your timesheet for week Dec 9-15, 2024 has been approved. 40 hours logged.
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn-action-primary" onclick="window.location.href='timesheets.html'">View Timesheet</button>
+                                <button class="mark-read-btn">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Unread Notification 3 -->
+                    <div class="notification-item unread">
+                        <div class="notification-icon">📑</div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <div class="notification-title">New Purchase Order Added</div>
+                                <div class="notification-time">1 day ago</div>
+                            </div>
+                            <div class="notification-body">
+                                Purchase Order PO-2024-N-002 has been created for NextGen Software contract. Value: $1,250,000.
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn-action-primary" onclick="window.location.href='purchase-orders.html'">View PO</button>
+                                <button class="mark-read-btn">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Unread Notification 4 -->
+                    <div class="notification-item unread">
+                        <div class="notification-icon">👥</div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <div class="notification-title">New Resource Assigned to Your Project</div>
+                                <div class="notification-time">1 day ago</div>
+                            </div>
+                            <div class="notification-body">
+                                Sarah Parker (Full Stack Developer) has been assigned to Acme Corporation project.
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn-action-primary" onclick="window.location.href='resources.html'">View Resource</button>
+                                <button class="mark-read-btn">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Unread Notification 5 -->
+                    <div class="notification-item unread">
+                        <div class="notification-icon">💰</div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <div class="notification-title">PO Utilization Alert</div>
+                                <div class="notification-time">2 days ago</div>
+                            </div>
+                            <div class="notification-body">
+                                Purchase Order PO-2024-A-003 has reached 92% utilization. Renewal recommended.
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn-action-primary" onclick="window.location.href='purchase-orders.html'">Review PO</button>
+                                <button class="btn-action-secondary">Renew</button>
+                                <button class="mark-read-btn">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Read Notification 1 -->
+                    <div class="notification-item">
+                        <div class="notification-icon">📊</div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <div class="notification-title">Monthly Report Available</div>
+                                <div class="notification-time">3 days ago</div>
+                            </div>
+                            <div class="notification-body">
+                                Your November 2024 utilization report is ready for review.
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn-action-primary" onclick="window.location.href='reports.html'">View Report</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Read Notification 2 -->
+                    <div class="notification-item">
+                        <div class="notification-icon">🎓</div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <div class="notification-title">Training Completed</div>
+                                <div class="notification-time">4 days ago</div>
+                            </div>
+                            <div class="notification-body">
+                                You've successfully completed "Advanced React Patterns" training course. Certificate available.
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn-action-primary">Download Certificate</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Read Notification 3 -->
+                    <div class="notification-item">
+                        <div class="notification-icon">📝</div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <div class="notification-title">Document Signed</div>
+                                <div class="notification-time">5 days ago</div>
+                            </div>
+                            <div class="notification-body">
+                                Your signature has been recorded for Contract Amendment CON-2024-001-AMD-01.
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn-action-primary" onclick="window.location.href='documents.html'">View Document</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Read Notification 4 -->
+                    <div class="notification-item">
+                        <div class="notification-icon">🔒</div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <div class="notification-title">Password Changed Successfully</div>
+                                <div class="notification-time">1 week ago</div>
+                            </div>
+                            <div class="notification-body">
+                                Your account password was changed on Dec 12, 2024 at 2:30 PM. If this wasn't you, contact support immediately.
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn-action-secondary">Contact Support</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Read Notification 5 -->
+                    <div class="notification-item">
+                        <div class="notification-icon">🎉</div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <div class="notification-title">Welcome to Rrootshell Platform!</div>
+                                <div class="notification-time">2 weeks ago</div>
+                            </div>
+                            <div class="notification-body">
+                                Your account has been successfully created. Complete your profile to get started.
+                            </div>
+                            <div class="notification-actions">
+                                <button class="btn-action-primary" onclick="window.location.href='profile.html'">Complete Profile</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Notification -->
+                    <div class="notification-item">
+                        <div class="notification-icon">⚙️</div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <div class="notification-title">System Maintenance Scheduled</div>
+                                <div class="notification-time">2 weeks ago</div>
+                            </div>
+                            <div class="notification-body">
+                                Scheduled system maintenance on Dec 25, 2024 from 2:00 AM - 4:00 AM EST. Some features may be temporarily unavailable.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; text-align: center;">
+                    <button class="btn-secondary">Load Older Notifications</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Mockup Navigation</h4>
+                    <ul>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="profile.html">Profile</a></li>
+                        <li><a href="documents.html">Documents</a></li>
+                        <li><a href="contracts.html">Contracts</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Portal</h4>
+                    <ul>
+                        <li><a href="index.html">All Mockups</a></li>
+                        <li><a href="../index.html">Project Home</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

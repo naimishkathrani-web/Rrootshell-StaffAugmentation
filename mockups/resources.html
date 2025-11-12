@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - Rrootshell Staff Augmentation</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .page-title h1 {
+            font-size: 2rem;
+            color: var(--dark-color);
+            margin-bottom: 0.25rem;
+        }
+        .page-title p {
+            color: var(--text-secondary);
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .stat-card h3 {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .toolbar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .toolbar-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+        .resources-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        .resource-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .resource-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            font-weight: 700;
+        }
+        .resource-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+            color: var(--dark-color);
+        }
+        .resource-role {
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+        .resource-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .skills-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.75rem;
+        }
+        .skill-tag {
+            background: var(--light-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--dark-color);
+        }
+        .resource-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .badge.active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .badge.bench {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .action-btn:hover {
+            background: var(--light-color);
+        }
+        .action-btn.primary {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <header class="mockup-header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎨 Resources Management Mockup</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="contract-detail.html" class="nav-link">← Contract Details</a></li>
+                    <li><a href="purchase-orders.html" class="nav-link">Next: Purchase Orders →</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="mockup-container" style="background: #f9fafb; min-height: calc(100vh - 300px); padding: 2rem;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>👥 Resources</h1>
+                    <p>Manage consultants and track assignments</p>
+                </div>
+                <button class="btn-primary">+ Add New Resource</button>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-card">
+                    <h3>Total Resources</h3>
+                    <div class="stat-value">48</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Active Assignments</h3>
+                    <div class="stat-value">35</div>
+                </div>
+                <div class="stat-card">
+                    <h3>On Bench</h3>
+                    <div class="stat-value">13</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Available This Month</h3>
+                    <div class="stat-value">8</div>
+                </div>
+            </div>
+
+            <div class="toolbar">
+                <div class="toolbar-row">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search by name, skill, or role...">
+                    </div>
+                    <select class="filter-select">
+                        <option>All Status</option>
+                        <option>Active</option>
+                        <option>On Bench</option>
+                        <option>In Training</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>All Skills</option>
+                        <option>React</option>
+                        <option>Node.js</option>
+                        <option>Python</option>
+                        <option>DevOps</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>All Roles</option>
+                        <option>Frontend Developer</option>
+                        <option>Backend Developer</option>
+                        <option>Full Stack Developer</option>
+                        <option>DevOps Engineer</option>
+                    </select>
+                    <button class="btn-secondary">Export</button>
+                </div>
+            </div>
+
+            <div class="resources-grid">
+                <!-- Resource 1 -->
+                <div class="resource-card">
+                    <div class="resource-avatar">JS</div>
+                    <div class="resource-info">
+                        <h3>John Smith</h3>
+                        <div class="resource-role">Senior React Developer</div>
+                        <div class="resource-meta">
+                            <span>📧 john.smith@rrootshell.com</span>
+                            <span>📞 +1 (555) 234-5678</span>
+                            <span>📍 New York, NY</span>
+                            <span><span class="badge active">Active</span></span>
+                        </div>
+                        <div class="skills-tags">
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">Redux</span>
+                            <span class="skill-tag">Next.js</span>
+                            <span class="skill-tag">Jest</span>
+                        </div>
+                        <div class="resource-meta" style="margin-top: 0.75rem;">
+                            <span><strong>Current Assignment:</strong> Acme Corp (CON-2024-001)</span>
+                            <span><strong>Rate:</strong> $12,000/month</span>
+                            <span><strong>Since:</strong> Jan 2024</span>
+                        </div>
+                    </div>
+                    <div class="resource-actions">
+                        <button class="action-btn primary">View Profile</button>
+                        <button class="action-btn">Edit</button>
+                        <button class="action-btn">Reassign</button>
+                    </div>
+                </div>
+
+                <!-- Resource 2 -->
+                <div class="resource-card">
+                    <div class="resource-avatar">JD</div>
+                    <div class="resource-info">
+                        <h3>Jane Doe</h3>
+                        <div class="resource-role">Backend Engineer (Node.js)</div>
+                        <div class="resource-meta">
+                            <span>📧 jane.doe@rrootshell.com</span>
+                            <span>📞 +1 (555) 345-6789</span>
+                            <span>📍 San Francisco, CA</span>
+                            <span><span class="badge active">Active</span></span>
+                        </div>
+                        <div class="skills-tags">
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Express</span>
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">MongoDB</span>
+                            <span class="skill-tag">AWS</span>
+                        </div>
+                        <div class="resource-meta" style="margin-top: 0.75rem;">
+                            <span><strong>Current Assignment:</strong> Acme Corp (CON-2024-001)</span>
+                            <span><strong>Rate:</strong> $11,500/month</span>
+                            <span><strong>Since:</strong> Jan 2024</span>
+                        </div>
+                    </div>
+                    <div class="resource-actions">
+                        <button class="action-btn primary">View Profile</button>
+                        <button class="action-btn">Edit</button>
+                        <button class="action-btn">Reassign</button>
+                    </div>
+                </div>
+
+                <!-- Resource 3 -->
+                <div class="resource-card">
+                    <div class="resource-avatar">MC</div>
+                    <div class="resource-info">
+                        <h3>Michael Chen</h3>
+                        <div class="resource-role">DevOps Engineer</div>
+                        <div class="resource-meta">
+                            <span>📧 michael.chen@rrootshell.com</span>
+                            <span>📞 +1 (555) 456-7890</span>
+                            <span>📍 Seattle, WA</span>
+                            <span><span class="badge active">Active</span></span>
+                        </div>
+                        <div class="skills-tags">
+                            <span class="skill-tag">AWS</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">Kubernetes</span>
+                            <span class="skill-tag">Terraform</span>
+                            <span class="skill-tag">CI/CD</span>
+                        </div>
+                        <div class="resource-meta" style="margin-top: 0.75rem;">
+                            <span><strong>Current Assignment:</strong> Acme Corp (CON-2024-001)</span>
+                            <span><strong>Rate:</strong> $13,000/month</span>
+                            <span><strong>Since:</strong> Feb 2024</span>
+                        </div>
+                    </div>
+                    <div class="resource-actions">
+                        <button class="action-btn primary">View Profile</button>
+                        <button class="action-btn">Edit</button>
+                        <button class="action-btn">Reassign</button>
+                    </div>
+                </div>
+
+                <!-- Resource 4 -->
+                <div class="resource-card">
+                    <div class="resource-avatar">ER</div>
+                    <div class="resource-info">
+                        <h3>Emily Rodriguez</h3>
+                        <div class="resource-role">UI/UX Designer</div>
+                        <div class="resource-meta">
+                            <span>📧 emily.rodriguez@rrootshell.com</span>
+                            <span>📞 +1 (555) 567-8901</span>
+                            <span>📍 Austin, TX</span>
+                            <span><span class="badge active">Active</span></span>
+                        </div>
+                        <div class="skills-tags">
+                            <span class="skill-tag">Figma</span>
+                            <span class="skill-tag">Adobe XD</span>
+                            <span class="skill-tag">Sketch</span>
+                            <span class="skill-tag">User Research</span>
+                            <span class="skill-tag">Prototyping</span>
+                        </div>
+                        <div class="resource-meta" style="margin-top: 0.75rem;">
+                            <span><strong>Current Assignment:</strong> Acme Corp (CON-2024-001)</span>
+                            <span><strong>Rate:</strong> $9,500/month</span>
+                            <span><strong>Since:</strong> Jan 2024</span>
+                        </div>
+                    </div>
+                    <div class="resource-actions">
+                        <button class="action-btn primary">View Profile</button>
+                        <button class="action-btn">Edit</button>
+                        <button class="action-btn">Reassign</button>
+                    </div>
+                </div>
+
+                <!-- Resource 5 -->
+                <div class="resource-card" style="border-left: 3px solid #3730a3;">
+                    <div class="resource-avatar" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">SP</div>
+                    <div class="resource-info">
+                        <h3>Sarah Parker</h3>
+                        <div class="resource-role">Full Stack Developer (Python/React)</div>
+                        <div class="resource-meta">
+                            <span>📧 sarah.parker@rrootshell.com</span>
+                            <span>📞 +1 (555) 678-9012</span>
+                            <span>📍 Boston, MA</span>
+                            <span><span class="badge bench">On Bench</span></span>
+                        </div>
+                        <div class="skills-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Django</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">Docker</span>
+                        </div>
+                        <div class="resource-meta" style="margin-top: 0.75rem;">
+                            <span><strong>Previous Assignment:</strong> TechStart Inc</span>
+                            <span><strong>Rate:</strong> $11,000/month</span>
+                            <span><strong>Available:</strong> Immediately</span>
+                        </div>
+                    </div>
+                    <div class="resource-actions">
+                        <button class="action-btn primary">View Profile</button>
+                        <button class="action-btn">Edit</button>
+                        <button class="action-btn" style="background: var(--primary-color); color: white;">Assign</button>
+                    </div>
+                </div>
+
+                <!-- Resource 6 -->
+                <div class="resource-card">
+                    <div class="resource-avatar">DP</div>
+                    <div class="resource-info">
+                        <h3>David Park</h3>
+                        <div class="resource-role">QA Engineer</div>
+                        <div class="resource-meta">
+                            <span>📧 david.park@rrootshell.com</span>
+                            <span>📞 +1 (555) 789-0123</span>
+                            <span>📍 Los Angeles, CA</span>
+                            <span><span class="badge active">Active</span></span>
+                        </div>
+                        <div class="skills-tags">
+                            <span class="skill-tag">Selenium</span>
+                            <span class="skill-tag">Jest</span>
+                            <span class="skill-tag">Cypress</span>
+                            <span class="skill-tag">API Testing</span>
+                            <span class="skill-tag">Performance Testing</span>
+                        </div>
+                        <div class="resource-meta" style="margin-top: 0.75rem;">
+                            <span><strong>Current Assignment:</strong> Acme Corp (CON-2024-001)</span>
+                            <span><strong>Rate:</strong> $8,000/month</span>
+                            <span><strong>Since:</strong> Mar 2024</span>
+                        </div>
+                    </div>
+                    <div class="resource-actions">
+                        <button class="action-btn primary">View Profile</button>
+                        <button class="action-btn">Edit</button>
+                        <button class="action-btn">Reassign</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <p style="color: var(--text-secondary);">Showing 6 of 48 resources</p>
+                <button class="btn-secondary" style="margin-top: 1rem;">Load More Resources</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Mockup Navigation</h4>
+                    <ul>
+                        <li><a href="contracts.html">Contracts</a></li>
+                        <li><a href="contract-detail.html">Contract Details</a></li>
+                        <li><a href="purchase-orders.html">Purchase Orders</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Portal</h4>
+                    <ul>
+                        <li><a href="index.html">All Mockups</a></li>
+                        <li><a href="../index.html">Project Home</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

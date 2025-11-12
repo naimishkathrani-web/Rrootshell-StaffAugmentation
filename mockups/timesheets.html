@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timesheets - Rrootshell Staff Augmentation</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .page-title h1 {
+            font-size: 2rem;
+            color: var(--dark-color);
+            margin-bottom: 0.25rem;
+        }
+        .page-title p {
+            color: var(--text-secondary);
+        }
+        .timesheet-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .week-selector {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            background: var(--light-color);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .week-selector h2 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        .week-nav {
+            display: flex;
+            gap: 1rem;
+        }
+        .timesheet-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .timesheet-table th {
+            background: var(--dark-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        .timesheet-table th.day-col {
+            text-align: center;
+            min-width: 100px;
+        }
+        .timesheet-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .timesheet-table td.day-cell {
+            text-align: center;
+        }
+        .hour-input {
+            width: 60px;
+            padding: 0.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            text-align: center;
+            font-size: 1rem;
+        }
+        .hour-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        .project-name {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        .client-name {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .total-row {
+            background: var(--light-color);
+            font-weight: 700;
+        }
+        .total-hours {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .badge.draft {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+        .badge.submitted {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .badge.approved {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        .info-box {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-box h3 {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        .stat-box .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <header class="mockup-header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎨 Timesheets Mockup</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="purchase-orders.html" class="nav-link">← Purchase Orders</a></li>
+                    <li><a href="admin-panel.html" class="nav-link">Next: Admin Panel →</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="mockup-container" style="background: #f9fafb; min-height: calc(100vh - 300px); padding: 2rem;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>⏰ My Timesheets</h1>
+                    <p>Track your weekly hours by project</p>
+                </div>
+                <button class="btn-primary">+ Add Project</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h3>This Week Total</h3>
+                    <div class="value">40h</div>
+                </div>
+                <div class="stat-box">
+                    <h3>This Month Total</h3>
+                    <div class="value">152h</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Pending Approval</h3>
+                    <div class="value">3</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Approval Rate</h3>
+                    <div class="value">98%</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 Reminder:</strong> Timesheets must be submitted by Friday 5:00 PM for payroll processing.
+            </div>
+
+            <div class="week-selector">
+                <div>
+                    <h2>Week: Dec 16 - Dec 22, 2024</h2>
+                    <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);"><span class="badge draft">Draft</span></p>
+                </div>
+                <div class="week-nav">
+                    <button class="btn-secondary">← Previous Week</button>
+                    <button class="btn-secondary">Next Week →</button>
+                </div>
+            </div>
+
+            <div class="timesheet-card">
+                <table class="timesheet-table">
+                    <thead>
+                        <tr>
+                            <th>Project / Contract</th>
+                            <th class="day-col">Mon<br><small>Dec 16</small></th>
+                            <th class="day-col">Tue<br><small>Dec 17</small></th>
+                            <th class="day-col">Wed<br><small>Dec 18</small></th>
+                            <th class="day-col">Thu<br><small>Dec 19</small></th>
+                            <th class="day-col">Fri<br><small>Dec 20</small></th>
+                            <th class="day-col">Sat<br><small>Dec 21</small></th>
+                            <th class="day-col">Sun<br><small>Dec 22</small></th>
+                            <th class="day-col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="project-name">Acme Web Application</div>
+                                <div class="client-name">CON-2024-001 - Acme Corporation</div>
+                            </td>
+                            <td class="day-cell"><input type="number" class="hour-input" value="8" min="0" max="24"></td>
+                            <td class="day-cell"><input type="number" class="hour-input" value="8" min="0" max="24"></td>
+                            <td class="day-cell"><input type="number" class="hour-input" value="8" min="0" max="24"></td>
+                            <td class="day-cell"><input type="number" class="hour-input" value="8" min="0" max="24"></td>
+                            <td class="day-cell"><input type="number" class="hour-input" value="8" min="0" max="24"></td>
+                            <td class="day-cell"><input type="number" class="hour-input" value="0" min="0" max="24"></td>
+                            <td class="day-cell"><input type="number" class="hour-input" value="0" min="0" max="24"></td>
+                            <td class="day-cell total-hours">40h</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="project-name">Internal Development</div>
+                                <div class="client-name">Internal Project</div>
+                            </td>
+                            <td class="day-cell"><input type="number" class="hour-input" value="0" min="0" max="24"></td>
+                            <td class="day-cell"><input type="number" class="hour-input" value="0" min="0" max="24"></td>
+                            <td class="day-cell"><input type="number" class="hour-input" value="0" min="0" max="24"></td>
+                            <td class="day-cell"><input type="number" class="hour-input" value="0" min="0" max="24"></td>
+                            <td class="day-cell"><input type="number" class="hour-input" value="0" min="0" max="24"></td>
+                            <td class="day-cell"><input type="number" class="hour-input" value="0" min="0" max="24"></td>
+                            <td class="day-cell"><input type="number" class="hour-input" value="0" min="0" max="24"></td>
+                            <td class="day-cell total-hours">0h</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong>Daily Totals</strong></td>
+                            <td class="day-cell total-hours">8h</td>
+                            <td class="day-cell total-hours">8h</td>
+                            <td class="day-cell total-hours">8h</td>
+                            <td class="day-cell total-hours">8h</td>
+                            <td class="day-cell total-hours">8h</td>
+                            <td class="day-cell total-hours">0h</td>
+                            <td class="day-cell total-hours">0h</td>
+                            <td class="day-cell total-hours">40h</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="action-bar">
+                    <div style="color: var(--text-secondary);">
+                        <strong>Status:</strong> Draft - Last saved at 3:45 PM today
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn-secondary">💾 Save Draft</button>
+                        <button class="btn-primary">✓ Submit for Approval</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Previous Weeks Section -->
+            <div class="timesheet-card">
+                <h2 style="margin-bottom: 1.5rem;">Recent Timesheets</h2>
+                <table class="timesheet-table">
+                    <thead>
+                        <tr>
+                            <th>Week Period</th>
+                            <th>Total Hours</th>
+                            <th>Submitted Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dec 9 - Dec 15, 2024</td>
+                            <td>40h</td>
+                            <td>Dec 15, 2024 4:30 PM</td>
+                            <td><span class="badge approved">Approved</span></td>
+                            <td>
+                                <button class="action-btn" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); background: white; border-radius: 4px; cursor: pointer;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Dec 2 - Dec 8, 2024</td>
+                            <td>38h</td>
+                            <td>Dec 8, 2024 3:15 PM</td>
+                            <td><span class="badge approved">Approved</span></td>
+                            <td>
+                                <button class="action-btn" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); background: white; border-radius: 4px; cursor: pointer;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nov 25 - Dec 1, 2024</td>
+                            <td>40h</td>
+                            <td>Dec 1, 2024 5:00 PM</td>
+                            <td><span class="badge submitted">Pending Approval</span></td>
+                            <td>
+                                <button class="action-btn" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); background: white; border-radius: 4px; cursor: pointer;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nov 18 - Nov 24, 2024</td>
+                            <td>40h</td>
+                            <td>Nov 24, 2024 4:45 PM</td>
+                            <td><span class="badge approved">Approved</span></td>
+                            <td>
+                                <button class="action-btn" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); background: white; border-radius: 4px; cursor: pointer;">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <button class="btn-secondary" onclick="window.location.href='dashboard.html'">← Back to Dashboard</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Mockup Navigation</h4>
+                    <ul>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="contracts.html">Contracts</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="purchase-orders.html">Purchase Orders</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Portal</h4>
+                    <ul>
+                        <li><a href="index.html">All Mockups</a></li>
+                        <li><a href="../index.html">Project Home</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

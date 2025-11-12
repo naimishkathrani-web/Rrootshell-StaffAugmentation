@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Rrootshell Staff Augmentation</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .profile-sidebar {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+        .profile-name {
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        .profile-name h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+        .profile-role {
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .profile-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--border-color);
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-item .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .stat-item .label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .profile-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .content-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .content-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .skill-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .skill-tag button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0;
+        }
+        .add-skill {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .add-skill input {
+            flex: 1;
+        }
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .activity-item {
+            padding: 1rem;
+            background: var(--light-color);
+            border-radius: 6px;
+            border-left: 3px solid var(--primary-color);
+        }
+        .activity-item .date {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .activity-item .description {
+            margin-top: 0.25rem;
+            color: var(--dark-color);
+        }
+    </style>
+</head>
+<body>
+    <header class="mockup-header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎨 User Profile Mockup</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="reports.html" class="nav-link">← Reports</a></li>
+                    <li><a href="notifications.html" class="nav-link">Next: Notifications →</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="mockup-container" style="background: #f9fafb; min-height: calc(100vh - 300px); padding: 2rem;">
+        <div class="profile-layout">
+            <aside class="profile-sidebar">
+                <div class="profile-avatar">JS</div>
+                <div class="profile-name">
+                    <h2>John Smith</h2>
+                </div>
+                <div class="profile-role">Senior React Developer</div>
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <button class="btn-primary" style="width: 100%;">Upload Photo</button>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="value">24</div>
+                        <div class="label">Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="value">3.5</div>
+                        <div class="label">Years</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="value">98%</div>
+                        <div class="label">Rating</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="value">2,150</div>
+                        <div class="label">Hours</div>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="profile-content">
+                <!-- Personal Information -->
+                <div class="content-card">
+                    <h2>👤 Personal Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" value="John">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" value="Smith">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" value="john.smith@rrootshell.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" value="+1 (555) 234-5678">
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" value="New York, NY">
+                        </div>
+                        <div class="form-group">
+                            <label>Timezone</label>
+                            <select>
+                                <option>Eastern Time (ET)</option>
+                                <option>Central Time (CT)</option>
+                                <option>Mountain Time (MT)</option>
+                                <option>Pacific Time (PT)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 1.5rem;">
+                        <label>Bio</label>
+                        <textarea rows="4" placeholder="Tell us about yourself...">Experienced React developer with 8+ years in building scalable web applications. Passionate about clean code, performance optimization, and mentoring junior developers. Specialized in modern frontend frameworks and state management solutions.</textarea>
+                    </div>
+                    <div style="margin-top: 1.5rem;">
+                        <button class="btn-primary">💾 Save Changes</button>
+                    </div>
+                </div>
+
+                <!-- Professional Details -->
+                <div class="content-card">
+                    <h2>💼 Professional Details</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Job Title</label>
+                            <input type="text" value="Senior React Developer">
+                        </div>
+                        <div class="form-group">
+                            <label>Department</label>
+                            <select>
+                                <option>Frontend Development</option>
+                                <option>Backend Development</option>
+                                <option>Full Stack Development</option>
+                                <option>DevOps</option>
+                                <option>Design</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Experience Level</label>
+                            <select>
+                                <option>Senior</option>
+                                <option>Mid-Level</option>
+                                <option>Junior</option>
+                                <option>Lead</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Hourly Rate</label>
+                            <input type="text" value="$150/hour">
+                        </div>
+                        <div class="form-group">
+                            <label>Availability Status</label>
+                            <select>
+                                <option>Assigned</option>
+                                <option>Available</option>
+                                <option>On Leave</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" value="2021-06-15">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills & Expertise -->
+                <div class="content-card">
+                    <h2>🎯 Skills & Expertise</h2>
+                    <div class="skills-container">
+                        <div class="skill-tag">
+                            React
+                            <button>×</button>
+                        </div>
+                        <div class="skill-tag">
+                            TypeScript
+                            <button>×</button>
+                        </div>
+                        <div class="skill-tag">
+                            Redux
+                            <button>×</button>
+                        </div>
+                        <div class="skill-tag">
+                            Next.js
+                            <button>×</button>
+                        </div>
+                        <div class="skill-tag">
+                            Jest
+                            <button>×</button>
+                        </div>
+                        <div class="skill-tag">
+                            CSS/SCSS
+                            <button>×</button>
+                        </div>
+                        <div class="skill-tag">
+                            Webpack
+                            <button>×</button>
+                        </div>
+                        <div class="skill-tag">
+                            Git
+                            <button>×</button>
+                        </div>
+                    </div>
+                    <div class="add-skill">
+                        <input type="text" placeholder="Add new skill...">
+                        <button class="btn-primary">+ Add</button>
+                    </div>
+                </div>
+
+                <!-- Current Assignment -->
+                <div class="content-card">
+                    <h2>📋 Current Assignment</h2>
+                    <div style="background: var(--light-color); padding: 1.5rem; border-radius: 6px;">
+                        <h3 style="margin-bottom: 0.5rem;">Acme Corporation - Web Application Development</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">Contract: CON-2024-001</p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <div>
+                                <strong>Start Date:</strong> January 15, 2024
+                            </div>
+                            <div>
+                                <strong>Duration:</strong> 24 months
+                            </div>
+                            <div>
+                                <strong>Billing Rate:</strong> $12,000/month
+                            </div>
+                            <div>
+                                <strong>Status:</strong> <span style="color: #10b981;">● Active</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <button class="btn-secondary">View Contract Details →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="content-card">
+                    <h2>📅 Recent Activity</h2>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="date">December 20, 2024 - 3:45 PM</div>
+                            <div class="description">Submitted timesheet for week Dec 16-22</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="date">December 19, 2024 - 2:30 PM</div>
+                            <div class="description">Updated profile skills - Added Next.js</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="date">December 18, 2024 - 10:15 AM</div>
+                            <div class="description">Completed training: Advanced React Patterns</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="date">December 15, 2024 - 4:30 PM</div>
+                            <div class="description">Timesheet approved for week Dec 9-15</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="date">December 12, 2024 - 11:00 AM</div>
+                            <div class="description">Reviewed and signed contract amendment</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem;">
+                    <button class="btn-secondary" onclick="window.location.href='dashboard.html'">← Back to Dashboard</button>
+                    <button class="btn-primary">💾 Save All Changes</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Mockup Navigation</h4>
+                    <ul>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="notifications.html">Notifications</a></li>
+                        <li><a href="documents.html">Documents</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Portal</h4>
+                    <ul>
+                        <li><a href="index.html">All Mockups</a></li>
+                        <li><a href="../index.html">Project Home</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

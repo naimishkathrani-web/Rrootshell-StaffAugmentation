@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contract Details - Rrootshell Staff Augmentation</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .page-title {
+            flex: 1;
+        }
+        .page-title h1 {
+            font-size: 2rem;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+        .page-title .contract-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .badge.expiring {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .action-bar {
+            display: flex;
+            gap: 0.75rem;
+        }
+        .contract-sections {
+            display: grid;
+            gap: 1.5rem;
+        }
+        .section-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .section-card h2 {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .info-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+        .info-value {
+            font-size: 1rem;
+            color: var(--dark-color);
+        }
+        .info-value.highlight {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        .data-table th {
+            background: var(--light-color);
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .data-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .data-table tr:hover {
+            background: var(--light-color);
+        }
+        .resource-status {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        .resource-status.active {
+            background: #10b981;
+        }
+        .resource-status.inactive {
+            background: #ef4444;
+        }
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        .warning-box h3 {
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+        .warning-box p {
+            color: #78350f;
+        }
+        .po-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--light-color);
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+        }
+        .po-info h4 {
+            margin-bottom: 0.25rem;
+        }
+        .po-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .po-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <header class="mockup-header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎨 Contract Details Mockup</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="contracts.html" class="nav-link">← Contracts List</a></li>
+                    <li><a href="resources.html" class="nav-link">Next: Resources →</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="mockup-container" style="background: #f9fafb; min-height: calc(100vh - 300px); padding: 2rem;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>📄 Contract: CON-2024-001</h1>
+                    <div class="contract-meta">
+                        <span><strong>Client:</strong> Acme Corporation</span>
+                        <span><strong>Created:</strong> Jan 10, 2024</span>
+                        <span><span class="badge expiring">Expiring Soon</span></span>
+                    </div>
+                </div>
+                <div class="action-bar">
+                    <button class="btn-secondary">✏️ Edit</button>
+                    <button class="btn-primary">🔄 Renew Contract</button>
+                    <button class="btn-secondary">📤 Export PDF</button>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h3>⚠️ Contract Expiring Soon</h3>
+                <p>This contract is set to expire in 45 days (December 15, 2025). Please initiate renewal process or transition planning.</p>
+            </div>
+
+            <div class="contract-sections">
+                <!-- Contract Overview -->
+                <div class="section-card">
+                    <h2>Contract Overview</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Contract Number</span>
+                            <span class="info-value">CON-2024-001</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Contract Value</span>
+                            <span class="info-value highlight">$2,400,000</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Start Date</span>
+                            <span class="info-value">January 15, 2024</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">End Date</span>
+                            <span class="info-value">December 15, 2025</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Contract Duration</span>
+                            <span class="info-value">24 Months</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Payment Terms</span>
+                            <span class="info-value">Net 30 Days</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client Information -->
+                <div class="section-card">
+                    <h2>Client Information</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Company Name</span>
+                            <span class="info-value">Acme Corporation</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Primary Contact</span>
+                            <span class="info-value">Sarah Johnson</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email</span>
+                            <span class="info-value">sarah.johnson@acmecorp.com</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value">+1 (555) 123-4567</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Address</span>
+                            <span class="info-value">123 Enterprise Blvd, Suite 500<br>New York, NY 10001</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Industry</span>
+                            <span class="info-value">Financial Services</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assigned Resources -->
+                <div class="section-card">
+                    <h2>Assigned Resources (12 Total)</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Resource Name</th>
+                                <th>Role</th>
+                                <th>Assignment Date</th>
+                                <th>Monthly Rate</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="resource-status active"></span>John Smith</td>
+                                <td>Senior React Developer</td>
+                                <td>Jan 15, 2024</td>
+                                <td>$12,000/month</td>
+                                <td>Active</td>
+                            </tr>
+                            <tr>
+                                <td><span class="resource-status active"></span>Jane Doe</td>
+                                <td>Backend Engineer (Node.js)</td>
+                                <td>Jan 15, 2024</td>
+                                <td>$11,500/month</td>
+                                <td>Active</td>
+                            </tr>
+                            <tr>
+                                <td><span class="resource-status active"></span>Michael Chen</td>
+                                <td>DevOps Engineer</td>
+                                <td>Feb 1, 2024</td>
+                                <td>$13,000/month</td>
+                                <td>Active</td>
+                            </tr>
+                            <tr>
+                                <td><span class="resource-status active"></span>Emily Rodriguez</td>
+                                <td>UI/UX Designer</td>
+                                <td>Jan 20, 2024</td>
+                                <td>$9,500/month</td>
+                                <td>Active</td>
+                            </tr>
+                            <tr>
+                                <td><span class="resource-status active"></span>David Park</td>
+                                <td>QA Engineer</td>
+                                <td>Mar 1, 2024</td>
+                                <td>$8,000/month</td>
+                                <td>Active</td>
+                            </tr>
+                            <tr>
+                                <td><span class="resource-status active"></span>Lisa Anderson</td>
+                                <td>Business Analyst</td>
+                                <td>Feb 15, 2024</td>
+                                <td>$9,000/month</td>
+                                <td>Active</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 1rem; color: var(--text-secondary);">+ 6 more resources <a href="resources.html" style="color: var(--primary-color);">View all resources →</a></p>
+                </div>
+
+                <!-- Purchase Orders -->
+                <div class="section-card">
+                    <h2>Associated Purchase Orders (3 Active)</h2>
+                    <div class="po-item">
+                        <div class="po-info">
+                            <h4>PO-2024-A-001</h4>
+                            <p>Valid: Jan 15, 2024 - Jun 30, 2025 • 6 Resources</p>
+                        </div>
+                        <div class="po-value">$720,000</div>
+                    </div>
+                    <div class="po-item">
+                        <div class="po-info">
+                            <h4>PO-2024-A-002</h4>
+                            <p>Valid: Feb 1, 2024 - Jul 31, 2025 • 4 Resources</p>
+                        </div>
+                        <div class="po-value">$480,000</div>
+                    </div>
+                    <div class="po-item" style="background: #fef3c7;">
+                        <div class="po-info">
+                            <h4>PO-2024-A-003 <span class="badge expiring">Expiring Soon</span></h4>
+                            <p>Valid: Mar 1, 2024 - Dec 15, 2025 • 2 Resources</p>
+                        </div>
+                        <div class="po-value">$240,000</div>
+                    </div>
+                    <button class="btn-secondary" style="margin-top: 1rem;" onclick="window.location.href='purchase-orders.html'">View All Purchase Orders →</button>
+                </div>
+
+                <!-- Financial Summary -->
+                <div class="section-card">
+                    <h2>Financial Summary</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Total Contract Value</span>
+                            <span class="info-value highlight">$2,400,000</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Billed to Date</span>
+                            <span class="info-value">$1,850,000</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Remaining Value</span>
+                            <span class="info-value">$550,000</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Current Month Burn Rate</span>
+                            <span class="info-value">$120,000/month</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Outstanding Invoices</span>
+                            <span class="info-value">$240,000</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Payment Status</span>
+                            <span class="info-value">Current</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contract Description -->
+                <div class="section-card">
+                    <h2>Contract Description & Scope</h2>
+                    <p style="line-height: 1.6; color: var(--text-secondary);">
+                        This staff augmentation contract with Acme Corporation provides comprehensive software development resources for their digital transformation initiative. The scope includes full-stack development, DevOps automation, UI/UX design, and quality assurance services.
+                    </p>
+                    <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">Key Deliverables:</h3>
+                    <ul style="line-height: 1.8; color: var(--text-secondary);">
+                        <li>Development of customer-facing web application using React and Node.js</li>
+                        <li>Migration of legacy systems to cloud infrastructure (AWS)</li>
+                        <li>Implementation of CI/CD pipelines and automated testing</li>
+                        <li>UI/UX redesign of existing enterprise applications</li>
+                        <li>Ongoing maintenance and support services</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                <button class="btn-secondary" onclick="window.location.href='contracts.html'">← Back to Contracts List</button>
+                <button class="btn-primary">🔄 Renew This Contract</button>
+                <button class="btn-secondary" style="background: #ef4444; color: white; border: none;">🗑️ Archive Contract</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Mockup Navigation</h4>
+                    <ul>
+                        <li><a href="contracts.html">Contracts List</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="purchase-orders.html">Purchase Orders</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Portal</h4>
+                    <ul>
+                        <li><a href="index.html">All Mockups</a></li>
+                        <li><a href="../index.html">Project Home</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

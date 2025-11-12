@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contracts - Rrootshell Staff Augmentation</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .page-title h1 {
+            font-size: 2rem;
+            color: var(--dark-color);
+            margin-bottom: 0.25rem;
+        }
+        .page-title p {
+            color: var(--text-secondary);
+        }
+        .toolbar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .toolbar-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .search-box {
+            position: relative;
+        }
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+        .contracts-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .contracts-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .contracts-table th {
+            background: var(--dark-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        .contracts-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .contracts-table tr:hover {
+            background: var(--light-color);
+        }
+        .contract-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+        .contract-name:hover {
+            text-decoration: underline;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .badge.active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .badge.expiring {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .badge.expired {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .action-btn.view {
+            background: var(--primary-color);
+            color: white;
+        }
+        .action-btn.edit {
+            background: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: white;
+        }
+        .pagination-info {
+            color: var(--text-secondary);
+        }
+        .pagination-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .pagination-controls button {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .pagination-controls button:hover {
+            background: var(--light-color);
+        }
+        .pagination-controls button.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <header class="mockup-header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎨 Contracts List Mockup</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html" class="nav-link">← All Mockups</a></li>
+                    <li><a href="contract-detail.html" class="nav-link">Next: Contract Details →</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="mockup-container" style="background: #f9fafb; min-height: calc(100vh - 300px); padding: 2rem;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>📄 Contracts</h1>
+                    <p>Manage and track all client contracts</p>
+                </div>
+                <button class="btn-primary">+ Add New Contract</button>
+            </div>
+
+            <div class="toolbar">
+                <div class="toolbar-row">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search contracts by name, client, or contract number...">
+                    </div>
+                    <select class="filter-select">
+                        <option>All Status</option>
+                        <option>Active</option>
+                        <option>Expiring Soon</option>
+                        <option>Expired</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>All Clients</option>
+                        <option>Acme Corp</option>
+                        <option>TechStart Inc</option>
+                        <option>Global Solutions</option>
+                    </select>
+                    <button class="btn-secondary">Export</button>
+                </div>
+            </div>
+
+            <div class="contracts-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Contract Number</th>
+                            <th>Client Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Contract Value</th>
+                            <th>Resources</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2024-001</span></td>
+                            <td>Acme Corporation</td>
+                            <td>Jan 15, 2024</td>
+                            <td>Dec 15, 2025</td>
+                            <td>$2,400,000</td>
+                            <td>12 Resources</td>
+                            <td><span class="badge expiring">Expiring Soon</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2024-005</span></td>
+                            <td>TechStart Inc</td>
+                            <td>Mar 1, 2024</td>
+                            <td>Mar 1, 2026</td>
+                            <td>$1,800,000</td>
+                            <td>8 Resources</td>
+                            <td><span class="badge active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2024-012</span></td>
+                            <td>Global Solutions Ltd</td>
+                            <td>Jun 10, 2024</td>
+                            <td>Jun 10, 2026</td>
+                            <td>$3,200,000</td>
+                            <td>18 Resources</td>
+                            <td><span class="badge active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2023-045</span></td>
+                            <td>Innovate Systems</td>
+                            <td>Sep 5, 2023</td>
+                            <td>Sep 5, 2025</td>
+                            <td>$950,000</td>
+                            <td>5 Resources</td>
+                            <td><span class="badge active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2024-018</span></td>
+                            <td>DataFlow Inc</td>
+                            <td>Apr 20, 2024</td>
+                            <td>Apr 20, 2026</td>
+                            <td>$1,500,000</td>
+                            <td>10 Resources</td>
+                            <td><span class="badge active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2023-028</span></td>
+                            <td>CloudNine Technologies</td>
+                            <td>Jul 1, 2023</td>
+                            <td>Oct 15, 2025</td>
+                            <td>$2,100,000</td>
+                            <td>15 Resources</td>
+                            <td><span class="badge expiring">Expiring Soon</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2022-056</span></td>
+                            <td>Enterprise Solutions</td>
+                            <td>Nov 10, 2022</td>
+                            <td>Nov 10, 2024</td>
+                            <td>$1,200,000</td>
+                            <td>6 Resources</td>
+                            <td><span class="badge expired">Expired</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="contract-name" onclick="window.location.href='contract-detail.html'">CON-2024-022</span></td>
+                            <td>NextGen Software</td>
+                            <td>May 12, 2024</td>
+                            <td>May 12, 2027</td>
+                            <td>$4,500,000</td>
+                            <td>25 Resources</td>
+                            <td><span class="badge active">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn view" onclick="window.location.href='contract-detail.html'">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <div class="pagination-info">
+                        Showing 1-8 of 24 contracts
+                    </div>
+                    <div class="pagination-controls">
+                        <button>← Previous</button>
+                        <button class="active">1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>Next →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Mockup Navigation</h4>
+                    <ul>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="contract-detail.html">Contract Details</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Portal</h4>
+                    <ul>
+                        <li><a href="index.html">All Mockups</a></li>
+                        <li><a href="../index.html">Project Home</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documents - Rrootshell Staff Augmentation</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .page-header h1 {
+            font-size: 2rem;
+            color: var(--dark-color);
+        }
+        .upload-zone {
+            background: white;
+            border: 3px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .upload-zone:hover {
+            border-color: var(--primary-color);
+            background: var(--light-color);
+        }
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        .toolbar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+        .documents-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        .document-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        .document-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .doc-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        .doc-icon.pdf {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .doc-icon.docx {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .doc-icon.xlsx {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .doc-icon.jpg {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .doc-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+            color: var(--dark-color);
+        }
+        .doc-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .doc-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .action-btn:hover {
+            background: var(--light-color);
+        }
+        .action-btn.primary {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .badge.contract {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .badge.invoice {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .badge.report {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+        .badge.certificate {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-box h3 {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        .stat-box .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .folder-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .folder-section h2 {
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .folder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .folder-card {
+            padding: 1.5rem;
+            background: var(--light-color);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .folder-card:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        .folder-card .folder-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        .folder-card .folder-name {
+            font-weight: 600;
+        }
+        .folder-card .folder-count {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+        .folder-card:hover .folder-count {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header class="mockup-header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎨 Documents Management Mockup</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="notifications.html" class="nav-link">← Notifications</a></li>
+                    <li><a href="index.html" class="nav-link">All Mockups</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="mockup-container" style="background: #f9fafb; min-height: calc(100vh - 300px); padding: 2rem;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div class="page-header">
+                <div>
+                    <h1>📁 Documents</h1>
+                    <p style="color: var(--text-secondary); margin-top: 0.5rem;">Manage contracts, invoices, and files</p>
+                </div>
+                <button class="btn-primary">+ Upload Document</button>
+            </div>
+
+            <div class="upload-zone">
+                <div class="upload-icon">📤</div>
+                <h3>Drag & Drop Files Here</h3>
+                <p style="color: var(--text-secondary); margin-top: 0.5rem;">or click to browse</p>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.5rem;">Supported formats: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (Max 50MB)</p>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat-box">
+                    <h3>Total Documents</h3>
+                    <div class="value">248</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Storage Used</h3>
+                    <div class="value">4.2 GB</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Pending Signatures</h3>
+                    <div class="value">3</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Shared with Me</h3>
+                    <div class="value">12</div>
+                </div>
+            </div>
+
+            <!-- Folders Section -->
+            <div class="folder-section">
+                <h2>📂 Folders</h2>
+                <div class="folder-grid">
+                    <div class="folder-card">
+                        <div class="folder-icon">📄</div>
+                        <div class="folder-name">Contracts</div>
+                        <div class="folder-count">45 files</div>
+                    </div>
+                    <div class="folder-card">
+                        <div class="folder-icon">💰</div>
+                        <div class="folder-name">Invoices</div>
+                        <div class="folder-count">128 files</div>
+                    </div>
+                    <div class="folder-card">
+                        <div class="folder-icon">📊</div>
+                        <div class="folder-name">Reports</div>
+                        <div class="folder-count">32 files</div>
+                    </div>
+                    <div class="folder-card">
+                        <div class="folder-icon">🎓</div>
+                        <div class="folder-name">Certificates</div>
+                        <div class="folder-count">18 files</div>
+                    </div>
+                    <div class="folder-card">
+                        <div class="folder-icon">📑</div>
+                        <div class="folder-name">Purchase Orders</div>
+                        <div class="folder-count">25 files</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toolbar">
+                <div class="search-box">
+                    <input type="text" placeholder="Search documents by name, type, or date...">
+                </div>
+                <select class="filter-select">
+                    <option>All Types</option>
+                    <option>Contracts</option>
+                    <option>Invoices</option>
+                    <option>Reports</option>
+                    <option>Certificates</option>
+                </select>
+                <select class="filter-select">
+                    <option>Sort by Date</option>
+                    <option>Sort by Name</option>
+                    <option>Sort by Size</option>
+                    <option>Sort by Type</option>
+                </select>
+            </div>
+
+            <!-- Recent Documents -->
+            <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <h2 style="margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--border-color);">📋 Recent Documents</h2>
+                
+                <div class="documents-grid">
+                    <div class="document-item">
+                        <div class="doc-icon pdf">📄</div>
+                        <div class="doc-info">
+                            <h3>Contract-CON-2024-001.pdf</h3>
+                            <span class="badge contract">Contract</span>
+                            <div class="doc-meta">
+                                <span>📅 Uploaded: Dec 15, 2024</span>
+                                <span>📦 Size: 2.4 MB</span>
+                                <span>👤 Uploaded by: Sarah Johnson</span>
+                            </div>
+                        </div>
+                        <div class="doc-actions">
+                            <button class="action-btn primary">📥 Download</button>
+                            <button class="action-btn">👁️ View</button>
+                            <button class="action-btn">🔗 Share</button>
+                        </div>
+                    </div>
+
+                    <div class="document-item">
+                        <div class="doc-icon pdf">📄</div>
+                        <div class="doc-info">
+                            <h3>Invoice-INV-2024-1245.pdf</h3>
+                            <span class="badge invoice">Invoice</span>
+                            <div class="doc-meta">
+                                <span>📅 Uploaded: Dec 18, 2024</span>
+                                <span>📦 Size: 856 KB</span>
+                                <span>👤 Uploaded by: Finance Team</span>
+                            </div>
+                        </div>
+                        <div class="doc-actions">
+                            <button class="action-btn primary">📥 Download</button>
+                            <button class="action-btn">👁️ View</button>
+                            <button class="action-btn">🔗 Share</button>
+                        </div>
+                    </div>
+
+                    <div class="document-item">
+                        <div class="doc-icon xlsx">📊</div>
+                        <div class="doc-info">
+                            <h3>Resource-Utilization-Report-Nov-2024.xlsx</h3>
+                            <span class="badge report">Report</span>
+                            <div class="doc-meta">
+                                <span>📅 Uploaded: Dec 10, 2024</span>
+                                <span>📦 Size: 1.2 MB</span>
+                                <span>👤 Uploaded by: Analytics Team</span>
+                            </div>
+                        </div>
+                        <div class="doc-actions">
+                            <button class="action-btn primary">📥 Download</button>
+                            <button class="action-btn">👁️ View</button>
+                            <button class="action-btn">🔗 Share</button>
+                        </div>
+                    </div>
+
+                    <div class="document-item">
+                        <div class="doc-icon docx">📝</div>
+                        <div class="doc-info">
+                            <h3>Contract-Amendment-CON-2024-001-AMD-01.docx</h3>
+                            <span class="badge contract">Contract</span>
+                            <div class="doc-meta">
+                                <span>📅 Uploaded: Dec 12, 2024</span>
+                                <span>📦 Size: 342 KB</span>
+                                <span>👤 Uploaded by: Legal Team</span>
+                            </div>
+                        </div>
+                        <div class="doc-actions">
+                            <button class="action-btn primary">📥 Download</button>
+                            <button class="action-btn">👁️ View</button>
+                            <button class="action-btn">✍️ Sign</button>
+                        </div>
+                    </div>
+
+                    <div class="document-item">
+                        <div class="doc-icon pdf">📄</div>
+                        <div class="doc-info">
+                            <h3>PO-2024-A-003.pdf</h3>
+                            <span class="badge invoice">Purchase Order</span>
+                            <div class="doc-meta">
+                                <span>📅 Uploaded: Mar 1, 2024</span>
+                                <span>📦 Size: 675 KB</span>
+                                <span>👤 Uploaded by: Procurement Team</span>
+                            </div>
+                        </div>
+                        <div class="doc-actions">
+                            <button class="action-btn primary">📥 Download</button>
+                            <button class="action-btn">👁️ View</button>
+                            <button class="action-btn">🔗 Share</button>
+                        </div>
+                    </div>
+
+                    <div class="document-item">
+                        <div class="doc-icon pdf">🎓</div>
+                        <div class="doc-info">
+                            <h3>React-Advanced-Patterns-Certificate.pdf</h3>
+                            <span class="badge certificate">Certificate</span>
+                            <div class="doc-meta">
+                                <span>📅 Uploaded: Dec 18, 2024</span>
+                                <span>📦 Size: 1.8 MB</span>
+                                <span>👤 Uploaded by: Training Team</span>
+                            </div>
+                        </div>
+                        <div class="doc-actions">
+                            <button class="action-btn primary">📥 Download</button>
+                            <button class="action-btn">👁️ View</button>
+                            <button class="action-btn">🔗 Share</button>
+                        </div>
+                    </div>
+
+                    <div class="document-item">
+                        <div class="doc-icon xlsx">📊</div>
+                        <div class="doc-info">
+                            <h3>Timesheet-Summary-Q4-2024.xlsx</h3>
+                            <span class="badge report">Report</span>
+                            <div class="doc-meta">
+                                <span>📅 Uploaded: Dec 20, 2024</span>
+                                <span>📦 Size: 945 KB</span>
+                                <span>👤 Uploaded by: HR Team</span>
+                            </div>
+                        </div>
+                        <div class="doc-actions">
+                            <button class="action-btn primary">📥 Download</button>
+                            <button class="action-btn">👁️ View</button>
+                            <button class="action-btn">🔗 Share</button>
+                        </div>
+                    </div>
+
+                    <div class="document-item">
+                        <div class="doc-icon pdf">📄</div>
+                        <div class="doc-info">
+                            <h3>Financial-Statement-2024.pdf</h3>
+                            <span class="badge report">Report</span>
+                            <div class="doc-meta">
+                                <span>📅 Uploaded: Dec 5, 2024</span>
+                                <span>📦 Size: 3.1 MB</span>
+                                <span>👤 Uploaded by: Finance Team</span>
+                            </div>
+                        </div>
+                        <div class="doc-actions">
+                            <button class="action-btn primary">📥 Download</button>
+                            <button class="action-btn">👁️ View</button>
+                            <button class="action-btn">🔗 Share</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; text-align: center;">
+                    <button class="btn-secondary">Load More Documents</button>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <button class="btn-secondary" onclick="window.location.href='dashboard.html'">← Back to Dashboard</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Mockup Navigation</h4>
+                    <ul>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="contracts.html">Contracts</a></li>
+                        <li><a href="profile.html">Profile</a></li>
+                        <li><a href="notifications.html">Notifications</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Portal</h4>
+                    <ul>
+                        <li><a href="index.html">All Mockups</a></li>
+                        <li><a href="../index.html">Project Home</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
