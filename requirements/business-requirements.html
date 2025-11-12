@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Requirements - Rrootshell</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo"><h1>🚀 Rrootshell Staff Augmentation</h1></div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../onboarding/index.html" class="nav-link">Onboarding</a></li>
+                    <li><a href="index.html" class="nav-link active">Requirements</a></li>
+                    <li><a href="../mockups/index.html" class="nav-link">Mockups</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="sidebar-layout">
+                <aside class="sidebar">
+                    <h3>📋 Documentation</h3>
+                    <ul class="sidebar-nav">
+                        <li><a href="index.html">🏠 Project Vision</a></li>
+                        <li><a href="business-requirements.html" class="active">📊 Business Requirements</a></li>
+                        <li><a href="functional-design-high.html">📐 Functional Design</a></li>
+                        <li><a href="functional-design-low.html">📋 Low-Level Design</a></li>
+                        <li><a href="technical-design-low.html">⚙️ Technical Design</a></li>
+                    </ul>
+                </aside>
+
+                <div class="content-area">
+                    <h1>High-Level Business Requirements</h1>
+                    <p class="subtitle">Core business objectives and functional requirements for the platform</p>
+
+                    <h2>🎯 Business Goals</h2>
+                    <div class="overview-card">
+                        <ol>
+                            <li>Reduce timesheet processing time by 70%</li>
+                            <li>Achieve 100% contract compliance</li>
+                            <li>Minimize manual data entry and errors</li>
+                            <li>Provide real-time visibility into resource allocation</li>
+                            <li>Automate expiration notifications</li>
+                        </ol>
+                    </div>
+
+                    <h2>👥 User Roles</h2>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <h4>Administrator</h4>
+                            <p>Full system access: manage contracts, resources, POs, approve timesheets, generate reports</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>Employee</h4>
+                            <p>Limited access: submit timesheets, view own contracts, access personal documents</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>Client</h4>
+                            <p>External access: review timesheets, approve hours, access reports</p>
+                        </div>
+                    </div>
+
+                    <h2>📊 Core Modules</h2>
+                    <h3>1. Contract Management</h3>
+                    <ul>
+                        <li>Create and track contracts with clients</li>
+                        <li>Link resources to contracts</li>
+                        <li>Monitor contract status (Active, Pending, Expired)</li>
+                        <li>Track start/end dates and renewal dates</li>
+                    </ul>
+
+                    <h3>2. Resource Management</h3>
+                    <ul>
+                        <li>Maintain resource database (employees)</li>
+                        <li>Track skills, hourly rates, availability</li>
+                        <li>Assign resources to contracts</li>
+                        <li>Monitor resource utilization</li>
+                    </ul>
+
+                    <h3>3. Purchase Order Tracking</h3>
+                    <ul>
+                        <li>Track PO numbers and amounts</li>
+                        <li>Monitor budget utilization</li>
+                        <li>Alert on expiring POs</li>
+                        <li>Link POs to contracts</li>
+                    </ul>
+
+                    <h3>4. Timesheet Management</h3>
+                    <ul>
+                        <li>Weekly timesheet submission by employees</li>
+                        <li>Admin approval workflow</li>
+                        <li>Track hours by project/contract</li>
+                        <li>Generate timesheet reports</li>
+                    </ul>
+
+                    <h3>5. Document Management</h3>
+                    <ul>
+                        <li>Store contract documents (MSA, SOW, NDA)</li>
+                        <li>Manage tax forms (W-9)</li>
+                        <li>Store employee certifications</li>
+                        <li>Version control and audit trail</li>
+                    </ul>
+
+                    <h2>🔔 Notification Requirements</h2>
+                    <ul>
+                        <li>Contract expiring in 30 days</li>
+                        <li>PO expiring within 30 days</li>
+                        <li>Timesheet submission reminders (weekly)</li>
+                        <li>Pending approval notifications</li>
+                    </ul>
+
+                    <h2>📈 Reporting Requirements</h2>
+                    <ul>
+                        <li>Contract status summary</li>
+                        <li>Resource utilization report</li>
+                        <li>Budget vs actual tracking</li>
+                        <li>Timesheet compliance report</li>
+                    </ul>
+
+                    <div style="margin-top: 3rem; display: flex; justify-content: space-between;">
+                        <a href="index.html" class="btn-secondary">← Project Vision</a>
+                        <a href="functional-design-high.html" class="btn-primary">Functional Design →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

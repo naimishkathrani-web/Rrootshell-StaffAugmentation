@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High-Level Functional Design - Rrootshell</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo"><h1>🚀 Rrootshell Staff Augmentation</h1></div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../onboarding/index.html" class="nav-link">Onboarding</a></li>
+                    <li><a href="index.html" class="nav-link active">Requirements</a></li>
+                    <li><a href="../mockups/index.html" class="nav-link">Mockups</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="sidebar-layout">
+                <aside class="sidebar">
+                    <h3>📋 Documentation</h3>
+                    <ul class="sidebar-nav">
+                        <li><a href="index.html">🏠 Project Vision</a></li>
+                        <li><a href="business-requirements.html">📊 Business Requirements</a></li>
+                        <li><a href="functional-design-high.html" class="active">📐 Functional Design</a></li>
+                        <li><a href="functional-design-low.html">📋 Low-Level Design</a></li>
+                        <li><a href="technical-design-low.html">⚙️ Technical Design</a></li>
+                    </ul>
+                </aside>
+
+                <div class="content-area">
+                    <h1>High-Level Functional Design</h1>
+                    <p class="subtitle">System architecture and module interactions</p>
+
+                    <h2 id="overview">🏗️ System Overview</h2>
+                    <div class="overview-card">
+                        <p>The Rrootshell Staff Augmentation platform is a full-stack web application with three main layers:</p>
+                        <ul>
+                            <li><strong>Frontend:</strong> React-based SPA (Single Page Application)</li>
+                            <li><strong>Backend:</strong> Node.js/Express REST API</li>
+                            <li><strong>Database:</strong> MongoDB for data persistence</li>
+                        </ul>
+                    </div>
+
+                    <h2 id="modules">📦 Module Architecture</h2>
+                    
+                    <h3>Authentication Module</h3>
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Login Flow</h4>
+                            <p>User enters credentials → Server validates → JWT token issued → Token stored in localStorage → Subsequent requests include token</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Authorization</h4>
+                            <p>Middleware validates JWT on protected routes → Checks user role → Allows/denies access based on permissions</p>
+                        </div>
+                    </div>
+
+                    <h3>Contract Management Module</h3>
+                    <ul>
+                        <li><strong>Create:</strong> Admin creates contract with client details, dates, rate</li>
+                        <li><strong>Read:</strong> View all contracts with filters (status, client)</li>
+                        <li><strong>Update:</strong> Modify contract details, extend dates</li>
+                        <li><strong>Delete:</strong> Archive expired contracts</li>
+                        <li><strong>Assign:</strong> Link resources to contracts</li>
+                    </ul>
+
+                    <h3>Resource Management Module</h3>
+                    <ul>
+                        <li><strong>Profile Management:</strong> Personal info, skills, certifications</li>
+                        <li><strong>Availability Tracking:</strong> Available, Assigned, On Leave</li>
+                        <li><strong>Assignment Logic:</strong> Automatic matching based on skills</li>
+                        <li><strong>Performance:</strong> Track hours, ratings, feedback</li>
+                    </ul>
+
+                    <h3>Purchase Order Module</h3>
+                    <ul>
+                        <li><strong>PO Creation:</strong> Link to contract, set amount and dates</li>
+                        <li><strong>Budget Tracking:</strong> Real-time utilization calculation</li>
+                        <li><strong>Expiration Alerts:</strong> Automated notifications 30 days before</li>
+                        <li><strong>Reporting:</strong> Budget vs actual, utilization percentage</li>
+                    </ul>
+
+                    <h3>Timesheet Module</h3>
+                    <ul>
+                        <li><strong>Submission:</strong> Weekly grid (Mon-Sun), hours per day</li>
+                        <li><strong>Approval Workflow:</strong> Employee submits → Admin reviews → Approve/Reject</li>
+                        <li><strong>Notifications:</strong> Submission reminders, approval status</li>
+                        <li><strong>History:</strong> View past timesheets with status</li>
+                    </ul>
+
+                    <h2 id="workflows">🔄 User Workflows</h2>
+                    
+                    <h3>Employee Workflow</h3>
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <p>Login → Dashboard → Submit Timesheet → View Approval Status → Access Documents</p>
+                        </div>
+                    </div>
+
+                    <h3>Admin Workflow</h3>
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <p>Login → Dashboard → Create Contract → Assign Resources → Review Timesheets → Approve Hours → Generate Reports</p>
+                        </div>
+                    </div>
+
+                    <h2>🎨 UI/UX Principles</h2>
+                    <ul>
+                        <li><strong>Role-Based Views:</strong> Show only relevant features per role</li>
+                        <li><strong>Consistent Navigation:</strong> Horizontal menu for quick access</li>
+                        <li><strong>Visual Feedback:</strong> Status badges, color-coded indicators</li>
+                        <li><strong>Responsive Design:</strong> Works on desktop, tablet, mobile</li>
+                    </ul>
+
+                    <div style="margin-top: 3rem; display: flex; justify-content: space-between;">
+                        <a href="business-requirements.html" class="btn-secondary">← Business Requirements</a>
+                        <a href="functional-design-low.html" class="btn-primary">Low-Level Design →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

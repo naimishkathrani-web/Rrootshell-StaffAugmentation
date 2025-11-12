@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Low-Level Technical Design - Rrootshell</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo"><h1>🚀 Rrootshell Staff Augmentation</h1></div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../onboarding/index.html" class="nav-link">Onboarding</a></li>
+                    <li><a href="index.html" class="nav-link active">Requirements</a></li>
+                    <li><a href="../mockups/index.html" class="nav-link">Mockups</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="sidebar-layout">
+                <aside class="sidebar">
+                    <h3>📋 Documentation</h3>
+                    <ul class="sidebar-nav">
+                        <li><a href="index.html">🏠 Project Vision</a></li>
+                        <li><a href="business-requirements.html">📊 Business Requirements</a></li>
+                        <li><a href="functional-design-high.html">📐 Functional Design</a></li>
+                        <li><a href="functional-design-low.html">📋 Low-Level Design</a></li>
+                        <li><a href="technical-design-low.html" class="active">⚙️ Technical Design</a></li>
+                    </ul>
+                </aside>
+
+                <div class="content-area">
+                    <h1>Low-Level Technical Design</h1>
+                    <p class="subtitle">Technical specifications and implementation details</p>
+
+                    <h2 id="architecture">🏗️ System Architecture</h2>
+                    <h3>Technology Stack</h3>
+                    <ul>
+                        <li><strong>Frontend:</strong> React 18, React Router v6, Axios, CSS Modules</li>
+                        <li><strong>Backend:</strong> Node.js 18+, Express 4.x, Mongoose ODM</li>
+                        <li><strong>Database:</strong> MongoDB 6.0</li>
+                        <li><strong>Authentication:</strong> JWT (jsonwebtoken), bcrypt</li>
+                        <li><strong>Email:</strong> Nodemailer with SMTP</li>
+                        <li><strong>Scheduling:</strong> node-cron</li>
+                    </ul>
+
+                    <h3>Project Structure</h3>
+                    <pre><code>project-root/
+├── app/                 # React Frontend
+│   ├── src/
+│   │   ├── components/  # Reusable components
+│   │   ├── pages/       # Route pages
+│   │   ├── services/    # API calls
+│   │   ├── utils/       # Helper functions
+│   │   └── App.js       # Main app
+│   └── package.json
+├── server/              # Node.js Backend
+│   ├── controllers/     # Route handlers
+│   ├── models/          # MongoDB schemas
+│   ├── routes/          # API routes
+│   ├── middleware/      # Auth, validation
+│   ├── config/          # Configuration
+│   └── server.js        # Entry point
+├── database/            # MongoDB schemas
+└── mockups/             # Static HTML mockups</code></pre>
+
+                    <h2 id="database">💾 Database Schema</h2>
+                    
+                    <h3>Users Collection</h3>
+                    <pre><code>{
+  _id: ObjectId,
+  email: String (unique, required),
+  password: String (bcrypt hashed),
+  role: Enum['admin', 'employee', 'client'],
+  name: String,
+  phone: String,
+  createdAt: Date,
+  updatedAt: Date
+}</code></pre>
+
+                    <h3>Contracts Collection</h3>
+                    <pre><code>{
+  _id: ObjectId,
+  contractNumber: String (unique),
+  clientName: String (required),
+  startDate: Date (required),
+  endDate: Date (required),
+  rate: Number (required),
+  rateType: Enum['hourly', 'monthly'],
+  status: Enum['Active', 'Pending', 'Expired'],
+  assignedResources: [ObjectId] (ref: Resources),
+  description: String,
+  createdAt: Date,
+  updatedAt: Date
+}</code></pre>
+
+                    <h3>Resources Collection</h3>
+                    <pre><code>{
+  _id: ObjectId,
+  userId: ObjectId (ref: Users),
+  name: String (required),
+  email: String (required),
+  phone: String,
+  role: String,
+  skills: [String],
+  hourlyRate: Number,
+  status: Enum['Available', 'Assigned', 'OnLeave'],
+  currentContract: ObjectId (ref: Contracts),
+  yearsExperience: Number,
+  location: String,
+  createdAt: Date,
+  updatedAt: Date
+}</code></pre>
+
+                    <h3>PurchaseOrders Collection</h3>
+                    <pre><code>{
+  _id: ObjectId,
+  poNumber: String (unique),
+  contractId: ObjectId (ref: Contracts),
+  amount: Number (required),
+  startDate: Date (required),
+  endDate: Date (required),
+  status: Enum['Active', 'Expiring', 'Expired'],
+  utilizationRate: Number (calculated),
+  createdAt: Date,
+  updatedAt: Date
+}</code></pre>
+
+                    <h3>Timesheets Collection</h3>
+                    <pre><code>{
+  _id: ObjectId,
+  resourceId: ObjectId (ref: Resources),
+  contractId: ObjectId (ref: Contracts),
+  weekStartDate: Date (required),
+  weekEndDate: Date (required),
+  hours: {
+    monday: Number,
+    tuesday: Number,
+    wednesday: Number,
+    thursday: Number,
+    friday: Number,
+    saturday: Number,
+    sunday: Number
+  },
+  totalHours: Number (calculated),
+  status: Enum['Draft', 'Pending', 'Approved', 'Rejected'],
+  comments: String,
+  submittedAt: Date,
+  approvedBy: ObjectId (ref: Users),
+  approvedAt: Date,
+  createdAt: Date,
+  updatedAt: Date
+}</code></pre>
+
+                    <h2 id="api">🔌 API Specifications</h2>
+                    
+                    <h3>Authentication Endpoints</h3>
+                    <pre><code>POST /api/auth/login
+Body: { email, password }
+Response: { token, user: { id, email, role, name } }
+
+POST /api/auth/logout
+Headers: Authorization: Bearer &lt;token&gt;
+Response: { message: "Logged out" }</code></pre>
+
+                    <h3>Contract Endpoints</h3>
+                    <pre><code>GET /api/contracts
+Headers: Authorization: Bearer &lt;token&gt;
+Query: ?status=Active&page=1&limit=20
+Response: { contracts: [], total, page }
+
+POST /api/contracts
+Headers: Authorization: Bearer &lt;token&gt;
+Body: { clientName, startDate, endDate, rate, ... }
+Response: { contract: {...} }
+
+GET /api/contracts/:id
+PUT /api/contracts/:id
+DELETE /api/contracts/:id</code></pre>
+
+                    <h3>Resource Endpoints</h3>
+                    <pre><code>GET /api/resources
+POST /api/resources
+GET /api/resources/:id
+PUT /api/resources/:id
+DELETE /api/resources/:id
+
+POST /api/resources/:id/assign
+Body: { contractId }
+Response: { resource: {...} }</code></pre>
+
+                    <h3>Timesheet Endpoints</h3>
+                    <pre><code>GET /api/timesheets
+POST /api/timesheets
+GET /api/timesheets/:id
+PUT /api/timesheets/:id
+
+POST /api/timesheets/:id/submit
+POST /api/timesheets/:id/approve
+POST /api/timesheets/:id/reject</code></pre>
+
+                    <h2 id="security">🔒 Security Implementation</h2>
+                    <ul>
+                        <li><strong>Password Hashing:</strong> bcrypt with salt rounds = 10</li>
+                        <li><strong>JWT Secret:</strong> Stored in environment variable</li>
+                        <li><strong>Token Expiry:</strong> 24 hours</li>
+                        <li><strong>CORS:</strong> Configured for allowed origins only</li>
+                        <li><strong>Input Validation:</strong> express-validator middleware</li>
+                        <li><strong>Rate Limiting:</strong> 100 requests per 15 minutes</li>
+                        <li><strong>Helmet:</strong> Security headers</li>
+                    </ul>
+
+                    <h3>Authentication Middleware</h3>
+                    <pre><code>const authMiddleware = (req, res, next) => {
+  const token = req.header('Authorization')?.replace('Bearer ', '');
+  if (!token) return res.status(401).json({ error: 'No token' });
+  
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: 'Invalid token' });
+  }
+};</code></pre>
+
+                    <h2 id="deployment">☁️ Deployment Strategy</h2>
+                    
+                    <h3>Frontend Deployment</h3>
+                    <ul>
+                        <li><strong>Platform:</strong> Vercel or Netlify</li>
+                        <li><strong>Build:</strong> npm run build</li>
+                        <li><strong>Environment:</strong> REACT_APP_API_URL</li>
+                        <li><strong>CDN:</strong> Automatic via platform</li>
+                    </ul>
+
+                    <h3>Backend Deployment</h3>
+                    <ul>
+                        <li><strong>Platform:</strong> AWS EC2, Heroku, or DigitalOcean</li>
+                        <li><strong>Process Manager:</strong> PM2</li>
+                        <li><strong>Environment:</strong> .env file with secrets</li>
+                        <li><strong>Reverse Proxy:</strong> Nginx</li>
+                    </ul>
+
+                    <h3>Database Deployment</h3>
+                    <ul>
+                        <li><strong>Platform:</strong> MongoDB Atlas (Cloud)</li>
+                        <li><strong>Tier:</strong> M10 Dedicated Cluster</li>
+                        <li><strong>Backup:</strong> Daily automated backups</li>
+                        <li><strong>Replica Set:</strong> 3-node for high availability</li>
+                    </ul>
+
+                    <h3>CI/CD Pipeline</h3>
+                    <pre><code># GitHub Actions workflow
+name: Deploy
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - Checkout code
+      - Install dependencies
+      - Run tests
+  
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - Deploy frontend to Vercel
+      - Deploy backend to production server</code></pre>
+
+                    <h2>🔍 Monitoring & Logging</h2>
+                    <ul>
+                        <li><strong>Error Tracking:</strong> Sentry for runtime errors</li>
+                        <li><strong>Logging:</strong> Winston with CloudWatch</li>
+                        <li><strong>Performance:</strong> New Relic APM</li>
+                        <li><strong>Uptime:</strong> Pingdom checks every 1 minute</li>
+                        <li><strong>Alerts:</strong> PagerDuty for critical errors</li>
+                    </ul>
+
+                    <div style="margin-top: 3rem; display: flex; justify-content: space-between;">
+                        <a href="functional-design-low.html" class="btn-secondary">← Low-Level Design</a>
+                        <a href="index.html" class="btn-primary">Back to Home →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

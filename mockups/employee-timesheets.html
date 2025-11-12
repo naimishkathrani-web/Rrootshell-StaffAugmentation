@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Timesheets - Rrootshell</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        .app-header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        .logo h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        .horizontal-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-item {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        .nav-item:hover {
+            background: #f7fafc;
+            color: #667eea;
+        }
+        .nav-item.active {
+            background: #667eea;
+            color: white;
+        }
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #10b981;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        .logout-btn {
+            padding: 0.5rem 1rem;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .page-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        .page-header h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+            color: #1e293b;
+        }
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid #3b82f6;
+        }
+        .timesheet-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .week-selector {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .week-selector button {
+            padding: 0.5rem 1rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .timesheet-grid {
+            overflow-x: auto;
+        }
+        .timesheet-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .timesheet-table th,
+        .timesheet-table td {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        .timesheet-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .timesheet-table input {
+            width: 60px;
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .total-row {
+            background: #f0fdf4;
+            font-weight: 600;
+        }
+        .submit-btn {
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .recent-timesheets {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-badge.approved { background: #d1fae5; color: #065f46; }
+        .status-badge.pending { background: #fef3c7; color: #78350f; }
+        .status-badge.draft { background: #e5e7eb; color: #374151; }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>🚀 Rrootshell</h1>
+            </div>
+            <nav class="horizontal-nav">
+                <a href="employee-dashboard.html" class="nav-item">Dashboard</a>
+                <a href="employee-timesheets.html" class="nav-item active">My Timesheets</a>
+                <a href="employee-profile.html" class="nav-item">My Profile</a>
+                <a href="employee-notifications.html" class="nav-item">Notifications</a>
+            </nav>
+            <div class="user-menu">
+                <div class="user-avatar">EM</div>
+                <span id="userEmail">employee@rrootshell.com</span>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-container">
+        <div class="page-header">
+            <h2>My Timesheets</h2>
+            <p>Submit your weekly hours</p>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.5rem;">Hours This Week</div>
+                <div style="font-size: 2rem; font-weight: 700; color: #1e293b;">40</div>
+            </div>
+            <div class="stat-card">
+                <div style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.5rem;">Hours This Month</div>
+                <div style="font-size: 2rem; font-weight: 700; color: #1e293b;">152</div>
+            </div>
+            <div class="stat-card">
+                <div style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.5rem;">Pending Approval</div>
+                <div style="font-size: 2rem; font-weight: 700; color: #1e293b;">1</div>
+            </div>
+            <div class="stat-card">
+                <div style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.5rem;">Approval Rate</div>
+                <div style="font-size: 2rem; font-weight: 700; color: #1e293b;">98%</div>
+            </div>
+        </div>
+
+        <div class="timesheet-form">
+            <div class="week-selector">
+                <button>← Previous Week</button>
+                <h3>Week of December 16-22, 2024</h3>
+                <button>Next Week →</button>
+            </div>
+
+            <div class="timesheet-grid">
+                <table class="timesheet-table">
+                    <thead>
+                        <tr>
+                            <th>Project</th>
+                            <th>Mon<br>12/16</th>
+                            <th>Tue<br>12/17</th>
+                            <th>Wed<br>12/18</th>
+                            <th>Thu<br>12/19</th>
+                            <th>Fri<br>12/20</th>
+                            <th>Sat<br>12/21</th>
+                            <th>Sun<br>12/22</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: left; font-weight: 600;">Acme Corp - Web Application</td>
+                            <td><input type="number" value="8" min="0" max="24"></td>
+                            <td><input type="number" value="8" min="0" max="24"></td>
+                            <td><input type="number" value="8" min="0" max="24"></td>
+                            <td><input type="number" value="8" min="0" max="24"></td>
+                            <td><input type="number" value="8" min="0" max="24"></td>
+                            <td><input type="number" value="0" min="0" max="24"></td>
+                            <td><input type="number" value="0" min="0" max="24"></td>
+                            <td style="font-weight: 600;">40</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td style="text-align: left;">Daily Total</td>
+                            <td>8</td>
+                            <td>8</td>
+                            <td>8</td>
+                            <td>8</td>
+                            <td>8</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>40</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <button class="submit-btn">Submit for Approval</button>
+        </div>
+
+        <div class="recent-timesheets">
+            <h3>Recent Timesheets</h3>
+            <table class="timesheet-table">
+                <thead>
+                    <tr>
+                        <th>Week</th>
+                        <th>Contract</th>
+                        <th>Hours</th>
+                        <th>Status</th>
+                        <th>Submitted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dec 9-15, 2024</td>
+                        <td>Acme Corp</td>
+                        <td>40</td>
+                        <td><span class="status-badge approved">Approved</span></td>
+                        <td>Dec 15, 2024</td>
+                        <td><button style="padding: 0.25rem 0.75rem; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer;">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>Dec 2-8, 2024</td>
+                        <td>Acme Corp</td>
+                        <td>38</td>
+                        <td><span class="status-badge approved">Approved</span></td>
+                        <td>Dec 8, 2024</td>
+                        <td><button style="padding: 0.25rem 0.75rem; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer;">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>Nov 25-Dec 1, 2024</td>
+                        <td>Acme Corp</td>
+                        <td>35</td>
+                        <td><span class="status-badge pending">Pending</span></td>
+                        <td>Dec 1, 2024</td>
+                        <td><button style="padding: 0.25rem 0.75rem; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer;">View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+        const userEmail = sessionStorage.getItem('userEmail');
+        if (userEmail) {
+            document.getElementById('userEmail').textContent = userEmail;
+        }
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1 Day 1: Environment Setup - Rrootshell</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>🚀 Rrootshell Staff Augmentation</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html" class="nav-link active">Onboarding</a></li>
+                    <li><a href="../requirements/index.html" class="nav-link">Requirements</a></li>
+                    <li><a href="../mockups/index.html" class="nav-link">Mockups</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="sidebar-layout">
+                <aside class="sidebar">
+                    <h3>📚 Onboarding Program</h3>
+                    <ul class="sidebar-nav">
+                        <li><a href="index.html">🏠 Home & Strategy</a></li>
+                        <li><a href="12-day-sprint.html">🎯 12-Day Sprint Plan</a></li>
+                        <li>
+                            <a href="week1.html">📅 Week 1: Foundation</a>
+                            <ul class="sub-menu">
+                                <li><a href="week1-day1.html" class="active">Day 1: Environment Setup</a></li>
+                                <li><a href="week1-day2.html">Day 2: Project Structure</a></li>
+                                <li><a href="week1-day3.html">Day 3: Backend Deep Dive</a></li>
+                                <li><a href="week1-day4.html">Day 4: Frontend Basics</a></li>
+                                <li><a href="week1-day5.html">Day 5: First Feature</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="week2.html">📅 Week 2: Core Features</a></li>
+                        <li><a href="week3.html">📅 Week 3: Advanced Features</a></li>
+                        <li><a href="week4.html">📅 Week 4: Deployment</a></li>
+                    </ul>
+                </aside>
+
+                <div class="content-area">
+                    <h1>Week 1, Day 1: Environment Setup</h1>
+                    <p class="subtitle">Setting up your development environment and cloning the repository</p>
+
+                    <h2>📋 Objectives</h2>
+                    <ul>
+                        <li>Install required development tools</li>
+                        <li>Clone and configure the project repository</li>
+                        <li>Install dependencies for frontend and backend</li>
+                        <li>Verify everything works with a test run</li>
+                    </ul>
+
+                    <h2>🔧 Required Tools</h2>
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Node.js & npm</h4>
+                            <p>Install Node.js v14+ from <a href="https://nodejs.org" target="_blank">nodejs.org</a></p>
+                            <code>node --version && npm --version</code>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Git</h4>
+                            <p>Install Git from <a href="https://git-scm.com" target="_blank">git-scm.com</a></p>
+                            <code>git --version</code>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>VS Code</h4>
+                            <p>Download from <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a></p>
+                            <p>Recommended extensions: ES7 React snippets, ESLint, Prettier</p>
+                        </div>
+                    </div>
+
+                    <h2>💻 Setup Instructions</h2>
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Clone Repository</h4>
+                            <pre><code>git clone https://github.com/rrootshell/staff-augmentation.git
+cd staff-augmentation</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Install Backend Dependencies</h4>
+                            <pre><code>cd server
+npm install
+cp .env.example .env</code></pre>
+                            <p>Edit .env with your database connection details</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Install Frontend Dependencies</h4>
+                            <pre><code>cd ../app
+npm install</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Start Development Servers</h4>
+                            <pre><code># Terminal 1 - Backend
+cd server
+npm run dev
+
+# Terminal 2 - Frontend
+cd app
+npm start</code></pre>
+                            <p>Frontend: <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></p>
+                            <p>Backend: <a href="http://localhost:5000" target="_blank">http://localhost:5000</a></p>
+                        </div>
+                    </div>
+
+                    <h2>✅ Verification Checklist</h2>
+                    <ul>
+                        <li>Node.js and npm versions confirmed</li>
+                        <li>Repository cloned successfully</li>
+                        <li>Backend dependencies installed</li>
+                        <li>Frontend dependencies installed</li>
+                        <li>Environment variables configured</li>
+                        <li>Both servers running without errors</li>
+                        <li>Can access frontend at localhost:3000</li>
+                        <li>Can access backend at localhost:5000</li>
+                    </ul>
+
+                    <h2>📚 Additional Resources</h2>
+                    <ul>
+                        <li><a href="https://nodejs.org/en/docs/" target="_blank">Node.js Documentation</a></li>
+                        <li><a href="https://git-scm.com/doc" target="_blank">Git Documentation</a></li>
+                        <li><a href="https://code.visualstudio.com/docs" target="_blank">VS Code Documentation</a></li>
+                    </ul>
+
+                    <div style="margin-top: 3rem; display: flex; justify-content: space-between;">
+                        <a href="index.html" class="btn-secondary">← Back to Home</a>
+                        <a href="week1-day2.html" class="btn-primary">Next: Day 2 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

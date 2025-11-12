@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Low-Level Functional Design - Rrootshell</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo"><h1>🚀 Rrootshell Staff Augmentation</h1></div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../onboarding/index.html" class="nav-link">Onboarding</a></li>
+                    <li><a href="index.html" class="nav-link active">Requirements</a></li>
+                    <li><a href="../mockups/index.html" class="nav-link">Mockups</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="sidebar-layout">
+                <aside class="sidebar">
+                    <h3>📋 Documentation</h3>
+                    <ul class="sidebar-nav">
+                        <li><a href="index.html">🏠 Project Vision</a></li>
+                        <li><a href="business-requirements.html">📊 Business Requirements</a></li>
+                        <li><a href="functional-design-high.html">📐 Functional Design</a></li>
+                        <li><a href="functional-design-low.html" class="active">📋 Low-Level Design</a></li>
+                        <li><a href="technical-design-low.html">⚙️ Technical Design</a></li>
+                    </ul>
+                </aside>
+
+                <div class="content-area">
+                    <h1>Low-Level Functional Design</h1>
+                    <p class="subtitle">Detailed specifications for each module</p>
+
+                    <h2 id="authentication">🔐 Authentication Module</h2>
+                    <h3>Login Functionality</h3>
+                    <ul>
+                        <li><strong>Input:</strong> Email, Password</li>
+                        <li><strong>Validation:</strong> Email format, Password min 6 chars</li>
+                        <li><strong>Process:</strong> bcrypt password comparison</li>
+                        <li><strong>Output:</strong> JWT token (24hr expiry), User role, User details</li>
+                        <li><strong>Error Handling:</strong> Invalid credentials, Account locked</li>
+                    </ul>
+
+                    <h3>Session Management</h3>
+                    <ul>
+                        <li>Store JWT in localStorage</li>
+                        <li>Include token in Authorization header</li>
+                        <li>Auto-logout on token expiry</li>
+                        <li>Refresh token mechanism</li>
+                    </ul>
+
+                    <h2 id="contracts">📄 Contract Management</h2>
+                    <h3>Contract Creation Form</h3>
+                    <ul>
+                        <li><strong>Fields:</strong> Contract Number (auto-generated), Client Name, Start Date, End Date, Hourly/Monthly Rate, Status, Description</li>
+                        <li><strong>Validation:</strong> End date > Start date, Rate > 0, Client name required</li>
+                        <li><strong>Auto-generation:</strong> Contract number format: CON-YYYY-XXX</li>
+                    </ul>
+
+                    <h3>Contract List View</h3>
+                    <ul>
+                        <li><strong>Display:</strong> Table with Contract#, Client, Dates, Status, Actions</li>
+                        <li><strong>Filters:</strong> Status (Active/Pending/Expired), Client name, Date range</li>
+                        <li><strong>Sort:</strong> By start date, client name, status</li>
+                        <li><strong>Pagination:</strong> 20 contracts per page</li>
+                    </ul>
+
+                    <h2 id="resources">👥 Resource Management</h2>
+                    <h3>Resource Profile</h3>
+                    <ul>
+                        <li><strong>Personal:</strong> Name, Email, Phone, Location</li>
+                        <li><strong>Professional:</strong> Role, Skills (multi-select), Hourly Rate, Years Experience</li>
+                        <li><strong>Status:</strong> Available, Assigned, On Leave</li>
+                        <li><strong>Current Assignment:</strong> Contract ID, Start Date, Role</li>
+                    </ul>
+
+                    <h3>Assignment Process</h3>
+                    <ol>
+                        <li>Admin selects contract</li>
+                        <li>System suggests available resources matching skills</li>
+                        <li>Admin assigns resource</li>
+                        <li>Resource status updated to "Assigned"</li>
+                        <li>Contract updated with assigned resource</li>
+                        <li>Notification sent to employee</li>
+                    </ol>
+
+                    <h2 id="pos">💰 Purchase Orders</h2>
+                    <h3>PO Creation</h3>
+                    <ul>
+                        <li><strong>Fields:</strong> PO Number, Contract (dropdown), Amount, Start Date, End Date</li>
+                        <li><strong>Calculation:</strong> Monthly burn rate = Amount / Months</li>
+                        <li><strong>Utilization:</strong> Current spent / Total amount * 100</li>
+                    </ul>
+
+                    <h3>Expiration Alerts</h3>
+                    <ul>
+                        <li><strong>Trigger:</strong> PO end date within 30 days</li>
+                        <li><strong>Recipients:</strong> Admin, Contract manager</li>
+                        <li><strong>Frequency:</strong> Weekly email until renewed</li>
+                        <li><strong>Content:</strong> PO#, Client, Amount, Days remaining</li>
+                    </ul>
+
+                    <h2 id="timesheets">⏱️ Timesheet Module</h2>
+                    <h3>Timesheet Grid</h3>
+                    <ul>
+                        <li><strong>Layout:</strong> Rows = Projects, Columns = Days (Mon-Sun)</li>
+                        <li><strong>Input:</strong> Hours per day (0-24)</li>
+                        <li><strong>Totals:</strong> Daily total, Weekly total per project</li>
+                        <li><strong>Validation:</strong> Max 24 hours per day</li>
+                    </ul>
+
+                    <h3>Approval Workflow</h3>
+                    <ol>
+                        <li>Employee submits timesheet (status: Pending)</li>
+                        <li>Notification sent to admin</li>
+                        <li>Admin reviews hours</li>
+                        <li>Admin approves/rejects with comments</li>
+                        <li>Notification sent to employee</li>
+                        <li>Status updated (Approved/Rejected)</li>
+                    </ol>
+
+                    <h2 id="documents">📁 Document Management</h2>
+                    <h3>Document Types</h3>
+                    <ul>
+                        <li><strong>Contracts:</strong> MSA, SOW, NDA (linked to contract ID)</li>
+                        <li><strong>Tax Forms:</strong> W-9, 1099 (linked to resource ID)</li>
+                        <li><strong>Certifications:</strong> Professional certs (linked to resource ID)</li>
+                        <li><strong>Personal:</strong> Resume, references</li>
+                    </ul>
+
+                    <h3>Upload & Storage</h3>
+                    <ul>
+                        <li><strong>Allowed types:</strong> PDF, DOC, DOCX, JPG, PNG</li>
+                        <li><strong>Max size:</strong> 10MB per file</li>
+                        <li><strong>Storage:</strong> AWS S3 or local file system</li>
+                        <li><strong>Metadata:</strong> Upload date, uploader, version</li>
+                    </ul>
+
+                    <div style="margin-top: 3rem; display: flex; justify-content: space-between;">
+                        <a href="functional-design-high.html" class="btn-secondary">← Functional Design</a>
+                        <a href="technical-design-low.html" class="btn-primary">Technical Design →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Rrootshell. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

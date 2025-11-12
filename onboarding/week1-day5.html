@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1 Day 5: First Feature - Rrootshell</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo"><h1>🚀 Rrootshell Staff Augmentation</h1></div>
+            <nav class="main-nav"><ul><li><a href="../index.html" class="nav-link">Home</a></li><li><a href="index.html" class="nav-link active">Onboarding</a></li></ul></nav>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="container">
+            <div class="sidebar-layout">
+                <aside class="sidebar">
+                    <h3>📚 Onboarding</h3>
+                    <ul class="sidebar-nav">
+                        <li><a href="index.html">🏠 Home</a></li>
+                        <li><a href="12-day-sprint.html">🎯 Sprint Plan</a></li>
+                        <li><a href="week1.html">📅 Week 1</a></li>
+                    </ul>
+                </aside>
+                <div class="content-area">
+                    <h1>Week 1, Day 5: Build Your First Feature</h1>
+                    <p class="subtitle">Hands-on: Create a simple component and API endpoint</p>
+                    <h2>📋 Objectives</h2>
+                    <ul><li>Create a new React component</li><li>Add a new API endpoint</li><li>Connect frontend to backend</li><li>Test your feature</li></ul>
+                    <h2>🛠️ Task: User Profile Badge</h2>
+                    <p>Create a simple profile badge component that displays user initials</p>
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Create Component</h4>
+                            <pre><code>// app/src/components/ProfileBadge.jsx
+export const ProfileBadge = ({ name }) => {
+  const initials = name.split(' ').map(n => n[0]).join('');
+  return &lt;div className="badge"&gt;{initials}&lt;/div&gt;;
+};</code></pre>
+                        </div>
+                    </div>
+                    <h2>✅ Completion Criteria</h2>
+                    <ul><li>Component renders correctly</li><li>API endpoint returns data</li><li>Frontend displays data from backend</li><li>Code follows project conventions</li></ul>
+                    <div style="margin-top: 3rem; display: flex; justify-content: space-between;">
+                        <a href="week1-day4.html" class="btn-secondary">← Day 4</a>
+                        <a href="week2-day1.html" class="btn-primary">Week 2 Day 1 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
