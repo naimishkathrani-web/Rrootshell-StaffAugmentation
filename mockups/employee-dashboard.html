@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - Rrootshell Staff Augmentation</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        .app-header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        .logo h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        .horizontal-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-item {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        .nav-item:hover {
+            background: #f7fafc;
+            color: #667eea;
+        }
+        .nav-item.active {
+            background: #667eea;
+            color: white;
+        }
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #10b981;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        .logout-btn {
+            padding: 0.5rem 1rem;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        .page-header h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+            color: #1e293b;
+        }
+        .page-header p {
+            margin: 0;
+            color: #64748b;
+        }
+        .info-banner {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .info-banner strong {
+            color: #1e40af;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid;
+        }
+        .stat-card.blue { border-left-color: #3b82f6; }
+        .stat-card.green { border-left-color: #10b981; }
+        .stat-card.orange { border-left-color: #f59e0b; }
+        .stat-card.purple { border-left-color: #8b5cf6; }
+        .stat-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .action-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .action-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .action-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .action-title {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .content-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0 0 1rem 0;
+        }
+        .assignment-card {
+            border: 1px solid #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .assignment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.5rem;
+        }
+        .contract-id {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-badge.active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .client-name {
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+        .assignment-details {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>🚀 Rrootshell</h1>
+            </div>
+            <nav class="horizontal-nav">
+                <a href="employee-dashboard.html" class="nav-item active">Dashboard</a>
+                <a href="employee-timesheets.html" class="nav-item">My Timesheets</a>
+                <a href="employee-profile.html" class="nav-item">My Profile</a>
+                <a href="employee-notifications.html" class="nav-item">Notifications</a>
+            </nav>
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-avatar">EM</div>
+                    <span id="userEmail">employee@rrootshell.com</span>
+                </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <div class="page-header">
+            <h2>My Dashboard</h2>
+            <p>Welcome back! Here's your personal overview.</p>
+        </div>
+
+        <div class="info-banner">
+            <strong>ℹ️ Limited Access:</strong> As an employee, you have access to your timesheets, profile, and notifications only. Contact your administrator for additional access.
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card blue">
+                <div class="stat-label">Hours This Week</div>
+                <div class="stat-value">40</div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-label">Hours This Month</div>
+                <div class="stat-value">152</div>
+            </div>
+            <div class="stat-card orange">
+                <div class="stat-label">Pending Approval</div>
+                <div class="stat-value">1</div>
+            </div>
+            <div class="stat-card purple">
+                <div class="stat-label">Notifications</div>
+                <div class="stat-value">5</div>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <a href="employee-timesheets.html" class="action-card">
+                <div class="action-icon">⏱️</div>
+                <div class="action-title">Submit Timesheet</div>
+            </a>
+            <a href="employee-profile.html" class="action-card">
+                <div class="action-icon">👤</div>
+                <div class="action-title">Update Profile</div>
+            </a>
+            <a href="employee-notifications.html" class="action-card">
+                <div class="action-icon">🔔</div>
+                <div class="action-title">View Notifications</div>
+            </a>
+            <a href="employee-documents.html" class="action-card">
+                <div class="action-icon">📄</div>
+                <div class="action-title">My Documents</div>
+            </a>
+        </div>
+
+        <div class="content-section">
+            <h3 class="section-title">Current Assignment</h3>
+            <div class="assignment-card">
+                <div class="assignment-header">
+                    <div>
+                        <div class="contract-id">CON-2024-001</div>
+                        <div class="client-name">Acme Corporation</div>
+                    </div>
+                    <span class="status-badge active">Active</span>
+                </div>
+                <div class="assignment-details">
+                    <span>📅 Start: Jan 15, 2024</span>
+                    <span>💰 Rate: $12,000/month</span>
+                    <span>👤 Role: Senior React Developer</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3 class="section-title">Recent Activity</h3>
+            <div style="padding: 1rem; border-left: 3px solid #10b981; background: #f0fdf4; border-radius: 4px; margin-bottom: 0.5rem;">
+                <strong>Timesheet Approved</strong> - Week of Dec 9-15
+                <div style="font-size: 0.875rem; color: #64748b; margin-top: 0.25rem;">2 hours ago</div>
+            </div>
+            <div style="padding: 1rem; border-left: 3px solid #3b82f6; background: #eff6ff; border-radius: 4px; margin-bottom: 0.5rem;">
+                <strong>New Notification</strong> - Monthly performance review scheduled
+                <div style="font-size: 0.875rem; color: #64748b; margin-top: 0.25rem;">1 day ago</div>
+            </div>
+            <div style="padding: 1rem; border-left: 3px solid #8b5cf6; background: #f5f3ff; border-radius: 4px;">
+                <strong>Document Uploaded</strong> - Signed contract amendment
+                <div style="font-size: 0.875rem; color: #64748b; margin-top: 0.25rem;">3 days ago</div>
+            </div>
+        </div>
+
+        <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+            <strong>🎨 Mockup Note:</strong> This is a UI mockup for business owner review. Employees have limited access to only: Timesheets, Profile, Notifications, and Documents related to their work.
+        </div>
+    </main>
+
+    <script>
+        // Check authentication
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
+        // Check if user is employee
+        if (sessionStorage.getItem('userRole') !== 'employee') {
+            alert('This page is for employees only');
+            window.location.href = 'admin-dashboard.html';
+        }
+
+        // Display user email
+        const userEmail = sessionStorage.getItem('userEmail');
+        if (userEmail) {
+            document.getElementById('userEmail').textContent = userEmail;
+        }
+
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

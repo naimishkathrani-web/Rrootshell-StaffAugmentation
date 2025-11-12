@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12-Day Development Sprint - Rrootshell Staff Augmentation</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .sprint-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        .sprint-header h1 {
+            color: white;
+            margin: 0 0 1rem 0;
+        }
+        .sprint-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .info-card {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+        .info-card h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        .info-card p {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .developer-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .developer-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid;
+        }
+        .developer-header.frontend { border-bottom-color: #3b82f6; }
+        .developer-header.backend { border-bottom-color: #10b981; }
+        .developer-header.fullstack { border-bottom-color: #8b5cf6; }
+        .developer-icon {
+            font-size: 3rem;
+        }
+        .developer-info h2 {
+            margin: 0 0 0.25rem 0;
+            color: #1e293b;
+        }
+        .developer-role {
+            color: #64748b;
+            font-size: 1rem;
+        }
+        .day-card {
+            background: #f8fafc;
+            border-left: 4px solid;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+        }
+        .day-card.frontend { border-left-color: #3b82f6; }
+        .day-card.backend { border-left-color: #10b981; }
+        .day-card.fullstack { border-left-color: #8b5cf6; }
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .day-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .day-duration {
+            background: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+        .task-item {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: start;
+            gap: 0.5rem;
+        }
+        .task-item:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: 700;
+        }
+        .copilot-prompt {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            position: relative;
+        }
+        .prompt-label {
+            background: #667eea;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        .context-note {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+        .context-note strong {
+            color: #78350f;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>🚀 Rrootshell Staff Augmentation</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html" class="nav-link active">Onboarding</a></li>
+                    <li><a href="../requirements/index.html" class="nav-link">Requirements</a></li>
+                    <li><a href="../mockups/login.html" class="nav-link">Mockups</a></li>
+                    <li><a href="../app-login.html" class="nav-link">Real App</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="sprint-header">
+        <div class="container">
+            <h1>🎯 12-Day Development Sprint Plan</h1>
+            <p>Build the complete Rrootshell Staff Augmentation Platform by End of November 2025</p>
+            <div class="sprint-info">
+                <div class="info-card">
+                    <h3>Sprint Duration</h3>
+                    <p>12 Days</p>
+                </div>
+                <div class="info-card">
+                    <h3>Team Size</h3>
+                    <p>3 Developers</p>
+                </div>
+                <div class="info-card">
+                    <h3>Target Date</h3>
+                    <p>Nov 30, 2025</p>
+                </div>
+                <div class="info-card">
+                    <h3>Deployment</h3>
+                    <p>GoDaddy</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="container">
+            <div style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                <h3 style="margin: 0 0 0.5rem 0; color: #1e40af;">📋 Important Context for All Developers</h3>
+                <p style="margin: 0; color: #1e40af;">
+                    <strong>Project Vision:</strong> Rrootshell Staff Augmentation Platform is a web application for managing contracts, resources, purchase orders, timesheets, and reports for staff augmentation services.
+                </p>
+                <p style="margin: 0.5rem 0 0 0; color: #1e40af;">
+                    <strong>Key Requirements:</strong> Role-based access (Admin: full access, Employee: limited to timesheets/profile/notifications), modern React UI, Node.js/Express backend, MongoDB database, deployed to GoDaddy subdomain of www.rrootshell.com
+                </p>
+            </div>
+
+            <!-- Frontend Developer -->
+            <div class="developer-section">
+                <div class="developer-header frontend">
+                    <div class="developer-icon">💻</div>
+                    <div class="developer-info">
+                        <h2>Frontend Developer</h2>
+                        <p class="developer-role">React, TypeScript, UI/UX Implementation</p>
+                    </div>
+                </div>
+
+                <!-- Day 1 -->
+                <div class="day-card frontend">
+                    <div class="day-header">
+                        <div class="day-title">Day 1: Project Setup & Authentication UI</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Clone repository and review mockups in /mockups folder</li>
+                        <li class="task-item">Set up React + Vite project with TypeScript</li>
+                        <li class="task-item">Install dependencies: React Router, Axios, TailwindCSS</li>
+                        <li class="task-item">Create authentication pages: Login with role selector (Admin/Employee)</li>
+                        <li class="task-item">Implement session storage for user role and authentication state</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Create a React + Vite + TypeScript project for Rrootshell Staff Augmentation Platform. The project needs:
+- Login page with role selector (Admin/Employee buttons) matching the design in mockups/login.html
+- Session storage to save userRole, userEmail, isLoggedIn
+- React Router setup with protected routes
+- TailwindCSS for styling matching the purple/blue gradient theme (#667eea to #764ba2)
+- Login form should redirect to /admin-dashboard for admin role or /employee-dashboard for employee role
+- Include TypeScript interfaces for User (email, role: 'admin' | 'employee')
+
+Context: This is a staff augmentation platform for managing contracts, resources, POs, and timesheets with role-based access control.</div>
+                    </div>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="day-card frontend">
+                    <div class="day-header">
+                        <div class="day-title">Day 2: Dashboard Layouts & Navigation</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Create Admin Dashboard with horizontal navigation menu (7 items)</li>
+                        <li class="task-item">Create Employee Dashboard with limited navigation (4 items)</li>
+                        <li class="task-item">Build reusable Header component with user menu and logout</li>
+                        <li class="task-item">Add stats cards showing key metrics (contracts, resources, hours, etc.)</li>
+                        <li class="task-item">Implement role-based routing and access control</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Create Admin and Employee dashboard components for Rrootshell platform:
+
+Admin Dashboard needs:
+- Horizontal navigation: Dashboard, Contracts, Resources, Purchase Orders, Timesheets, Reports, Admin
+- Stats grid showing: Total Contracts (24), Active Resources (48), Pending Timesheets (12), Expiring POs (5)
+- Quick action cards for Add Contract, Add Resource, Create PO, Review Timesheets, Generate Report, System Settings
+- Recent activity feed showing last 5 actions
+
+Employee Dashboard needs:
+- Limited horizontal navigation: Dashboard, My Timesheets, My Profile, Notifications
+- Info banner explaining limited access
+- Personal stats: Hours This Week (40), Hours This Month (152), Pending Approval (1), Notifications (5)
+- Current assignment card showing contract details
+- Recent activity feed (3 items)
+
+Both need: Reusable Header with logo, navigation, user avatar, email, logout button. Check sessionStorage.userRole to show appropriate dashboard. Use TailwindCSS, match mockups/admin-dashboard.html and mockups/employee-dashboard.html designs.
+
+Context: Staff augmentation platform with role-based access - admins manage everything, employees only see their own data.</div>
+                    </div>
+                </div>
+
+                <!-- Day 3 -->
+                <div class="day-card frontend">
+                    <div class="day-header">
+                        <div class="day-title">Day 3: Contracts Module UI</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Create Contracts list page with search and filters</li>
+                        <li class="task-item">Build Contract detail page with resources, POs, financial summary</li>
+                        <li class="task-item">Add contract form for create/edit with validation</li>
+                        <li class="task-item">Implement pagination and sorting</li>
+                        <li class="task-item">Add expiring contract warnings</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Create Contracts module UI for Rrootshell admin panel based on mockups/contracts.html and mockups/contract-detail.html:
+
+Contracts List Page needs:
+- Search box to filter by contract ID or client name
+- Status filter (Active, Expiring Soon, Expired, Draft)
+- Client filter dropdown
+- Table columns: Contract ID, Client, Value, Start Date, End Date, Status, Actions (View, Edit, Delete)
+- Status badges with colors: Active (green), Expiring Soon (orange), Expired (red)
+- Pagination showing current page and total
+- "Add Contract" button top-right
+
+Contract Detail Page needs:
+- Overview section: Contract ID, Client, Value, Duration, Status
+- Warning banner if expiring within 60 days
+- Client information card: Name, Contact Person, Email, Phone
+- Assigned Resources table: Name, Role, Rate, Status with links to resource profiles
+- Purchase Orders section showing PO IDs, amounts, utilization
+- Financial Summary: Total Value, Billed Amount, Remaining, Margin
+- Edit and Back buttons
+
+Contract Form needs:
+- Fields: Client Name, Contact Person, Email, Phone, Contract Value, Start Date, End Date, Description
+- Validation: Required fields, email format, value > 0, end date after start date
+- Save and Cancel buttons
+
+Use React Hook Form for validation, TailwindCSS for styling. Create TypeScript interfaces: Contract, Client, Resource. Connect to backend API (GET /api/contracts, GET /api/contracts/:id, POST /api/contracts, PUT /api/contracts/:id, DELETE /api/contracts/:id).
+
+Context: Contracts are central to staff augmentation - they link clients, resources, POs, and billing.</div>
+                    </div>
+                </div>
+
+                <!-- Day 4 -->
+                <div class="day-card frontend">
+                    <div class="day-header">
+                        <div class="day-title">Day 4: Resources Module UI</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Create Resources list with card/table toggle view</li>
+                        <li class="task-item">Build Resource profile page with skills and assignments</li>
+                        <li class="task-item">Add resource form with skill tags management</li>
+                        <li class="task-item">Implement filters: status (Active/Bench/Available), skills</li>
+                        <li class="task-item">Add avatar upload functionality</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Create Resources module UI for Rrootshell based on mockups/resources.html and mockups/profile.html:
+
+Resources List Page needs:
+- Stats bar: Total Resources (48), Active (35), On Bench (13), Available Now (8)
+- Toggle view: Cards (default) or Table
+- Card view: Avatar with initials, Name, Role, Rate, Status badge, Skills tags (React, TypeScript, etc.), Current assignment or "Available immediately", View Profile button
+- Table view: columns similar to cards
+- Filters: Status (Active, Bench, Available), Skills (multi-select)
+- Search by name or skill
+- "Add Resource" button
+
+Resource Profile Page needs:
+- Left sidebar: Large avatar, Name, Stats (24 Projects, 3.5 Years, 98% Rating, 2150 Hours)
+- Personal Info form: Full Name, Email, Phone, Location
+- Professional Details: Role, Hourly Rate, Status (Assigned/Available/Bench)
+- Skills section: Tag pills with X to remove, Input to add new skill
+- Current Assignment card: Client, Contract ID, Start Date, Monthly Rate, Status
+- Recent Activity feed: 5 recent actions with timestamps
+- Edit Profile and Save buttons
+
+Resource Form needs:
+- Fields: Full Name, Email, Phone, Role, Hourly Rate, Skills (tag input)
+- Avatar upload with preview
+- Status dropdown: Assigned, Available, On Bench
+- Validation: Required fields, email format, rate > 0
+- Save and Cancel buttons
+
+Use React, TailwindCSS, React Tag Input library. TypeScript interfaces: Resource { id, name, email, phone, role, rate, status, skills[], avatar?, assignment? }. Connect to backend (GET /api/resources, POST /api/resources, PUT /api/resources/:id, DELETE /api/resources/:id).
+
+Context: Resources are employees/contractors assigned to client contracts - track availability, skills, rates, and assignments.</div>
+                    </div>
+                </div>
+
+                <!-- Day 5 -->
+                <div class="day-card frontend">
+                    <div class="day-header">
+                        <div class="day-title">Day 5: Purchase Orders Module UI</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Create PO list with utilization progress bars</li>
+                        <li class="task-item">Build PO detail page with contract linkage</li>
+                        <li class="task-item">Add PO form with amount and expiration</li>
+                        <li class="task-item">Implement expiring PO alerts (within 30 days)</li>
+                        <li class="task-item">Add utilization tracking visualization</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Create Purchase Orders module UI for Rrootshell based on mockups/purchase-orders.html:
+
+PO List Page needs:
+- Alert banner at top if any POs expiring within 30 days (show count)
+- Stats bar: Active POs (18), Total Value ($12.5M), Expiring Soon (5), Avg Utilization (78%)
+- Table columns: PO Number, Contract ID (link), Client, Amount, Utilized, Utilization % (progress bar), Expiration Date, Status
+- Progress bars: Red if > 90%, Orange if > 75%, Green otherwise
+- Status badges: Active (green), Expiring Soon (orange), Expired (red)
+- Filters: Status, Contract, Expiration (Next 30/60/90 days)
+- Search by PO number or contract
+- "Create PO" button
+
+PO Detail Page needs:
+- Overview: PO Number, Contract ID (link), Client, Amount, Utilized, Remaining
+- Utilization progress bar with percentage
+- Expiration warning if within 30 days
+- Contract details section: Client, Contract Value, Resources Assigned
+- Transaction history: Date, Description, Amount, Running Total
+- Renew PO and Edit buttons if admin
+
+PO Form needs:
+- Fields: Contract (dropdown), PO Number, Amount, Start Date, Expiration Date, Notes
+- Validation: Required fields, amount > 0, expiration after start date, unique PO number
+- Save and Cancel buttons
+
+Use React, TailwindCSS for progress bars. TypeScript interface: PurchaseOrder { id, poNumber, contractId, amount, utilized, expirationDate, status }. Backend API: GET /api/purchase-orders, POST /api/purchase-orders, PUT /api/purchase-orders/:id.
+
+Context: POs are purchase orders from clients defining budget for resources - track utilization and expiration to prevent overages.</div>
+                    </div>
+                </div>
+
+                <!-- Day 6 -->
+                <div class="day-card frontend">
+                    <div class="day-header">
+                        <div class="day-title">Day 6: Timesheets Module UI (Admin & Employee)</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Create admin timesheet review page with approval workflow</li>
+                        <li class="task-item">Build employee timesheet entry form (weekly grid)</li>
+                        <li class="task-item">Implement week selector and daily hour inputs</li>
+                        <li class="task-item">Add approval/rejection actions for admin</li>
+                        <li class="task-item">Show approval status and history</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Create Timesheets module with two views based on mockups/timesheets.html:
+
+Admin Timesheet Review Page needs:
+- Stats: Pending Approval (12), Approved This Week (35), Rejected (2), Total Hours (1,520)
+- Filter by: Employee, Contract, Week, Status (Pending, Approved, Rejected, Draft)
+- Table: Employee Name, Contract, Week (Dec 16-22), Total Hours, Status, Actions
+- Approve/Reject buttons inline with confirmation modal
+- Bulk actions: Approve Selected, Reject Selected
+- Export to Excel button
+- View individual timesheet detail
+
+Employee Timesheet Entry Page needs:
+- Personal stats at top: Hours This Week (40), Hours This Month (152), Pending Approval (1), Approval Rate (98%)
+- Week selector with prev/next buttons
+- Timesheet grid: Rows for each project/contract, Columns for Mon-Sun + Total
+- Input fields for hours per day (0-24, validation)
+- Daily total row at bottom
+- Submit for Approval button (only if status is Draft)
+- Recent timesheets table below: Week, Contract, Hours, Status, Submitted Date
+- Status badges: Draft (gray), Pending (yellow), Approved (green), Rejected (red)
+
+Timesheet Form Validation:
+- Hours must be 0-24 per day
+- Total hours per day should not exceed 24 (warning if > 16)
+- At least one day must have hours > 0
+- Cannot edit after approved/rejected (must create new)
+
+Use React, TailwindCSS, React Hook Form. TypeScript interface: Timesheet { id, userId, contractId, weekStart, weekEnd, hours: { [date: string]: number }, totalHours, status: 'draft' | 'pending' | 'approved' | 'rejected', submittedDate?, approvedBy?, approvedDate? }. Backend: GET /api/timesheets (admin sees all, employee sees own), POST /api/timesheets, PUT /api/timesheets/:id, POST /api/timesheets/:id/approve, POST /api/timesheets/:id/reject.
+
+Context: Timesheets track hours worked by resources on contracts - admins approve for billing, employees only see their own.</div>
+                    </div>
+                </div>
+
+                <!-- Day 7 -->
+                <div class="day-card frontend">
+                    <div class="day-header">
+                        <div class="day-title">Day 7: Reports & Analytics UI</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Create reports dashboard with KPI cards</li>
+                        <li class="task-item">Implement chart components (revenue, utilization)</li>
+                        <li class="task-item">Build report generation interface with filters</li>
+                        <li class="task-item">Add export functionality (PDF, Excel)</li>
+                        <li class="task-item">Create top contracts and resources tables</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Create Reports & Analytics module for Rrootshell admin based on mockups/reports.html:
+
+Reports Dashboard needs:
+- KPI Cards: Revenue ($ 8.2M, ↑15.3%), Active Contracts (24, ↑3), Resource Utilization (78%, ↓2.1%), Avg Contract Value ($341K, ↑8%)
+- Chart section with tabs: Revenue Trend (bar chart, last 6 months), Utilization by Resource (pie chart), Contract Distribution (bar chart by client)
+- Top Contracts table: Rank, Contract ID, Client, Value, Resources, Status - top 5 by value
+- Top Resources table: Rank, Name, Hours, Revenue Generated, Utilization % - top 5 by revenue
+- Date range selector (Last 7/30/90 days, This Month, Last Month, Custom)
+
+Report Generation Cards (6 cards):
+1. Revenue Analysis: Total revenue, by contract, by client, by month
+2. Resource Utilization: Hours breakdown, bench time, billable vs non-billable
+3. Contract Summary: Active/expired/expiring, by client, by value range
+4. Financial Statement: Revenue, costs, margin, by period
+5. Timesheet Report: Submitted/pending/approved, by employee, by contract
+6. KPI Dashboard: All metrics in one PDF
+
+Each card has: Icon, Title, Description, Generate Report button, Format options (PDF, Excel, CSV)
+
+Use React, Recharts for charts, TailwindCSS. TypeScript interfaces: Report { type, dateRange, filters, format }. Backend: GET /api/reports/revenue, GET /api/reports/utilization, POST /api/reports/generate (returns file download).
+
+Context: Reports help admins analyze business performance, resource efficiency, and financial health across all contracts.</div>
+                    </div>
+                </div>
+
+                <!-- Day 8 -->
+                <div class="day-card frontend">
+                    <div class="day-header">
+                        <div class="day-title">Day 8: Admin Panel & Notifications UI</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Create admin user management interface</li>
+                        <li class="task-item">Build system settings page with toggles</li>
+                        <li class="task-item">Implement notifications center with filters</li>
+                        <li class="task-item">Add role permissions management</li>
+                        <li class="task-item">Create activity log viewer</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Create Admin Panel and Notifications modules based on mockups/admin-panel.html and mockups/notifications.html:
+
+Admin Panel needs:
+- Stats: Total Users (87), Active Sessions (42), System Uptime (99.9%), Storage Used (68%)
+- User Management table: Name, Email, Role (Admin/Manager/Resource), Status (Active/Inactive), Last Login, Actions (Edit, Disable, Delete)
+- Add User button with form: Name, Email, Role dropdown, Send Invite checkbox
+- Role Permissions section: Table showing permissions per role (View/Edit/Delete for each module)
+- System Settings: Email Notifications (toggle), Two-Factor Auth (toggle), Maintenance Mode (toggle), Session Timeout (input), Max Upload Size (input)
+- Activity Log: Recent 20 actions with User, Action, Timestamp, IP Address
+- Export Activity Log button
+
+Notifications Center needs:
+- Left sidebar filters: All (12), Unread (5), Contracts (3), Timesheets (2), POs (2), System (1), Resources (1)
+- Notification list: Each has Icon, Title, Description, Time, Mark as Read/Unread, Delete
+- Unread notifications highlighted with blue background
+- Action buttons on relevant notifications: View Contract, View Timesheet, View PO
+- Mark All as Read button at top
+- Notification types with icons: Contract (📄), Timesheet (⏱️), PO (💰), System (⚙️), Resource (👤)
+
+Employee Notifications (limited):
+- Same UI but only shows notifications relevant to logged-in employee
+- No system or admin notifications
+- Can only see: Timesheet status, Assignment changes, Document requests
+
+Use React, TailwindCSS, Toggle component library. TypeScript interfaces: User { id, name, email, role, status, lastLogin }, Notification { id, type, title, description, isRead, timestamp, actionUrl? }. Backend: GET /api/users (admin only), POST /api/users, PUT /api/users/:id, DELETE /api/users/:id, GET /api/notifications (filtered by user), PUT /api/notifications/:id/read, GET /api/activity-log (admin only).
+
+Context: Admin panel for system management, notifications keep users informed of important events and required actions.</div>
+                    </div>
+                </div>
+
+                <!-- Day 9 -->
+                <div class="day-card frontend">
+                    <div class="day-header">
+                        <div class="day-title">Day 9: Documents Module & Profile Pages</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Create documents library with upload zone</li>
+                        <li class="task-item">Build folder structure and file listing</li>
+                        <li class="task-item">Implement employee profile edit page</li>
+                        <li class="task-item">Add document preview and download</li>
+                        <li class="task-item">Create document sharing interface</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Create Documents module and Profile pages based on mockups/documents.html and mockups/profile.html:
+
+Documents Page needs:
+- Upload zone with drag-and-drop: "Drag files here or click to browse", Max 50MB, Allowed: PDF, DOC, XLS, images
+- Stats: Total Documents (248), Storage Used (4.2 GB / 10 GB), Pending Signatures (3), Shared With Me (12)
+- Folder cards: Contracts (45 files), Invoices (128), Reports (32), Certificates (18), Purchase Orders (25), Timesheets (42)
+- Document list view: Icon (by file type), Name, Size, Uploaded By, Upload Date, Status (Signed/Pending/Draft), Actions (Download, View, Share, Delete)
+- Filter by: Folder, Date Range, Uploaded By, Status
+- Search documents by name
+- Bulk actions: Download Selected, Delete Selected
+- For employees: Only show documents related to their contracts/assignments
+
+Profile Page (Employee) needs:
+- Left sidebar: Avatar (editable), User initials if no photo, Stats below avatar (24 Projects, 3.5 Years Experience, 98% Rating, 2,150 Total Hours)
+- Personal Information section: Full Name, Email, Phone, Location (editable)
+- Professional Details: Role, Hourly Rate (read-only for employee), Status badge
+- Skills section: Tag pills (React, TypeScript, Node.js, etc.), Add Skill input, Remove skill X button
+- Password change section: Current Password, New Password, Confirm Password
+- Current Assignment card: Client, Contract ID, Start Date, Monthly Rate (read-only)
+- Recent Activity feed: Last 5 activities with timestamps
+- Save Changes and Cancel buttons
+
+Document Sharing Modal:
+- Search users by name/email
+- Access level dropdown: View Only, Download, Edit
+- Expiration date (optional)
+- Share button
+
+Use React, React Dropzone for upload, TailwindCSS. TypeScript interfaces: Document { id, name, size, type, url, folderId, uploadedBy, uploadDate, status }, UserProfile { ...Resource, preferences, avatar }. Backend: GET /api/documents (filtered by user role), POST /api/documents/upload (multipart/form-data), GET /api/documents/:id/download, DELETE /api/documents/:id, POST /api/documents/:id/share, GET /api/profile, PUT /api/profile.
+
+Context: Documents store contracts, invoices, reports - role-based access ensures employees only see their documents. Profile lets users manage personal info and skills.</div>
+                    </div>
+                </div>
+
+                <!-- Day 10 -->
+                <div class="day-card frontend">
+                    <div class="day-header">
+                        <div class="day-title">Day 10: Integration Testing & Bug Fixes</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Test all admin workflows end-to-end</li>
+                        <li class="task-item">Test all employee workflows (limited access)</li>
+                        <li class="task-item">Fix authentication and routing bugs</li>
+                        <li class="task-item">Test responsive design on mobile/tablet</li>
+                        <li class="task-item">Fix UI inconsistencies and styling issues</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Help me create comprehensive integration tests for the Rrootshell Staff Augmentation Platform:
+
+Test Scenarios for Admin Role:
+1. Login as admin → Should see admin dashboard with 7 navigation items
+2. Navigate to Contracts → Add new contract → Verify it appears in list
+3. Navigate to Resources → Assign resource to contract → Verify assignment shows on both pages
+4. Navigate to POs → Create PO for contract → Verify utilization updates
+5. Navigate to Timesheets → Approve pending timesheet → Verify status changes
+6. Navigate to Reports → Generate revenue report → Verify download
+7. Navigate to Admin Panel → Add user with Manager role → Verify email sent
+8. Navigate to Notifications → Mark notifications as read → Verify unread count updates
+9. Navigate to Documents → Upload document → Verify appears in folder
+10. Logout → Verify session cleared and redirected to login
+
+Test Scenarios for Employee Role:
+1. Login as employee → Should see employee dashboard with 4 navigation items only
+2. Try to access admin routes (contracts, resources, admin panel) → Should redirect to dashboard with error
+3. Navigate to My Timesheets → Submit new timesheet → Verify status is Pending
+4. Navigate to My Profile → Update skills → Save → Verify changes persist
+5. Navigate to Notifications → Should only see employee-relevant notifications
+6. Navigate to Documents → Should only see documents for assigned contracts
+7. Logout → Verify session cleared
+
+Responsive Design Tests:
+- Test on mobile (320px, 375px, 414px widths)
+- Test on tablet (768px, 1024px widths)
+- Verify navigation collapses to hamburger menu
+- Verify tables become scrollable or cards on mobile
+- Verify forms are usable on touch devices
+
+Use React Testing Library, Jest. Create test files for each module. Mock backend API responses. Test role-based access control thoroughly.
+
+Context: This is a role-based staff augmentation platform - security is critical, admin sees everything, employee sees only their data.</div>
+                    </div>
+                </div>
+
+                <!-- Day 11 -->
+                <div class="day-card frontend">
+                    <div class="day-header">
+                        <div class="day-title">Day 11: Performance Optimization & Accessibility</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Implement code splitting and lazy loading</li>
+                        <li class="task-item">Optimize images and assets</li>
+                        <li class="task-item">Add loading states and error boundaries</li>
+                        <li class="task-item">Implement accessibility (ARIA labels, keyboard navigation)</li>
+                        <li class="task-item">Add PWA support for offline access</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Optimize the Rrootshell Staff Augmentation Platform for performance and accessibility:
+
+Performance Optimizations needed:
+1. Code Splitting: Implement React.lazy() for all route components (Contracts, Resources, POs, Timesheets, Reports, Admin, Documents)
+2. Lazy Loading: Load images and heavy components only when visible using Intersection Observer
+3. Memoization: Use React.memo() for expensive components (charts, large tables), useMemo() for calculations, useCallback() for event handlers
+4. Virtual Scrolling: Implement react-window for long lists (resources, contracts, documents)
+5. Debounce: Add debounce to search inputs (300ms delay)
+6. API Caching: Implement React Query for data fetching, caching, and background updates
+7. Image Optimization: Convert images to WebP, implement lazy loading with blur placeholder
+8. Bundle Size: Analyze bundle with webpack-bundle-analyzer, remove unused dependencies
+
+Loading States:
+- Skeleton screens for dashboard, tables while loading
+- Spinner for button actions (Save, Submit, Approve)
+- Progress bar for file uploads
+- Toast notifications for success/error messages
+
+Error Boundaries:
+- Wrap each route in error boundary
+- Display user-friendly error message with "Try Again" button
+- Log errors to backend for monitoring
+- Fallback UI for failed components
+
+Accessibility (WCAG 2.1 AA compliance):
+- All interactive elements keyboard accessible (Tab, Enter, Space)
+- Focus indicators visible on all focusable elements
+- ARIA labels on icons, buttons: aria-label="Add Contract", aria-label="Close Modal"
+- Form inputs with proper labels and error messages
+- Skip to main content link for screen readers
+- Color contrast ratio > 4.5:1 for text
+- Alt text for all images and icons
+- Semantic HTML: <nav>, <main>, <section>, <article>, <header>, <footer>
+- Table headers with scope attribute
+- Modal focus trap, return focus on close
+
+PWA Support:
+- Create manifest.json with app metadata, icons
+- Implement service worker for offline caching
+- Cache API responses for offline viewing
+- Show offline indicator when no connection
+- Enable "Add to Home Screen" prompt
+
+Use React, Lighthouse for testing, axe DevTools for accessibility. Test with keyboard only, screen reader (NVDA/JAWS).
+
+Context: This platform will be used daily by admins and employees - must be fast, accessible, and work offline for field employees.</div>
+                    </div>
+                </div>
+
+                <!-- Day 12 -->
+                <div class="day-card frontend">
+                    <div class="day-header">
+                        <div class="day-title">Day 12: Final Testing & Deployment</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Run full regression testing suite</li>
+                        <li class="task-item">Fix critical and high-priority bugs</li>
+                        <li class="task-item">Build production bundle and optimize</li>
+                        <li class="task-item">Deploy to GoDaddy subdomain</li>
+                        <li class="task-item">Verify production deployment and smoke tests</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Help me prepare the Rrootshell Platform frontend for production deployment to GoDaddy:
+
+Pre-Deployment Checklist:
+1. Environment Variables: Create .env.production with API_URL pointing to GoDaddy backend
+2. Build Configuration: Update vite.config.ts with base path if deployed to subdomain
+3. Remove console.logs and debugger statements
+4. Update hardcoded URLs to use environment variables
+5. Test production build locally: npm run build && npm run preview
+6. Run Lighthouse audit: Aim for 90+ score on Performance, Accessibility, Best Practices, SEO
+7. Test on real devices: iPhone, Android, iPad, Windows laptop
+
+GoDaddy Deployment Steps:
+1. Build production bundle: npm run build (creates /dist folder)
+2. Create .htaccess file in /dist for React Router:
+   ```
+   <IfModule mod_rewrite.c>
+   RewriteEngine On
+   RewriteBase /
+   RewriteRule ^index\.html$ - [L]
+   RewriteCond %{REQUEST_FILENAME} !-f
+   RewriteCond %{REQUEST_FILENAME} !-d
+   RewriteRule . /index.html [L]
+   </IfModule>
+   ```
+3. Upload /dist contents via FTP/SFTP to GoDaddy subdomain folder
+4. Verify robots.txt allows indexing: User-agent: * Allow: /
+5. Set up SSL certificate in GoDaddy cPanel (Let's Encrypt)
+6. Configure DNS if custom subdomain: CNAME record pointing to GoDaddy
+7. Test deployment: https://subdomain.rrootshell.com
+
+Smoke Tests on Production:
+- Can load login page without errors
+- Can login as admin and employee
+- Can navigate to all pages without 404
+- Can create/edit/delete test data
+- Forms submit successfully
+- Charts and tables render correctly
+- Images and assets load quickly
+- No console errors in browser DevTools
+- API calls succeed (check Network tab)
+- Logout works and clears session
+
+Rollback Plan:
+- Keep previous /dist backup as /dist_backup
+- If issues found, swap folders and notify backend team
+- Document any production-specific bugs for hotfix
+
+Create deployment documentation with screenshots and troubleshooting steps.
+
+Context: This is the final deployment to GoDaddy subdomain of www.rrootshell.com for Rrootshell staff augmentation platform.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backend Developer -->
+            <div class="developer-section">
+                <div class="developer-header backend">
+                    <div class="developer-icon">⚙️</div>
+                    <div class="developer-info">
+                        <h2>Backend Developer</h2>
+                        <p class="developer-role">Node.js, Express, MongoDB, APIs</p>
+                    </div>
+                </div>
+
+                <!-- Day 1 -->
+                <div class="day-card backend">
+                    <div class="day-header">
+                        <div class="day-title">Day 1: Project Setup & Database Design</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Set up Node.js + Express + TypeScript project</li>
+                        <li class="task-item">Install dependencies: Mongoose, JWT, bcrypt, cors, dotenv</li>
+                        <li class="task-item">Design MongoDB schemas for all entities</li>
+                        <li class="task-item">Set up MongoDB database and connection</li>
+                        <li class="task-item">Create environment configuration</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Create a Node.js + Express + TypeScript backend for Rrootshell Staff Augmentation Platform with MongoDB:
+
+Project Setup:
+- Initialize with npm init, install: express, mongoose, typescript, ts-node, @types/node, @types/express
+- Install middleware: cors, helmet, express-rate-limit, morgan (logging)
+- Install auth: jsonwebtoken, bcrypt, @types/jsonwebtoken, @types/bcrypt
+- Install validation: joi, express-validator
+- Install utilities: dotenv, nodemon (dev)
+- Create tsconfig.json with strict mode, ES2020 target
+- Create src/ folder structure: /routes, /controllers, /models, /middleware, /utils, /config
+
+MongoDB Schemas needed:
+1. User: { email, password (hashed), role: 'admin' | 'employee', name, phone, createdAt, lastLogin, status: 'active' | 'inactive' }
+2. Contract: { contractId, clientName, clientContact, email, phone, value, startDate, endDate, status: 'active' | 'expiring' | 'expired' | 'draft', description, createdBy, createdAt }
+3. Resource: { name, email, phone, role, hourlyRate, status: 'assigned' | 'available' | 'bench', skills: [], avatar, assignedContract (ref), monthlyRate }
+4. PurchaseOrder: { poNumber, contract (ref), amount, utilized, expirationDate, status: 'active' | 'expiring' | 'expired', transactions: [] }
+5. Timesheet: { user (ref), contract (ref), weekStart, weekEnd, hours: Map<string, number>, totalHours, status: 'draft' | 'pending' | 'approved' | 'rejected', submittedDate, approvedBy (ref), approvedDate }
+6. Notification: { user (ref), type, title, description, isRead, timestamp, actionUrl }
+7. Document: { name, size, type, url, folder, uploadedBy (ref), uploadDate, status: 'draft' | 'signed' | 'pending', sharedWith: [] }
+
+Environment Variables (.env):
+- PORT=5000
+- MONGODB_URI=mongodb://localhost:27017/rrootshell
+- JWT_SECRET=generate_random_secret_here
+- JWT_EXPIRES_IN=7d
+- NODE_ENV=development
+
+Create server.ts with Express app, MongoDB connection, error handling middleware, CORS config.
+
+Context: Backend for staff augmentation platform managing contracts, resources, POs, timesheets with role-based access - admin sees all, employee sees only own data.</div>
+                    </div>
+                </div>
+
+                <!-- Day 2-12 continue for Backend Developer... -->
+                <!-- (Continuing with similar detailed structure for all 12 days) -->
+
+                <div class="day-card backend">
+                    <div class="day-header">
+                        <div class="day-title">Day 2: Authentication & Authorization</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Implement user registration and login with JWT</li>
+                        <li class="task-item">Create authentication middleware</li>
+                        <li class="task-item">Implement role-based authorization middleware</li>
+                        <li class="task-item">Add password hashing with bcrypt</li>
+                        <li class="task-item">Create logout and token refresh endpoints</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Implement authentication and authorization for Rrootshell backend:
+
+Auth Routes (POST /api/auth/...):
+- /register: Create user with hashed password, return JWT token
+- /login: Validate email/password, return JWT with user role
+- /logout: Clear session/token (if using refresh tokens)
+- /refresh: Issue new JWT from refresh token
+- /forgot-password: Send password reset email
+- /reset-password: Update password with reset token
+
+Authentication Middleware (authMiddleware.ts):
+```typescript
+// Verify JWT token from Authorization header
+// Extract user ID and role from token
+// Attach user to req.user for downstream use
+// Return 401 if token invalid/expired
+```
+
+Authorization Middleware (roleMiddleware.ts):
+```typescript
+// Check req.user.role matches required role(s)
+// Admin can access all routes
+// Employee can only access routes with role: ['admin', 'employee']
+// Manager role for future use
+// Return 403 if insufficient permissions
+```
+
+Security Features:
+- Password hashing: bcrypt with 10 salt rounds
+- JWT secret from environment variable
+- Token expiration: 7 days (configurable)
+- Password validation: min 8 chars, 1 uppercase, 1 number, 1 special char
+- Rate limiting: 5 failed login attempts = 15 min lockout
+- Email validation: proper format, unique
+- Helmet middleware for HTTP security headers
+
+Example Usage:
+```typescript
+router.get('/api/contracts', authMiddleware, roleMiddleware(['admin']), getContracts);
+router.get('/api/timesheets/my', authMiddleware, roleMiddleware(['admin', 'employee']), getMyTimesheets);
+```
+
+Seed Admin User:
+- Email: admin@rrootshell.com
+- Password: Admin@123 (hashed)
+- Role: admin
+
+Context: Platform has 2 roles - admin (full access to all resources) and employee (limited to own timesheets, profile, notifications). JWT-based stateless auth.</div>
+                    </div>
+                </div>
+
+                <!-- Abbreviated remaining days for brevity -->
+                <div class="day-card backend">
+                    <div class="day-header">
+                        <div class="day-title">Days 3-10: API Development</div>
+                        <div class="day-duration">8 hours/day</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Day 3: Contracts CRUD APIs with validation</li>
+                        <li class="task-item">Day 4: Resources CRUD APIs with assignment logic</li>
+                        <li class="task-item">Day 5: Purchase Orders APIs with utilization tracking</li>
+                        <li class="task-item">Day 6: Timesheets APIs with approval workflow</li>
+                        <li class="task-item">Day 7: Reports APIs with aggregation queries</li>
+                        <li class="task-item">Day 8: Notifications APIs with real-time updates</li>
+                        <li class="task-item">Day 9: Documents APIs with file upload/download</li>
+                        <li class="task-item">Day 10: Admin APIs (users, settings, activity log)</li>
+                    </ul>
+                    <div class="context-note">
+                        <strong>📖 Note:</strong> Each day follows similar pattern: Create routes, controllers, implement CRUD operations, add validation, implement role-based access, write unit tests. Use GitHub Copilot prompts specifying the module name and referencing the project context.
+                    </div>
+                </div>
+
+                <div class="day-card backend">
+                    <div class="day-header">
+                        <div class="day-title">Day 11: Testing & Documentation</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Write unit tests for all controllers using Jest</li>
+                        <li class="task-item">Write integration tests for API endpoints</li>
+                        <li class="task-item">Create Postman collection for all APIs</li>
+                        <li class="task-item">Generate API documentation with Swagger</li>
+                        <li class="task-item">Fix bugs found during testing</li>
+                    </ul>
+                </div>
+
+                <div class="day-card backend">
+                    <div class="day-header">
+                        <div class="day-title">Day 12: Deployment & Monitoring</div>
+                        <div class="day-duration">8 hours</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Set up MongoDB Atlas for production</li>
+                        <li class="task-item">Configure environment for GoDaddy hosting</li>
+                        <li class="task-item">Deploy Node.js app to GoDaddy with PM2</li>
+                        <li class="task-item">Set up logging and error tracking</li>
+                        <li class="task-item">Run smoke tests on production</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Full Stack/DevOps Developer -->
+            <div class="developer-section">
+                <div class="developer-header fullstack">
+                    <div class="developer-icon">🔧</div>
+                    <div class="developer-info">
+                        <h2>Full Stack / DevOps Developer</h2>
+                        <p class="developer-role">Integration, Testing, Deployment, CI/CD</p>
+                    </div>
+                </div>
+
+                <div class="day-card fullstack">
+                    <div class="day-header">
+                        <div class="day-title">Days 1-4: Support & Integration</div>
+                        <div class="day-duration">8 hours/day</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Set up GitHub repository with branching strategy</li>
+                        <li class="task-item">Create development environment setup scripts</li>
+                        <li class="task-item">Help frontend connect to backend APIs</li>
+                        <li class="task-item">Debug CORS and authentication issues</li>
+                    </ul>
+                </div>
+
+                <div class="day-card fullstack">
+                    <div class="day-header">
+                        <div class="day-title">Days 5-8: Testing & Quality Assurance</div>
+                        <div class="day-duration">8 hours/day</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Set up automated testing with Cypress (E2E)</li>
+                        <li class="task-item">Test all user workflows (admin and employee)</li>
+                        <li class="task-item">Perform security testing (SQL injection, XSS, CSRF)</li>
+                        <li class="task-item">Load testing with Apache JMeter</li>
+                    </ul>
+                </div>
+
+                <div class="day-card fullstack">
+                    <div class="day-header">
+                        <div class="day-title">Days 9-10: CI/CD & Infrastructure</div>
+                        <div class="day-duration">8 hours/day</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Set up GitHub Actions for automated builds</li>
+                        <li class="task-item">Configure GoDaddy hosting environment</li>
+                        <li class="task-item">Set up SSL certificates and domain configuration</li>
+                        <li class="task-item">Create deployment scripts and rollback procedures</li>
+                    </ul>
+                </div>
+
+                <div class="day-card fullstack">
+                    <div class="day-header">
+                        <div class="day-title">Days 11-12: Final Deployment & Handoff</div>
+                        <div class="day-duration">8 hours/day</div>
+                    </div>
+                    <ul class="task-list">
+                        <li class="task-item">Deploy frontend and backend to GoDaddy</li>
+                        <li class="task-item">Verify production environment with smoke tests</li>
+                        <li class="task-item">Set up monitoring and alerting</li>
+                        <li class="task-item">Create deployment documentation and runbook</li>
+                        <li class="task-item">Conduct knowledge transfer session</li>
+                    </ul>
+                    <div class="copilot-prompt">
+                        <div class="prompt-label">🤖 GitHub Copilot Prompt</div>
+                        <div>Create comprehensive deployment guide for Rrootshell Platform to GoDaddy subdomain:
+
+GoDaddy Deployment Architecture:
+- Frontend: Static React build served from /public_html/app subdomain folder
+- Backend: Node.js app running on port 5000 with PM2 process manager
+- Database: MongoDB Atlas (cloud-hosted, free tier)
+- Domain: subdomain.rrootshell.com (e.g., staff.rrootshell.com)
+
+Frontend Deployment Steps:
+1. Build: npm run build (creates /dist)
+2. Upload /dist contents to GoDaddy via FTP (FileZilla) to /public_html/subdomain
+3. Create/update .htaccess for React Router (detailed in Day 12 frontend)
+4. Verify static files accessible at https://subdomain.rrootshell.com
+
+Backend Deployment Steps:
+1. Upload Node.js source code via FTP to /home/username/backend
+2. SSH into GoDaddy: ssh username@subdomain.rrootshell.com
+3. Install Node.js (use NVM if needed): nvm install 18 && nvm use 18
+4. Install dependencies: cd ~/backend && npm install --production
+5. Create .env.production with MongoDB Atlas connection string
+6. Install PM2 globally: npm install -g pm2
+7. Start app with PM2: pm2 start dist/server.js --name rrootshell-api
+8. Set PM2 to restart on reboot: pm2 startup && pm2 save
+9. Configure reverse proxy in .htaccess to forward /api requests to port 5000
+
+MongoDB Atlas Setup:
+1. Create free cluster at mongodb.com/cloud/atlas
+2. Add database user with read/write permissions
+3. Whitelist GoDaddy server IP address
+4. Get connection string: mongodb+srv://user:pass@cluster.mongodb.net/rrootshell
+5. Update backend .env.production with connection string
+
+SSL Certificate:
+- GoDaddy provides free SSL via cPanel
+- Enable "Force HTTPS" in .htaccess
+- Verify certificate valid at https://subdomain.rrootshell.com
+
+Health Check & Monitoring:
+- Create /api/health endpoint returning { status: 'ok', uptime, version }
+- Set up UptimeRobot to ping every 5 minutes
+- Configure PM2 logs: pm2 logs rrootshell-api
+- Create alerts for API downtime
+
+Rollback Procedure:
+1. Keep previous build in /dist_backup_YYYYMMDD
+2. If issues: Stop PM2, restore old code, restart
+3. Notify team via Slack/email
+4. Document issue in incident log
+
+Post-Deployment Checklist:
+□ Can access https://subdomain.rrootshell.com
+□ Login works for admin and employee
+□ All API endpoints respond correctly
+□ Database connections successful
+□ No console errors in browser
+□ SSL certificate valid
+□ PM2 process running
+□ Health check endpoint returns OK
+□ Monitoring alerts configured
+
+Context: Final deployment of Rrootshell Staff Augmentation Platform to GoDaddy subdomain for production use by business owner and employees.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="context-note">
+                <strong>🚀 Final Notes for All Developers:</strong>
+                <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                    <li>Use this same GitHub repository: Rrootshell-StaffAugmentation</li>
+                    <li>Create feature branches: feature/contracts-ui, feature/auth-api, etc.</li>
+                    <li>Open Pull Requests for code review before merging to main</li>
+                    <li>Reference mockups in /mockups folder for UI design</li>
+                    <li>Reference requirements in /requirements folder for specifications</li>
+                    <li>Test thoroughly - this goes live end of November!</li>
+                    <li>Document any blockers or questions in GitHub Issues</li>
+                    <li>Daily standup at 9 AM to sync progress</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Rrootshell Staff Augmentation. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -3,293 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Rrootshell Staff Augmentation</title>
+    <title>Rrootshell Staff Augmentation - Coming Soon</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
-        .login-container {
-            width: 100%;
-            max-width: 450px;
-            padding: 2rem;
-        }
-        .login-card {
+
+        .message-container {
             background: white;
-            border-radius: 16px;
+            padding: 60px 40px;
+            border-radius: 12px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            padding: 3rem;
-        }
-        .login-header {
+            max-width: 600px;
+            width: 100%;
             text-align: center;
-            margin-bottom: 2rem;
         }
-        .login-header h1 {
-            margin: 0 0 0.5rem 0;
-            font-size: 2rem;
-            color: #1e293b;
+
+        .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
         }
-        .login-header p {
-            margin: 0;
-            color: #64748b;
+
+        h1 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 32px;
         }
-        .form-group {
-            margin-bottom: 1.5rem;
+
+        .message {
+            color: #4a5568;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
         }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #334155;
-            font-weight: 600;
+
+        .info-box {
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
         }
-        .form-group input {
-            width: 100%;
-            padding: 0.875rem;
-            border: 2px solid #e2e8f0;
+
+        .info-box h3 {
+            margin-top: 0;
+            color: #2d3748;
+            font-size: 16px;
+        }
+
+        .info-box p {
+            margin: 5px 0;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
             border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s;
-            box-sizing: border-box;
-        }
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        .form-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .remember-me input {
-            width: auto;
-        }
-        .forgot-password {
-            color: #667eea;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
         }
-        .forgot-password:hover {
-            text-decoration: underline;
-        }
-        .login-button {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+        .btn-primary {
+            background: #667eea;
             color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
         }
-        .login-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+
+        .btn-primary:hover {
+            background: #5568d3;
         }
-        .divider {
-            text-align: center;
-            margin: 1.5rem 0;
-            color: #94a3b8;
-            position: relative;
-        }
-        .divider::before,
-        .divider::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 40%;
-            height: 1px;
+
+        .btn-secondary {
             background: #e2e8f0;
+            color: #2d3748;
         }
-        .divider::before {
-            left: 0;
-        }
-        .divider::after {
-            right: 0;
-        }
-        .role-selector {
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background: #f1f5f9;
-            border-radius: 8px;
-        }
-        .role-selector p {
-            margin: 0 0 0.75rem 0;
-            font-weight: 600;
-            color: #334155;
-            font-size: 0.9rem;
-        }
-        .role-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-        }
-        .role-button {
-            padding: 0.75rem;
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-            font-weight: 600;
-        }
-        .role-button:hover {
-            border-color: #667eea;
-            background: #f8fafc;
-        }
-        .role-button.selected {
-            border-color: #667eea;
-            background: #eef2ff;
-            color: #667eea;
-        }
-        .demo-credentials {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background: #fffbeb;
-            border: 1px solid #fcd34d;
-            border-radius: 8px;
-            font-size: 0.85rem;
-        }
-        .demo-credentials h4 {
-            margin: 0 0 0.5rem 0;
-            color: #92400e;
-        }
-        .demo-credentials p {
-            margin: 0.25rem 0;
-            color: #78350f;
-        }
-        .back-link {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-        .back-link a {
-            color: #64748b;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-        .back-link a:hover {
-            color: #334155;
-        }
-        .deployment-note {
-            margin-top: 2rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 8px;
-            text-align: center;
-            font-size: 0.85rem;
-            color: #64748b;
+
+        .btn-secondary:hover {
+            background: #cbd5e0;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <h1>🚀 Rrootshell</h1>
-                <p>Staff Augmentation System</p>
-            </div>
+    <div class="message-container">
+        <div class="icon">🚧</div>
+        <h1>Build Not Started Yet</h1>
+        <p class="message">
+            The real application is pending approval from the business owner. 
+            Development will begin once the UI mockups and flows are approved.
+        </p>
 
-            <form id="loginForm">
-                <div class="role-selector">
-                    <p>👤 Select Your Role:</p>
-                    <div class="role-buttons">
-                        <div class="role-button selected" data-role="admin">
-                            <div>👔 Admin</div>
-                            <small style="display: block; margin-top: 0.25rem; color: #64748b;">Full Access</small>
-                        </div>
-                        <div class="role-button" data-role="employee">
-                            <div>👨‍💼 Employee</div>
-                            <small style="display: block; margin-top: 0.25rem; color: #64748b;">Limited Access</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="your.email@rrootshell.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                </div>
-
-                <div class="form-options">
-                    <label class="remember-me">
-                        <input type="checkbox" id="remember">
-                        <span>Remember me</span>
-                    </label>
-                    <a href="#" class="forgot-password">Forgot Password?</a>
-                </div>
-
-                <button type="submit" class="login-button">Sign In</button>
-
-                <div class="demo-credentials">
-                    <h4>💡 Demo Credentials:</h4>
-                    <p><strong>Admin:</strong> admin@rrootshell.com / admin123</p>
-                    <p><strong>Employee:</strong> employee@rrootshell.com / emp123</p>
-                </div>
-            </form>
-
-            <div class="back-link">
-                <a href="index.html">← Back to Developer Portal</a>
-            </div>
+        <div class="info-box">
+            <h3>📋 Current Status</h3>
+            <p><strong>Phase:</strong> Design Review & Approval</p>
+            <p><strong>Next Step:</strong> Business owner to review mockups</p>
+            <p><strong>Timeline:</strong> Build starts after approval (Target: End of November)</p>
         </div>
 
-        <div class="deployment-note">
-            <p>🌐 This application will be deployed to a subdomain of <strong>www.rrootshell.com</strong></p>
-            <p style="margin-top: 0.5rem;">Hosted on GoDaddy for production use by Rrootshell employees</p>
+        <div class="info-box">
+            <h3>👀 Want to Review the UI?</h3>
+            <p>Business owners can review the interactive mockups with login flow and role-based dashboards.</p>
+        </div>
+
+        <div class="btn-group">
+            <a href="mockups/login.html" class="btn btn-primary">View Mockups</a>
+            <a href="index.html" class="btn btn-secondary">Back to Portal</a>
         </div>
     </div>
-
-    <script>
-        // Role selection logic
-        const roleButtons = document.querySelectorAll('.role-button');
-        let selectedRole = 'admin';
-
-        roleButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                roleButtons.forEach(btn => btn.classList.remove('selected'));
-                button.classList.add('selected');
-                selectedRole = button.dataset.role;
-            });
-        });
-
-        // Login form submission
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            // Store role in sessionStorage for demo purposes
-            sessionStorage.setItem('userRole', selectedRole);
-            sessionStorage.setItem('userEmail', email);
-            sessionStorage.setItem('isLoggedIn', 'true');
-
-            // Redirect based on role
-            if (selectedRole === 'admin') {
-                window.location.href = 'app/admin-dashboard.html';
-            } else {
-                window.location.href = 'app/employee-dashboard.html';
-            }
-        });
-    </script>
 </body>
 </html>

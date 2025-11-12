@@ -34,6 +34,36 @@
         .login-header p {
             color: var(--text-secondary);
         }
+        .role-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .role-btn {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .role-btn:hover {
+            border-color: #667eea;
+            background: #f7fafc;
+        }
+        .role-btn.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+        .role-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
         .form-group {
             margin-bottom: 1.5rem;
         }
@@ -151,15 +181,26 @@
                 <p>Sign in to your Rrootshell account</p>
             </div>
 
-            <form>
+            <div class="role-selector">
+                <button type="button" class="role-btn selected" data-role="admin">
+                    <div class="role-icon">👨‍💼</div>
+                    <div>Admin</div>
+                </button>
+                <button type="button" class="role-btn" data-role="employee">
+                    <div class="role-icon">👤</div>
+                    <div>Employee</div>
+                </button>
+            </div>
+
+            <form id="loginForm">
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="your.email@rrootshell.com" value="admin@rrootshell.com">
+                    <input type="email" id="email" placeholder="your.email@rrootshell.com" value="admin@rrootshell.com" required>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter your password" value="••••••••">
+                    <input type="password" id="password" placeholder="Enter your password" required>
                 </div>
 
                 <div class="form-options">
@@ -170,7 +211,7 @@
                     <a href="#" class="forgot-password">Forgot password?</a>
                 </div>
 
-                <button type="button" class="login-button" onclick="window.location.href='dashboard.html'">
+                <button type="submit" class="login-button">
                     Sign In
                 </button>
 
@@ -186,6 +227,47 @@
             </form>
         </div>
     </main>
+
+    <script>
+        let selectedRole = 'admin';
+        
+        // Role selection functionality
+        const roleButtons = document.querySelectorAll('.role-btn');
+        roleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                roleButtons.forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+                selectedRole = button.dataset.role;
+                
+                // Update email placeholder based on role
+                const emailInput = document.getElementById('email');
+                if (selectedRole === 'admin') {
+                    emailInput.value = 'admin@rrootshell.com';
+                } else {
+                    emailInput.value = 'employee@rrootshell.com';
+                }
+            });
+        });
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            
+            // Store login info in session storage
+            sessionStorage.setItem('userRole', selectedRole);
+            sessionStorage.setItem('userEmail', email);
+            sessionStorage.setItem('isLoggedIn', 'true');
+
+            // Redirect based on role
+            if (selectedRole === 'admin') {
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                window.location.href = 'employee-dashboard.html';
+            }
+        });
+    </script>
 
     <footer class="main-footer">
         <div class="container">

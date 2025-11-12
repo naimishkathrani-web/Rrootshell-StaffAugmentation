@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Rrootshell Staff Augmentation</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        .app-header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        .logo h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        .horizontal-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-item {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        .nav-item:hover {
+            background: #f7fafc;
+            color: #667eea;
+        }
+        .nav-item.active {
+            background: #667eea;
+            color: white;
+        }
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        .logout-btn {
+            padding: 0.5rem 1rem;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        .page-header h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+            color: #1e293b;
+        }
+        .page-header p {
+            margin: 0;
+            color: #64748b;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid;
+        }
+        .stat-card.blue { border-left-color: #3b82f6; }
+        .stat-card.green { border-left-color: #10b981; }
+        .stat-card.orange { border-left-color: #f59e0b; }
+        .stat-card.purple { border-left-color: #8b5cf6; }
+        .stat-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .action-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .action-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .action-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .action-title {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .content-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+        .view-all-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .activity-item {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        .activity-time {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>🚀 Rrootshell</h1>
+            </div>
+            <nav class="horizontal-nav">
+                <a href="admin-dashboard.html" class="nav-item active">Dashboard</a>
+                <a href="contracts.html" class="nav-item">Contracts</a>
+                <a href="resources.html" class="nav-item">Resources</a>
+                <a href="purchase-orders.html" class="nav-item">Purchase Orders</a>
+                <a href="timesheets.html" class="nav-item">Timesheets</a>
+                <a href="reports.html" class="nav-item">Reports</a>
+                <a href="admin-panel.html" class="nav-item">Admin</a>
+            </nav>
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-avatar">AD</div>
+                    <span id="userEmail">admin@rrootshell.com</span>
+                </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <div class="page-header">
+            <h2>Admin Dashboard</h2>
+            <p>Welcome back! Here's what's happening with your staff augmentation platform.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card blue">
+                <div class="stat-label">Total Contracts</div>
+                <div class="stat-value">24</div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-label">Active Resources</div>
+                <div class="stat-value">48</div>
+            </div>
+            <div class="stat-card orange">
+                <div class="stat-label">Pending Timesheets</div>
+                <div class="stat-value">12</div>
+            </div>
+            <div class="stat-card purple">
+                <div class="stat-label">Expiring POs</div>
+                <div class="stat-value">5</div>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <a href="contracts.html" class="action-card">
+                <div class="action-icon">📄</div>
+                <div class="action-title">Add Contract</div>
+            </a>
+            <a href="resources.html" class="action-card">
+                <div class="action-icon">👥</div>
+                <div class="action-title">Add Resource</div>
+            </a>
+            <a href="purchase-orders.html" class="action-card">
+                <div class="action-icon">💰</div>
+                <div class="action-title">Create PO</div>
+            </a>
+            <a href="timesheets.html" class="action-card">
+                <div class="action-icon">⏱️</div>
+                <div class="action-title">Review Timesheets</div>
+            </a>
+            <a href="reports.html" class="action-card">
+                <div class="action-icon">📊</div>
+                <div class="action-title">Generate Report</div>
+            </a>
+            <a href="admin-panel.html" class="action-card">
+                <div class="action-icon">⚙️</div>
+                <div class="action-title">System Settings</div>
+            </a>
+        </div>
+
+        <div class="content-section">
+            <div class="section-header">
+                <h3 class="section-title">Recent Activity</h3>
+                <a href="#" class="view-all-link">View All →</a>
+            </div>
+            <div class="activity-item">
+                <strong>New Contract Added</strong> - CON-2024-024 with TechStart Inc
+                <div class="activity-time">2 hours ago</div>
+            </div>
+            <div class="activity-item">
+                <strong>Resource Assigned</strong> - John Smith assigned to CON-2024-001
+                <div class="activity-time">4 hours ago</div>
+            </div>
+            <div class="activity-item">
+                <strong>Timesheet Approved</strong> - Week of Dec 9-15 for Jane Doe
+                <div class="activity-time">5 hours ago</div>
+            </div>
+            <div class="activity-item">
+                <strong>PO Expiring Soon</strong> - PO-2024-A-003 expires in 15 days
+                <div class="activity-time">1 day ago</div>
+            </div>
+            <div class="activity-item">
+                <strong>New User Created</strong> - Michael Chen (Manager role)
+                <div class="activity-time">2 days ago</div>
+            </div>
+        </div>
+
+        <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+            <strong>🎨 Mockup Note:</strong> This is a UI mockup for business owner review. Admin has full access to all features: Contracts, Resources, POs, Timesheets, Reports, and Admin Panel.
+        </div>
+    </main>
+
+    <script>
+        // Check authentication
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
+        // Check if user is admin
+        if (sessionStorage.getItem('userRole') !== 'admin') {
+            alert('Access Denied: Admin privileges required');
+            window.location.href = 'employee-dashboard.html';
+        }
+
+        // Display user email
+        const userEmail = sessionStorage.getItem('userEmail');
+        if (userEmail) {
+            document.getElementById('userEmail').textContent = userEmail;
+        }
+
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
